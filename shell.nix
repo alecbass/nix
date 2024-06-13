@@ -9,6 +9,7 @@ in pkgs.mkShellNoCC {
     (python312.withPackages (ps: with ps; [
       # Setup pip
       pip
+      maturin
     ]))
     cargo
     rustc
