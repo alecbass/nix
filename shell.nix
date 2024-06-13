@@ -10,6 +10,7 @@ in pkgs.mkShellNoCC {
       # Setup pip
       pip
       maturin
+      virtualenvwrapper
     ]))
     cargo
     rustc
