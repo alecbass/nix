@@ -14,6 +14,7 @@ in pkgs.mkShellNoCC {
     ]))
     cargo
     rustc
+    rustup
     nodejs
     podman
     git
