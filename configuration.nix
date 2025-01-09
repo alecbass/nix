@@ -26,7 +26,7 @@
   networking.networkmanager.enable = true;
 
   # Set DNS
-  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+  networking.nameservers = [ "8.8.8.8" "1.1.1.1" ];
 
   # Set your time zone.
   time.timeZone = "Australia/Melbourne";
