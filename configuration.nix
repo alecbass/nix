@@ -24,7 +24,12 @@
     };
 
     # Set DNS
-    nameservers = [ "8.8.8.8" "1.1.1.1" ];
+    nameservers = [
+      "8.8.8.8"
+      "1.1.1.1"
+      "2001:4860:4860::8888"
+      "2001:4860:4860::8844"
+    ];
   };
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
