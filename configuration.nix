@@ -21,6 +21,9 @@
     networkmanager = {
       # Enable networking
       enable = true;
+
+      # MAYBE DELETE THIS
+      dns = "none";
     };
 
     # Set DNS
@@ -30,7 +33,15 @@
       "2001:4860:4860::8888"
       "2001:4860:4860::8844"
     ];
+
+    # MAYBE DELETE THIS
+    resolvconf.enable = pkgs.lib.mkForce false;
+
+    dhcpcd.extraConfig = "nohook resolve.conf";
   };
+
+  # MAYBE DELETE THIS
+  services.resolved.enable = false;
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -145,9 +156,6 @@
       podman
       podman-tui
 
-      # Pulumi
-      pulumi
-
       # Databases
       pgadmin4
       dbeaver-bin
@@ -219,6 +227,16 @@
     pkg-config
     libiconv
   ];
+
+  #
+  # Hardware
+  #
+
+  # Enable Nvidia GPU drivers
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  hardware.nvidia.open = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
