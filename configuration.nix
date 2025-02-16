@@ -119,6 +119,7 @@
       # Programming tools
       git
       neovim
+      vim # For when neovim crashes lol
 
       # Python
       (python312.withPackages (ps: with ps; [
@@ -177,6 +178,9 @@
 
       # Device Management
       gparted
+
+      # Streaming
+      stremio
     ];
   };
 
@@ -235,6 +239,7 @@
   # Enable Nvidia GPU drivers
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   hardware.nvidia.open = true;
+  hardware.graphics.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
 
 
