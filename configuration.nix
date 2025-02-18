@@ -167,6 +167,7 @@
       # Socials
       discord
       slack
+      teams-for-linux
       yt-dlp
 
       # Editing
@@ -181,6 +182,9 @@
 
       # Streaming
       stremio
+
+      # Other utilities
+      unzip
     ];
   };
 
@@ -230,7 +234,16 @@
     openssl
     pkg-config
     libiconv
+
+    # Terminal
+    ghostty
   ];
+
+  #
+  # Fonts
+  #
+
+  fonts.packages = with pkgs; [ nerdfonts ];
 
   #
   # Hardware
