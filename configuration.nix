@@ -12,7 +12,6 @@
 
   # Bootloader.
   boot.loader.grub.enable = true;
-  # boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.device = "nodev";
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.efiSupport = true;
@@ -25,9 +24,6 @@
     networkmanager = {
       # Enable networking
       enable = true;
-
-      # MAYBE DELETE THIS
-      # dns = "none";
     };
 
     # Set DNS
@@ -37,15 +33,7 @@
       "2001:4860:4860::8888"
       "2001:4860:4860::8844"
     ];
-
-    # MAYBE DELETE THIS
-    # resolvconf.enable = pkgs.lib.mkForce false;
-
-    # dhcpcd.extraConfig = "nohook resolve.conf";
   };
-
-  # MAYBE DELETE THIS
-  # services.resolved.enable = false;
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -138,8 +126,8 @@
       rustup
 
       # JavaScript/TypeScript
-      nodejs_18
-      corepack_18
+      nodejs_22
+      corepack_22
 
       # Go
       go
