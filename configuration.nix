@@ -12,8 +12,12 @@
 
   # Bootloader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
+  # boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.device = "nodev";
   boot.loader.grub.useOSProber = true;
+  boot.loader.grub.efiSupport = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot";
 
   networking = {
     hostName = "nixos"; # Define your hostname.
@@ -23,7 +27,7 @@
       enable = true;
 
       # MAYBE DELETE THIS
-      dns = "none";
+      # dns = "none";
     };
 
     # Set DNS
@@ -35,13 +39,13 @@
     ];
 
     # MAYBE DELETE THIS
-    resolvconf.enable = pkgs.lib.mkForce false;
+    # resolvconf.enable = pkgs.lib.mkForce false;
 
-    dhcpcd.extraConfig = "nohook resolve.conf";
+    # dhcpcd.extraConfig = "nohook resolve.conf";
   };
 
   # MAYBE DELETE THIS
-  services.resolved.enable = false;
+  # services.resolved.enable = false;
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -134,8 +138,8 @@
       rustup
 
       # JavaScript/TypeScript
-      nodejs_22
-      corepack_22
+      nodejs_18
+      corepack_18
 
       # Go
       go
@@ -250,10 +254,10 @@
   #
 
   # Enable Nvidia GPU drivers
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  hardware.nvidia.open = true;
+  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  # hardware.nvidia.open = true;
   hardware.graphics.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
+  # services.xserver.videoDrivers = [ "nvidia" ];
 
 
   # Some programs need SUID wrappers, can be configured further or are
