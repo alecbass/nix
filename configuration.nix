@@ -112,12 +112,13 @@
       git
       neovim
       vim # For when neovim crashes lol
+      shellcheck
 
       # Python
-      (python312.withPackages (ps: with ps; [
+      (python313.withPackages (ps: with ps; [
         # Setup pip
 	pip
-	virtualenvwrapper
+	# virtualenvwrapper
       ]))
 
       # Rust
@@ -152,6 +153,7 @@
       # Databases
       pgadmin4
       dbeaver-bin
+      neo4j
 
       # Browsers
       google-chrome
