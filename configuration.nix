@@ -12,11 +12,8 @@
 
   # Bootloader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
+  boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
 
   networking = {
     hostName = "nixos"; # Define your hostname.
@@ -117,8 +114,8 @@
       # Python
       (python313.withPackages (ps: with ps; [
         # Setup pip
-	pip
-	# virtualenvwrapper
+        pip
+	    # virtualenvwrapper
       ]))
 
       # Rust
@@ -244,10 +241,10 @@
   #
 
   # Enable Nvidia GPU drivers
-  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  # hardware.nvidia.open = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  hardware.nvidia.open = true;
   hardware.graphics.enable = true;
-  # services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
 
   # Some programs need SUID wrappers, can be configured further or are
