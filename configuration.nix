@@ -21,6 +21,9 @@
     networkmanager = {
       # Enable networking
       enable = true;
+
+      # Meme stuff to make DNS work on the desktop
+      dns = "none";
     };
 
     # Set DNS
@@ -30,6 +33,10 @@
       "2001:4860:4860::8888"
       "2001:4860:4860::8844"
     ];
+
+    # Meme stuff to make DNS work on the desktop
+    resolvconf.enable = pkgs.lib.mkForce false;
+    dhcpcd.extraConfig = "nohook resolve.conf";
   };
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
