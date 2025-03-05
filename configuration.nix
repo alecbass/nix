@@ -122,7 +122,9 @@
       (python313.withPackages (ps: with ps; [
         # Setup pip
         pip
-	    # virtualenvwrapper
+        ruff
+        ruff-lsp
+        pyright
       ]))
 
       # Rust
