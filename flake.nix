@@ -1,20 +1,68 @@
 {
-  description = "NixOS System Flake";
-
+  description = "Rudra flake";
   inputs = {
-    # NixOS official package source, using the nixos-24.11 branch here
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    # stylix.url = "github:danth/stylix";
+    # home-manager = {
+    #   url = "github:nix-community/home-manager/master";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    # nixCats = {
+    #   url = "path:/home/alec/Documents/nix/modules/nixCats";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    # zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    # hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
-    # Please replace my-nixos with your hostname
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      # nixCats,
+      # hyprpanel,
+      ...
+    }@inputs:
+    let
       system = "x86_64-linux";
-      modules = [
-        # Import the previous configuration.nix we used,
-        # so the old configuration file still takes effect
-        ./configuration.nix
-      ];
+
+      # Define the custom SDDM theme as an overlay
+      # customSddmThemeOverlay = final: prev: {
+      #   customSddmTheme = prev.stdenv.mkDerivation {
+      #     name = "rose-pine";
+      #     src = ./modules/sddm-theme;
+      #     installPhase = ''
+      #       mkdir -p $out/share/sddm/themes/rose-pine
+      #       cp -r $src/* $out/share/sddm/themes/rose-pine
+      #     '';
+      #   };
+      # };
+    in
+    {
+      nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = [
+          # (
+          #   {
+          #     config,
+          #     pkgs,
+          #     ...
+          #   }:
+          #   {
+          #     nixpkgs.config.allowUnfree = true;
+          #
+          #     # Add the custom theme overlay
+          #     nixpkgs.overlays = [
+          #       customSddmThemeOverlay
+          #       hyprpanel.overlay
+          #     ];
+          #   }
+          # )
+          ./hosts/default/configuration.nix
+          # inputs.stylix.nixosModules.stylix
+          # inputs.home-manager.nixosModules.default
+        ];
+      };
     };
-  };
 }
