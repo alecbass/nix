@@ -2,21 +2,22 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
+let
+  hypr = inputs.hyprland.packages.${pkgs.system};
 
+in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.illogical-impulse.homeManagerModules.default
     ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
+  boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
 
   networking = {
     hostName = "nixos"; # Define your hostname.
@@ -27,6 +28,11 @@
 
       # Meme stuff to make DNS work on the desktop
       dns = "none";
+    };
+
+    wireless = {
+      # Enables wireless support via wpa_supplicant.
+      enable = false; # Clashes with networkmanager
     };
 
     # Set DNS
@@ -42,8 +48,6 @@
     dhcpcd.extraConfig = "nohook resolve.conf";
   };
 
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -52,7 +56,7 @@
   time.timeZone = "Australia/Melbourne";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
+  i18n.defaultLocale = "en_AU.UTF-8";
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_AU.UTF-8";
@@ -67,19 +71,55 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  # services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
 
-  # Configure keymap in X11
-  services.xserver = {
-    xkb = {
-      layout = "us";
-      variant = "";
+  # Enable Wayland - https://github.com/dc-tec/nixos-config/blob/main/modules%2Fgraphical%2Fdesktop%2Fhyprland%2Fdefault.nix
+
+  services = {
+    xserver = {
+      enable = true;
+      videoDrivers = [ "nvidia" ];
+      displayManager = {
+        gdm = {
+          enable = true;
+	  wayland = true;
+	};
+	# sddm = {
+	#   enable = true;
+	#   package = pkgs.kdePackages.sddm;
+	#   wayland = {
+	#     enable = true;
+	#   };
+	# };
+	# settings = {
+	#   Wayland = {
+	#     enable = true;
+	#     SessionDir = "${pkgs.hyprland.packages.${pkgs.system}.hyprland}/share/wayland-sessions";
+	#   };
+	# };
+	# catppuccin = {
+	#   enable = true;
+	#   assertQt6Sddm = true;
+	#   flavor = "macchiato";
+	#   font = "0xProto Nerd Font";
+	#   fontSize = "12";
+	#   loginBackground = true;
+	# };
+      };
     };
   };
+
+  # Configure keymap in X11
+  # services.xserver = {
+  #   xkb = {
+  #     layout = "us";
+  #     variant = "";
+  #   };
+  # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -162,7 +202,6 @@
       # Databases
       pgadmin4
       dbeaver-bin
-      neo4j
 
       # Browsers
       google-chrome
@@ -188,11 +227,31 @@
 
       # Other utilities
       unzip
+      postman
+      thonny # For MicroPython
+
+      # Powercor-specific
+      stoken
+      citrix_workspace
     ];
   };
 
   # Install firefox.
   programs.firefox.enable = true;
+
+  # Enable Hyprland
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+
+  environment.sessionVariables = {
+    # If your cursor becomes invisible
+    WLR_NO_HARDWARE_CURSORS = "1";
+    # Hint electron apps to use wayland
+    NIXOS_OZONE_WL = "1";
+  };
+
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -240,24 +299,175 @@
 
     # Terminal
     ghostty
+    kitty # For Hyprland
   ];
 
   #
   # Fonts
   #
 
-  fonts.packages = with pkgs; [ nerdfonts ];
+  fonts.packages = with pkgs; [ 
+    nerdfonts
+
+    # NOTE: When updating to nixOS 25.05, nerdfonts will be replaced with nerd-fonts
+    # nerd-fonts._3270
+    # nerd-fonts.agave
+    # nerd-fonts.anonymice
+    # nerd-fonts.arimo
+    # nerd-fonts.aurulent-sans-mono
+    # nerd-fonts.bigblue-terminal
+    # nerd-fonts.bitstream-vera-sans-mono
+    # nerd-fonts.blex-mono
+    # nerd-fonts.caskaydia-cove
+    # nerd-fonts.caskaydia-mono
+    # nerd-fonts.code-new-roman
+    # nerd-fonts.comic-shanns-mono
+    # nerd-fonts.commit-mono
+    # nerd-fonts.cousine
+    # nerd-fonts.d2coding
+    # nerd-fonts.daddy-time-mono
+    # nerd-fonts.departure-mono
+    # nerd-fonts.dejavu-sans-mono
+    # nerd-fonts.droid-sans-mono
+    # nerd-fonts.envy-code-r
+    # nerd-fonts.fantasque-sans-mono
+    # nerd-fonts.fira-code
+    # nerd-fonts.fira-mono
+    # nerd-fonts.geist-mono
+    # nerd-fonts.go-mono
+    # nerd-fonts.gohufont
+    # nerd-fonts.hack
+    # nerd-fonts.hasklug
+    # nerd-fonts.heavy-data
+    # nerd-fonts.hurmit
+    # nerd-fonts.im-writing
+    # nerd-fonts.inconsolata
+    # nerd-fonts.inconsolata-go
+    # nerd-fonts.inconsolata-lgc
+    # nerd-fonts.intone-mono
+    # nerd-fonts.iosevka
+    # nerd-fonts.iosevka-term
+    # nerd-fonts.iosevka-term-slab
+    # nerd-fonts.jetbrains-mono
+    # nerd-fonts.lekton
+    # nerd-fonts.liberation
+    # nerd-fonts.lilex
+    # nerd-fonts.martian-mono
+    # nerd-fonts.meslo-lg
+    # nerd-fonts.monaspace
+    # nerd-fonts.monofur
+    # nerd-fonts.monoid
+    # nerd-fonts.mononoki
+    # nerd-fonts.mplus
+    # nerd-fonts.noto
+    # nerd-fonts.open-dyslexic
+    # nerd-fonts.overpass
+    # nerd-fonts.profont
+    # nerd-fonts.proggy-clean-tt
+    # nerd-fonts.recursive-mono
+    # nerd-fonts.roboto-mono
+    # nerd-fonts.shure-tech-mono
+    # nerd-fonts.sauce-code-pro
+    # nerd-fonts.space-mono
+    # nerd-fonts.symbols-only
+    # nerd-fonts.terminess-ttf
+    # nerd-fonts.tinos
+    # nerd-fonts.ubuntu
+    # nerd-fonts.ubuntu-mono
+    # nerd-fonts.ubuntu-sans
+    # nerd-fonts.victor-mono
+    # nerd-fonts.zed-mono
+  ];
 
   #
   # Hardware
   #
 
   # Enable Nvidia GPU drivers
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  hardware.nvidia.open = true;
-  hardware.graphics.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware = {
+    nvidia = {
+      open = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      modesetting = {
+        enable = true;
+      };
+    };
+    graphics = {
+      enable = true;
+    };
+  };
 
+  #
+  # Home Manager
+  #
+
+  home-manager = {
+    # tell home-manager to be as verbose as possible
+    verbose = true;
+
+    # use the system configuration’s pkgs argument
+    # this ensures parity between nixos' pkgs and hm's pkgs
+    useGlobalPkgs = true;
+
+    # enable the usage user packages through
+    # the users.users.<name>.packages option
+    useUserPackages = true;
+
+    # move existing files to the .old suffix rather than failing
+    # with a very long error message about it
+    backupFileExtension = "old";
+
+    # extra specialArgs passed to Home Manager
+    # for reference, the config argument in nixos can be accessed
+    # in home-manager through osConfig without us passing it
+    # extraSpecialArgs = {
+    #   inherit inputs self impurity;
+    # };
+
+    # per-user Home Manager configuration
+    users = {
+      # name of the user = directory
+      # more users can be added this way
+      # as long as their home directories exist
+      alec = ./alec;
+    };
+  };
+
+  #
+  # End4 Hyprland
+  #
+  # illogical-impulse = {
+  #   # Enable Dotfiles
+  #   enable = true;
+  #   hyprland = {
+  #     # Monitor preference
+  #     monitor = [ ",preferred,auto,1" ];
+  #     # Use cusomize hyprland packages
+  #     package = hypr.hyprland;
+  #     xdgPortalPackage = hypr.xdg-desktop-portal-hyprland;
+  #     # Set NIXOS_OZONE_WL=1
+  #     ozoneWayland.enable = true;
+  #   };
+  #   theme = {
+  #     # Customize Cursors,
+  #     # the following config is the default config
+  #     # if you don't set.
+  #     cursor = {
+  #       package = pkgs.bibata-cursors;
+  #       theme = "Bibata-Modern-Ice";
+  #     };
+  #   };
+  #   # Use custom ags package, the following package is the default.
+  #   # agsPackage = ags.packages.${pkgs.system}.default.override {
+  #   #   extraPackages = with pkgs; [ 
+  #   #     gtksourceview
+  #   #     gtksourceview4
+  #   #     webkitgtk
+  #   #     webp-pixbuf-loader
+  #   #     ydotool
+  #   #   ];
+  #   # };
+  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -284,7 +494,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 
   #
   # Nix overrides
