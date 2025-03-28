@@ -5,7 +5,7 @@
 # RUDRA_DIR="$USER_HOME/rudra"
 
 # Run nixos-generate-config command
-sudo nixos-generate-config --show-hardware-config | sudo tee "./hosts/default/hardware-configuration.nix" || { echo "Failed to generate hardware configuration"; exit 1; }
+# sudo nixos-generate-config --show-hardware-config | sudo tee "./hosts/default/hardware-configuration.nix" || { echo "Failed to generate hardware configuration"; exit 1; }
 
 # # Navigate to home directory
 # cd "$USER_HOME" || { echo "Failed to cd to home directory"; exit 1; }

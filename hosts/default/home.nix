@@ -15,16 +15,15 @@ in {
     file = {
       # TODO: Use my dotfiles repository
       # # Hyprland Config
-      ".config/hypr".source = ../../dotfiles/.config/hypr;
-      #
+      # ".config/hypr".source = ../../dotfiles/.config/hypr;
       # # wlogout icons
-      ".config/wlogout/icons".source = ../../config/wlogout;
+      # ".config/wlogout/icons".source = ../../config/wlogout;
       #
       # # Top Level Files symlinks
       # ".zshrc".source = ../../dotfiles/.zshrc;
       # ".gitconfig".source = ../../dotfiles/.gitconfig;
       # ".ideavimrc".source = ../../dotfiles/.ideavimrc;
-      # ".nirc".source = ../../dotfiles/.nirc;
+     # ".nirc".source = ../../dotfiles/.nirc;
       # ".local/bin/wallpaper".source = ../../dotfiles/.local/bin/wallpaper;
       #
       # # Config directories
@@ -37,7 +36,8 @@ in {
       # ".config/waybar".source = ../../dotfiles/.config/waybar;
       # ".config/yazi".source = ../../dotfiles/.config/yazi;
       # ".config/wezterm".source = ../../dotfiles/.config/wezterm;
-      ".config/ghostty".source = ../../dotfiles/.config/ghostty;
+      # ".config/ghostty".source = ../../dotfiles/.config/ghostty;
+      # ".config/prettier".source = ../../dotfiles/.config/prettier;
       #
       # # Individual config files
       # ".config/kwalletrc".source = ../../dotfiles/.config/kwalletrc;
@@ -73,7 +73,7 @@ in {
       # GBM_BACKEND = "nvidia-drm";
 
       # Localization
-      LC_ALL = "en_US.UTF-8";
+      LC_ALL = "en_AU.UTF-8";
     };
 
     sessionPath = [
@@ -82,13 +82,13 @@ in {
     ];
 
     packages = [
-      (import ../../scripts/rofi-launcher.nix {inherit pkgs;})
+      # (import ../../scripts/rofi-launcher.nix {inherit pkgs;})
     ];
   };
 
   imports = [
-    ../../config/rofi/rofi.nix
-    ../../config/wlogout.nix
+    # ../../config/rofi/rofi.nix
+    # ../../config/wlogout.nix
   ];
 
   # Styling

@@ -7,7 +7,7 @@ let
   username = "alec";
   userDescription = "Alec Bassingthwaighte";
   homeDirectory = "/home/${username}";
-  hostName = "alec";
+  hostName = "nixos";
   timeZone = "Australia/Melbourne";
 in
 {
@@ -15,10 +15,10 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./user.nix
-      # ../../modules/nvidia-drivers.nix
-      # ../../modules/nvidia-prime-drivers.nix
-      # ../../modules/intel-drivers.nix
-      # inputs.home-manager.nixosModules.default
+      ../../modules/nvidia-drivers.nix
+      ../../modules/nvidia-prime-drivers.nix
+      ../../modules/intel-drivers.nix
+      inputs.home-manager.nixosModules.default
     ];
 
   # Bootloader.
@@ -27,7 +27,7 @@ in
   boot.loader.grub.useOSProber = true;
 
   networking = {
-    hostName = "nixos"; # Define your hostname.
+    hostName = "${hostName}"; # Define your hostname.
 
     networkmanager = {
       # Enable networking
@@ -246,11 +246,11 @@ in
 
   virtualisation = {
     containers = {
-      enable = false;
+      enable = true;
     };
 
     docker = {
-      enable = false;
+      enable = true;
     };
 
     podman = {
@@ -286,6 +286,25 @@ in
     # Terminal
     ghostty
     kitty # For Hyprland
+
+    # Wayland-specific
+    hyprshot
+    hypridle
+    grim
+    slurp
+    waybar
+    hyprpanel
+    dunst
+    wl-clipboard
+    swaynotificationcenter
+
+    # Networking
+    networkmanagerapplet
+
+    # Miscellaneous
+    greetd.tuigreet
+    customSddmTheme
+    libsForQt5.qt5.qtgraphicaleffects
   ];
 
   #
@@ -383,32 +402,32 @@ in
     };
   };
 
-  # xdg.portal = {
-  #   enable = true;
-  #   wlr.enable = true;
-  #   extraPortals = [
-  #     pkgs.xdg-desktop-portal-gtk
-  #     pkgs.xdg-desktop-portal
-  #   ];
-  #   configPackages = [
-  #     pkgs.xdg-desktop-portal-gtk
-  #     pkgs.xdg-desktop-portal-hyprland
-  #     pkgs.xdg-desktop-portal
-  #   ];
-  # };
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal
+    ];
+    configPackages = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal
+    ];
+  };
  
 
   #
   # Home Manager
   #
 
-  # home-manager = {
-  #   extraSpecialArgs = { inherit inputs; };
-  #   users.${username} = import ./home.nix;
-  #   useGlobalPkgs = true;
-  #   useUserPackages = true;
-  #   backupFileExtension = "backup";
-  # };
+  home-manager = {
+    extraSpecialArgs = { inherit inputs; };
+    users.${username} = import ./home.nix;
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

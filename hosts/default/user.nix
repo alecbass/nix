@@ -16,6 +16,5 @@ in {
       shell = pkgs.bash;
       extraGroups = ["wheel" "docker" "wireshark" "libvirtd" "kvm" "dialout" "video"];
     };
-    programs.bash.enable = true;
   };
 }
