@@ -16,14 +16,14 @@ in {
       # TODO: Use my dotfiles repository
       # # Hyprland Config
       # ".config/hypr".source = ../../dotfiles/.config/hypr;
-      # # wlogout icons
-      # ".config/wlogout/icons".source = ../../config/wlogout;
+      # wlogout icons
+      ".config/wlogout/icons".source = ../../config/wlogout;
       #
       # # Top Level Files symlinks
       # ".zshrc".source = ../../dotfiles/.zshrc;
       # ".gitconfig".source = ../../dotfiles/.gitconfig;
       # ".ideavimrc".source = ../../dotfiles/.ideavimrc;
-     # ".nirc".source = ../../dotfiles/.nirc;
+      # ".nirc".source = ../../dotfiles/.nirc;
       # ".local/bin/wallpaper".source = ../../dotfiles/.local/bin/wallpaper;
       #
       # # Config directories
@@ -43,6 +43,8 @@ in {
       # ".config/kwalletrc".source = ../../dotfiles/.config/kwalletrc;
       # ".config/starship.toml".source = ../../dotfiles/.config/starship.toml;
       # zen".config/mimeapps.list".source = ../../dotfiles/.config/mimeapps.list;
+      ".config/rofi/config-emoji.rasi".text = "";
+      ".config/rofi/config-long.rasi".text = "";
     };
 
     sessionVariables = {
@@ -82,13 +84,13 @@ in {
     ];
 
     packages = [
-      # (import ../../scripts/rofi-launcher.nix {inherit pkgs;})
+      (import ../../scripts/rofi-launcher.nix {inherit pkgs;})
     ];
   };
 
   imports = [
     # ../../config/rofi/rofi.nix
-    # ../../config/wlogout.nix
+    ../../config/wlogout.nix
   ];
 
   # Styling
