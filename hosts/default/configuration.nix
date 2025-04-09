@@ -227,8 +227,8 @@ in
       rustup
 
       # JavaScript/TypeScript
-      nodejs_22
-      corepack_22
+      nodejs_23
+      corepack_23
 
       # Go
       go
@@ -294,6 +294,7 @@ in
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    withUWSM = true;
   };
 
   environment.sessionVariables = {
