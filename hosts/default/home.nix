@@ -113,11 +113,6 @@ in {
     platformTheme.name = "qtct";
   };
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    systemd.enable = false;
-  };
-
   services.hypridle = {
     settings = {
       general = {
