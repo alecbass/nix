@@ -211,6 +211,7 @@ in
       neovim
       vim # For when neovim crashes lol
       shellcheck
+      inputs.postgrestools
 
       # Python
       (python313.withPackages (ps: with ps; [
@@ -280,6 +281,7 @@ in
       unzip
       postman
       thonny # For MicroPython
+      libsForQt5.dolphin
 
       # Powercor-specific
       stoken

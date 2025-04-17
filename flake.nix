@@ -13,6 +13,10 @@
     };
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+    postgrestools = {
+      url = "path:/home/alec/Documents/nix/modules/postgrestools";
+      flake = false; # This is a package
+    };
   };
 
   outputs =
