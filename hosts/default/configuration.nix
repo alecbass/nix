@@ -289,8 +289,14 @@ in
    ];
   };
 
+  # Allow dynamically-linked executable to run
+  programs.nix-ld.enable = true;
+
   # Install firefox.
   programs.firefox.enable = true;
+
+  # Install direnv
+  programs.direnv.enable = true;
 
   # Enable Hyprland
   programs.hyprland = {
@@ -498,7 +504,7 @@ in
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
-  # programs.mtr.enable = true;
+  # programs.mtr.enable = true;configurati
   # programs.gnupg.agent = {
   #   enable = true;
   #   enableSSHSupport = true;
