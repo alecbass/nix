@@ -281,7 +281,6 @@ in
       unzip
       postman
       thonny # For MicroPython
-      libsForQt5.dolphin
 
       # Powercor-specific
       stoken
@@ -378,6 +377,22 @@ in
     greetd.tuigreet
     customSddmTheme
     libsForQt5.qt5.qtgraphicaleffects
+    kdePackages.dolphin
+    kdePackages.kio
+    kdePackages.kio-extras
+    kdePackages.breeze-icons
+    kdePackages.dolphin-plugins
+    kdePackages.kdesdk-thumbnailers
+    kdePackages.kdegraphics-thumbnailers
+    kdePackages.kdegraphics-mobipocket
+    kdePackages.kimageformats
+    kdePackages.calligra
+    kdePackages.qtimageformats
+    kdePackages.ffmpegthumbs
+    kdePackages.taglib
+    kdePackages.baloo
+    kdePackages.baloo-widgets
+    kdePackages.qtsvg # To make file icons appear in Dolphin
   ];
 
   #
