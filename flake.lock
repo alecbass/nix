@@ -327,6 +327,19 @@
         "type": "github"
       }
     },
+    "minecraft": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1746844649,
+        "narHash": "sha256-596bkKpwst+5DgdAOMweKazZBzp93cLne1N2mv5/2Y4=",
+        "path": "/home/alec/Documents/nix/modules/minecraft.nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/alec/Documents/nix/modules/minecraft.nix",
+        "type": "path"
+      }
+    },
     "nixCats": {
       "inputs": {
         "nixCats": "nixCats_2",
@@ -447,26 +460,13 @@
         "type": "github"
       }
     },
-    "postgrestools": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1744606584,
-        "narHash": "sha256-p3Q7vd7yKxfd8AapZF5Z014aDb9XbDwQPxlvsAL491M=",
-        "path": "/home/alec/Documents/nix/modules/postgrestools",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/alec/Documents/nix/modules/postgrestools",
-        "type": "path"
-      }
-    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "hyprpanel": "hyprpanel",
+        "minecraft": "minecraft",
         "nixCats": "nixCats",
         "nixpkgs": "nixpkgs_2",
-        "postgrestools": "postgrestools",
         "stylix": "stylix",
         "zen-browser": "zen-browser"
       }

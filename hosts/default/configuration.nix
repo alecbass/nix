@@ -211,7 +211,7 @@ in
       neovim
       vim # For when neovim crashes lol
       shellcheck
-      inputs.postgrestools
+      lua-language-server
 
       # Python
       (python313.withPackages (ps: with ps; [
@@ -285,6 +285,9 @@ in
       # Powercor-specific
       stoken
       citrix_workspace
+
+      # Games
+      # inputs.minecraft # TODO: Re-add
    ];
   };
 

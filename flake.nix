@@ -1,5 +1,5 @@
 {
-  description = "Rudra flake";
+  description = "My flake";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     stylix.url = "github:danth/stylix";
@@ -13,8 +13,9 @@
     };
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
-    postgrestools = {
-      url = "path:/home/alec/Documents/nix/modules/postgrestools";
+    minecraft = {
+      url = "path:/home/alec/Documents/nix/modules/minecraft.nix";
+      inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
       flake = false; # This is a package
     };
   };
@@ -25,6 +26,7 @@
       nixpkgs,
       nixCats,
       hyprpanel,
+      # TODO: Re-add minecraft
       ...
     }@inputs:
     let
