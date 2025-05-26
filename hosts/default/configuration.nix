@@ -214,9 +214,9 @@ in
       lua-language-server
 
       # Python
-      (python313.withPackages (ps: with ps; [
+      (python314.withPackages (ps: with ps; [
         # Setup pip
-        pip
+        # pip - pip3.12 uses a C recursion symbol which Python 3.14 has since removed
         ruff
         pyright
       ]))

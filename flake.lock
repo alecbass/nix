@@ -388,22 +388,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
-      "locked": {
-        "lastModified": 1742288794,
-        "narHash": "sha256-Txwa5uO+qpQXrNG4eumPSD+hHzzYi/CdaM80M9XRLCo=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "b6eaf97c6960d97350c584de1b6dcff03c9daf42",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nur": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -433,8 +417,7 @@
         "hyprpanel": "hyprpanel",
         "minecraft": "minecraft",
         "nixpkgs": "nixpkgs_2",
-        "stylix": "stylix",
-        "zen-browser": "zen-browser"
+        "stylix": "stylix"
       }
     },
     "stylix": {
@@ -588,24 +571,6 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "zen-browser": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_4"
-      },
-      "locked": {
-        "lastModified": 1743113847,
-        "narHash": "sha256-V3tXOM6AHATgDOhZ0eih1Qa/7hmxjR5wPrO47i1LHkw=",
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
-        "rev": "85596d964350861825f642de9fc2154ac06bfc05",
-        "type": "github"
-      },
-      "original": {
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
         "type": "github"
       }
     }
