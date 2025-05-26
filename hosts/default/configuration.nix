@@ -161,10 +161,10 @@ in
       # no need to redefine it in your config for now)
       #media-session.enable = true;
     };
+    # Enable sound with pipewire.
+    pulseaudio.enable = false;
   };
 
-  # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
 
   systemd.services = {
@@ -218,7 +218,6 @@ in
         # Setup pip
         pip
         ruff
-        ruff-lsp
         pyright
       ]))
 
@@ -228,8 +227,8 @@ in
       rustup
 
       # JavaScript/TypeScript
-      nodejs_23
-      corepack_23
+      nodejs_24
+      corepack_24
 
       # Go
       go
@@ -279,7 +278,7 @@ in
 
       # Other utilities
       unzip
-      postman
+      # postman Currently not able to download on nixpkgs 25.05
       thonny # For MicroPython
 
       # Powercor-specific
@@ -362,6 +361,32 @@ in
     ghostty
     kitty # For Hyprland
 
+    # Linux utils
+    htop # Process viewer
+
+    # Editing
+    # dotnetCorePackages.sdk_9_0
+    vscode # To use while razor LSPs don't really work
+    (vscode-with-extensions.override {
+      vscodeExtensions = with vscode-extensions; [
+        bbenoist.nix
+        ms-python.python
+        ms-azuretools.vscode-docker
+        ms-vscode-remote.remote-ssh
+        ms-dotnettools.csharp
+        ms-dotnettools.csdevkit
+        ms-dotnettools.vscodeintellicode-csharp
+        ms-dotnettools.vscode-dotnet-runtime
+      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "remote-ssh-edit";
+          publisher = "ms-vscode-remote";
+          version = "0.47.2";
+          sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
+        }
+      ];
+    })
+
     # Wayland-specific
     hyprshot
     hypridle
@@ -403,76 +428,73 @@ in
   #
 
   fonts.packages = with pkgs; [ 
-    nerdfonts
-
-    # NOTE: When updating to nixOS 25.05, nerdfonts will be replaced with nerd-fonts
-    # nerd-fonts._3270
-    # nerd-fonts.agave
-    # nerd-fonts.anonymice
-    # nerd-fonts.arimo
-    # nerd-fonts.aurulent-sans-mono
-    # nerd-fonts.bigblue-terminal
-    # nerd-fonts.bitstream-vera-sans-mono
-    # nerd-fonts.blex-mono
-    # nerd-fonts.caskaydia-cove
-    # nerd-fonts.caskaydia-mono
-    # nerd-fonts.code-new-roman
-    # nerd-fonts.comic-shanns-mono
-    # nerd-fonts.commit-mono
-    # nerd-fonts.cousine
-    # nerd-fonts.d2coding
-    # nerd-fonts.daddy-time-mono
-    # nerd-fonts.departure-mono
-    # nerd-fonts.dejavu-sans-mono
-    # nerd-fonts.droid-sans-mono
-    # nerd-fonts.envy-code-r
-    # nerd-fonts.fantasque-sans-mono
-    # nerd-fonts.fira-code
-    # nerd-fonts.fira-mono
-    # nerd-fonts.geist-mono
-    # nerd-fonts.go-mono
-    # nerd-fonts.gohufont
-    # nerd-fonts.hack
-    # nerd-fonts.hasklug
-    # nerd-fonts.heavy-data
-    # nerd-fonts.hurmit
-    # nerd-fonts.im-writing
-    # nerd-fonts.inconsolata
-    # nerd-fonts.inconsolata-go
-    # nerd-fonts.inconsolata-lgc
-    # nerd-fonts.intone-mono
-    # nerd-fonts.iosevka
-    # nerd-fonts.iosevka-term
-    # nerd-fonts.iosevka-term-slab
-    # nerd-fonts.jetbrains-mono
-    # nerd-fonts.lekton
-    # nerd-fonts.liberation
-    # nerd-fonts.lilex
-    # nerd-fonts.martian-mono
-    # nerd-fonts.meslo-lg
-    # nerd-fonts.monaspace
-    # nerd-fonts.monofur
-    # nerd-fonts.monoid
-    # nerd-fonts.mononoki
+    nerd-fonts._3270
+    nerd-fonts.agave
+    nerd-fonts.anonymice
+    nerd-fonts.arimo
+    nerd-fonts.aurulent-sans-mono
+    nerd-fonts.bigblue-terminal
+    nerd-fonts.bitstream-vera-sans-mono
+    nerd-fonts.blex-mono
+    nerd-fonts.caskaydia-cove
+    nerd-fonts.caskaydia-mono
+    nerd-fonts.code-new-roman
+    nerd-fonts.comic-shanns-mono
+    nerd-fonts.commit-mono
+    nerd-fonts.cousine
+    nerd-fonts.d2coding
+    nerd-fonts.daddy-time-mono
+    nerd-fonts.departure-mono
+    nerd-fonts.dejavu-sans-mono
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.envy-code-r
+    nerd-fonts.fantasque-sans-mono
+    nerd-fonts.fira-code
+    nerd-fonts.fira-mono
+    nerd-fonts.geist-mono
+    nerd-fonts.go-mono
+    nerd-fonts.gohufont
+    nerd-fonts.hack
+    nerd-fonts.hasklug
+    nerd-fonts.heavy-data
+    nerd-fonts.hurmit
+    nerd-fonts.im-writing
+    nerd-fonts.inconsolata
+    nerd-fonts.inconsolata-go
+    nerd-fonts.inconsolata-lgc
+    nerd-fonts.intone-mono
+    nerd-fonts.iosevka
+    nerd-fonts.iosevka-term
+    nerd-fonts.iosevka-term-slab
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.lekton
+    nerd-fonts.liberation
+    nerd-fonts.lilex
+    nerd-fonts.martian-mono
+    nerd-fonts.meslo-lg
+    nerd-fonts.monaspace
+    nerd-fonts.monofur
+    nerd-fonts.monoid
+    nerd-fonts.mononoki
     # nerd-fonts.mplus
-    # nerd-fonts.noto
-    # nerd-fonts.open-dyslexic
-    # nerd-fonts.overpass
-    # nerd-fonts.profont
-    # nerd-fonts.proggy-clean-tt
-    # nerd-fonts.recursive-mono
-    # nerd-fonts.roboto-mono
-    # nerd-fonts.shure-tech-mono
-    # nerd-fonts.sauce-code-pro
-    # nerd-fonts.space-mono
-    # nerd-fonts.symbols-only
-    # nerd-fonts.terminess-ttf
-    # nerd-fonts.tinos
-    # nerd-fonts.ubuntu
-    # nerd-fonts.ubuntu-mono
-    # nerd-fonts.ubuntu-sans
-    # nerd-fonts.victor-mono
-    # nerd-fonts.zed-mono
+    nerd-fonts.noto
+    nerd-fonts.open-dyslexic
+    nerd-fonts.overpass
+    nerd-fonts.profont
+    nerd-fonts.proggy-clean-tt
+    nerd-fonts.recursive-mono
+    nerd-fonts.roboto-mono
+    nerd-fonts.shure-tech-mono
+    nerd-fonts.sauce-code-pro
+    nerd-fonts.space-mono
+    nerd-fonts.symbols-only
+    nerd-fonts.terminess-ttf
+    nerd-fonts.tinos
+    nerd-fonts.ubuntu
+    nerd-fonts.ubuntu-mono
+    nerd-fonts.ubuntu-sans
+    nerd-fonts.victor-mono
+    nerd-fonts.zed-mono
   ];
 
   #
@@ -515,7 +537,7 @@ in
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users.${username} = import ./home.nix;
-    useGlobalPkgs = true;
+    useGlobalPkgs = false;
     useUserPackages = true;
     backupFileExtension = "backup";
   };

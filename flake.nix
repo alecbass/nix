@@ -1,21 +1,15 @@
 {
   description = "My flake";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     stylix.url = "github:danth/stylix";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixCats = {
-      url = "path:/home/alec/Documents/nix/modules/nixCats";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     minecraft = {
       url = "path:/home/alec/Documents/nix/modules/minecraft.nix";
-      inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
       flake = false; # This is a package
     };
   };
@@ -24,7 +18,6 @@
     {
       self,
       nixpkgs,
-      nixCats,
       hyprpanel,
       # TODO: Re-add minecraft
       ...

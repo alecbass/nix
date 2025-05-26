@@ -42,7 +42,6 @@ in {
       # # Individual config files
       # ".config/kwalletrc".source = ../../dotfiles/.config/kwalletrc;
       # ".config/starship.toml".source = ../../dotfiles/.config/starship.toml;
-      # zen".config/mimeapps.list".source = ../../dotfiles/.config/mimeapps.list;
       ".config/rofi/config-emoji.rasi".text = "";
       ".config/rofi/config-long.rasi".text = "";
     };
