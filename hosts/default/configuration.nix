@@ -363,6 +363,7 @@ in
 
     # Linux utils
     htop # Process viewer
+    neofetch # Basic details
 
     # Editing
     # dotnetCorePackages.sdk_9_0
