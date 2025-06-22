@@ -275,6 +275,7 @@ in
 
       # Streaming
       stremio
+      jellyfin # Video streaming service
 
       # Other utilities
       unzip
@@ -364,6 +365,7 @@ in
     # Linux utils
     htop # Process viewer
     neofetch # Basic details
+    inetutils # Network utilities such as telnet
 
     # Editing
     # dotnetCorePackages.sdk_9_0
@@ -394,13 +396,16 @@ in
     grim
     slurp
     waybar
-    hyprpanel
+    inputs.hyprpanel.packages.${pkgs.system}.wrapper # Used instead of an overlay
     dunst
     wl-clipboard
     swaynotificationcenter
 
     # Networking
     networkmanagerapplet
+
+    # Self-hosting
+    k3s
 
     # Miscellaneous
     greetd.tuigreet

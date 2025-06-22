@@ -2,12 +2,18 @@
   description = "My flake";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    stylix.url = "github:danth/stylix";
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
+    stylix = {
+      url = "github:nix-community/stylix/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprpanel = {
+      url = "github:Jas-SinghFSU/HyprPanel";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     minecraft = {
       url = "path:/home/alec/Documents/nix/modules/minecraft.nix";
       flake = false; # This is a package
@@ -18,7 +24,6 @@
     {
       self,
       nixpkgs,
-      hyprpanel,
       # TODO: Re-add minecraft
       ...
     }@inputs:
@@ -54,7 +59,6 @@
               # Add the custom theme overlay
               nixpkgs.overlays = [
                 customSddmThemeOverlay
-                hyprpanel.overlay
               ];
             }
           )
