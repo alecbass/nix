@@ -246,8 +246,8 @@ in
       gdb
 
       # Docker
-      # docker
-      # podman
+      docker
+      podman
       # podman-tui
 
       # Databases
@@ -329,10 +329,10 @@ in
     };
 
     podman = {
-      enable = false;
+      enable = true;
 
       # Create a `docker` alias for podman, to use it as a drop-in replacement
-      dockerCompat = true;
+      dockerCompat = false;
 
       # True to let pod-compose containers talk to each other
       defaultNetwork.settings.dns_enabled = true;
