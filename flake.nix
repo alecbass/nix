@@ -41,11 +41,13 @@
           '';
         };
       };
+
+      probeRsRules = builtins.readFile ./config/udev/69-probe-rs.rules;
     in
     {
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs probeRsRules; };
         modules = [
           (
             {
