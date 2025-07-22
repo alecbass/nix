@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, options, probeRsRules, ... }:
+{ config, lib, pkgs, inputs, options, probeRsRules, fixWifiScript, ... }:
 let
   username = "alec";
   userDescription = "Alec Bassingthwaighte";
@@ -189,6 +189,12 @@ in
       wantedBy = [ "multi-user.target" ];
       requires = [ "virtlogd.service" ];
     };
+    # Run wifi fix script on startup if the ERR_UNSUPPORTED_PHY error occured during system launch
+    fix-wifi = {
+      enable = false; # Failing to run currently
+      script = fixWifiScript; 
+      wantedBy = [ "multi-user.target" ];
+    };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -307,6 +313,13 @@ in
     xwayland.enable = true;
   };
 
+  # Enable Steam - gamingggggg
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = false; # Ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = false; # Ports in the firewall for Steam Dedicated Server
+  };
+
   environment.sessionVariables = {
     # If your cursor becomes invisible
     WLR_NO_HARDWARE_CURSORS = "1";
@@ -362,6 +375,7 @@ in
     # Terminal
     ghostty
     kitty # For Hyprland
+    zellij # Terminal tiling manager
 
     # Linux utils
     htop # Process viewer
@@ -590,4 +604,11 @@ in
   # Nix overrides
   #
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  #
+  # Packages to explicitly allow
+  #
+  nixpkgs.config.permittedInsecurePackages = [
+    "broadcom-sta-6.30.223.271-57-6.12.39"
+  ];
 }

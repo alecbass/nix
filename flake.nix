@@ -43,11 +43,12 @@
       };
 
       probeRsRules = builtins.readFile ./config/udev/69-probe-rs.rules;
+      fixWifiScript = builtins.readFile ./scripts/fix-wifi.sh;
     in
     {
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs probeRsRules; };
+        specialArgs = { inherit inputs probeRsRules fixWifiScript; };
         modules = [
           (
             {
