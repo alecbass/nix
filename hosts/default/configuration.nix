@@ -382,6 +382,7 @@ in
     neofetch # Basic details
     inetutils # Network utilities such as telnet
     usbutils # Unsurprisingly, USB utilities
+    alsa-utils # Sound and volume utilities
 
     # Editing
     # dotnetCorePackages.sdk_9_0
@@ -609,6 +610,6 @@ in
   # Packages to explicitly allow
   #
   nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271-57-6.12.39"
+    "broadcom-sta-6.30.223.271-57-6.12.40"
   ];
 }
