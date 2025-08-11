@@ -197,11 +197,18 @@ in
     };
   };
 
+  # Run Wifi fix script on startup
+  systemd.user.services.fix-wifi = {
+    enable = true; # Failing to run currently
+    script = fixWifiScript; 
+    wantedBy = [ "multi-user.target" ]; # Starts after login
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.alec = {
+  users.users.${username} = {
     isNormalUser = true;
     description = "Alec Bassingthwaighte";
     extraGroups = [
