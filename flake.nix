@@ -47,21 +47,21 @@
       };
 
       probeRsRules = builtins.readFile ./config/udev/69-probe-rs.rules;
-      # fix-wifi = nixpkgs.${system}.writeShellScriptBin "fix-wifi" ''
-      #   set -e
-      #
-      #   # if [[ $(whoami) != "root" ]]; then
-      #   #   echo "This script should be run as sudo. Exiting..."
-      #   #   exit 1
-      #   # fi
-      #
-      #   modprobe -r b43 && modprobe -r bcma && modprobe -r wl && modprobe wl
-      # '';
+      fix-wifi = nixpkgs.legacyPackages.${system}.writeShellScriptBin "fix-wifi" ''
+        set -e
+
+        if [[ $(whoami) != "root" ]]; then
+          echo "This script should be run as sudo. Exiting..."
+          exit 1
+        fi
+
+        modprobe -r b43 && modprobe -r bcma && modprobe -r wl && modprobe wl
+      '';
     in
     {
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs probeRsRules; };
+        specialArgs = { inherit inputs probeRsRules fix-wifi; };
         modules = [
           (
             {

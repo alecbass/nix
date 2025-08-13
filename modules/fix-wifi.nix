@@ -7,13 +7,21 @@
 
 { pkgs }:
 
-pkgs.writeShellScriptBin "fix-wifi" ''
-  set -e
+let
+  fix-wifi = pkgs.writeShellScriptBin "fix-wifi" ''
+    set -e
 
-  # if [[ $(whoami) != "root" ]]; then
-  #   echo "This script should be run as sudo. Exiting..."
-  #   exit 1
-  # fi
+    # if [[ $(whoami) != "root" ]]; then
+    #   echo "This script should be run as sudo. Exiting..."
+    #   exit 1
+    # fi
 
-  modprobe -r b43 && modprobe -r bcma && modprobe -r wl && modprobe wl
-''
+    modprobe -r b43 && modprobe -r bcma && modprobe -r wl && modprobe wl
+  '';
+in
+  pkgs.symlinkJoin {
+    name = "fix-wifi";
+    paths = [
+      fix-wifi
+    ];
+  }

@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, options, probeRsRules, ... }:
+{ config, lib, pkgs, inputs, options, probeRsRules, fix-wifi, ... }:
 let
   username = "alec";
   userDescription = "Alec Bassingthwaighte";
@@ -247,15 +247,6 @@ in
       # Go
       go
 
-      # C/C++
-      clang-tools
-      libclang
-      libcxx
-      glibc
-      libgcc
-      cmake
-      # bear # Remove?
-
       # Debugging
       gdb
 
@@ -365,14 +356,19 @@ in
   environment.systemPackages = with pkgs; [
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
+
+    # C/C++
     libgcc
     libcxx
     gcc
     gnumake
     clang
+    clang-tools
     libclang
+    libgcc
     glibc
     glibcInfo
+    cmake
 
     # Needed for Rust compilation
     openssl
@@ -405,7 +401,7 @@ in
 
     # Networking
     networkmanagerapplet
-    inputs.fix-wifi # Custom script to fix wifi on startup if it fails
+    fix-wifi # Custom script to fix wifi on startup if it fails
 
     # Self-hosting
     k3s
