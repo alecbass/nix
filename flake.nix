@@ -18,6 +18,10 @@
       url = "path:/home/alec/Documents/nix/modules/minecraft.nix";
       flake = false; # This is a package
     };
+    fix-wifi = {
+      url = "path:/home/alec/Documents/nix/modules/fix-wifi.nix";
+      flake = false;
+    };
   };
 
   outputs =
@@ -43,12 +47,21 @@
       };
 
       probeRsRules = builtins.readFile ./config/udev/69-probe-rs.rules;
-      fixWifiScript = builtins.readFile ./scripts/fix-wifi.sh;
+      # fix-wifi = nixpkgs.${system}.writeShellScriptBin "fix-wifi" ''
+      #   set -e
+      #
+      #   # if [[ $(whoami) != "root" ]]; then
+      #   #   echo "This script should be run as sudo. Exiting..."
+      #   #   exit 1
+      #   # fi
+      #
+      #   modprobe -r b43 && modprobe -r bcma && modprobe -r wl && modprobe wl
+      # '';
     in
     {
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs probeRsRules fixWifiScript; };
+        specialArgs = { inherit inputs probeRsRules; };
         modules = [
           (
             {

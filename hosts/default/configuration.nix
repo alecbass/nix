@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, options, probeRsRules, fixWifiScript, ... }:
+{ config, lib, pkgs, inputs, options, probeRsRules, ... }:
 let
   username = "alec";
   userDescription = "Alec Bassingthwaighte";
@@ -192,15 +192,15 @@ in
     # Run wifi fix script on startup if the ERR_UNSUPPORTED_PHY error occured during system launch
     fix-wifi = {
       enable = false; # Failing to run currently
-      script = fixWifiScript; 
+      script = "fix-wifi";
       wantedBy = [ "multi-user.target" ];
     };
   };
 
   # Run Wifi fix script on startup
   systemd.user.services.fix-wifi = {
-    enable = true; # Failing to run currently
-    script = fixWifiScript; 
+    enable = false; # Failing to run currently
+    script = "fix-wifi";
     wantedBy = [ "multi-user.target" ]; # Starts after login
   };
 
@@ -405,6 +405,7 @@ in
 
     # Networking
     networkmanagerapplet
+    inputs.fix-wifi # Custom script to fix wifi on startup if it fails
 
     # Self-hosting
     k3s
