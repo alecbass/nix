@@ -199,7 +199,7 @@ in
 
   # Run Wifi fix script on startup
   systemd.user.services.fix-wifi = {
-    enable = false; # Failing to run currently
+    enable = true;
     script = "fix-wifi";
     wantedBy = [ "multi-user.target" ]; # Starts after login
   };

@@ -83,6 +83,19 @@
         "type": "github"
       }
     },
+    "fix-wifi": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1755046672,
+        "narHash": "sha256-F9zPkxI3Rs1bioogePE3jj1w1bLu2WtzosqB8tJIxFE=",
+        "path": "/home/alec/Documents/nix/modules/fix-wifi.nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/alec/Documents/nix/modules/fix-wifi.nix",
+        "type": "path"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -276,6 +289,7 @@
     },
     "root": {
       "inputs": {
+        "fix-wifi": "fix-wifi",
         "home-manager": "home-manager",
         "hyprpanel": "hyprpanel",
         "minecraft": "minecraft",

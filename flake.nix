@@ -18,7 +18,7 @@
       url = "path:/home/alec/Documents/nix/modules/minecraft.nix";
       flake = false; # This is a package
     };
-    fix-wifi = {
+    fix-wifi = { # Unused currently
       url = "path:/home/alec/Documents/nix/modules/fix-wifi.nix";
       flake = false;
     };
