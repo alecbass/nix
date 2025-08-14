@@ -86,7 +86,7 @@
     "fix-wifi": {
       "flake": false,
       "locked": {
-        "lastModified": 1755046672,
+        "lastModified": 1755060244,
         "narHash": "sha256-F9zPkxI3Rs1bioogePE3jj1w1bLu2WtzosqB8tJIxFE=",
         "path": "/home/alec/Documents/nix/modules/fix-wifi.nix",
         "type": "path"
