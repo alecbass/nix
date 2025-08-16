@@ -286,7 +286,6 @@ in
 
       # Powercor-specific
       stoken
-      citrix_workspace
 
       # Games
       # inputs.minecraft # TODO: Re-add
