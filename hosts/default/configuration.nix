@@ -275,9 +275,6 @@ in
       # VPN
       pritunl-client
 
-      # Device Management
-      gparted
-
       # Streaming
       stremio
       jellyfin # Video streaming service
@@ -386,6 +383,9 @@ in
     inetutils # Network utilities such as telnet
     usbutils # Unsurprisingly, USB utilities
     alsa-utils # Sound and volume utilities
+
+    # Device Management
+    gparted
 
     # Wayland-specific
     hyprshot
