@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, options, probeRsRules, fix-wifi, ... }:
+{ config, lib, pkgs, inputs, options, probeRsRules, fix-wifi, change-wallpaper, ... }:
 let
   username = "alec";
   userDescription = "Alec Bassingthwaighte";
@@ -404,6 +404,7 @@ in
     wl-clipboard
     swaynotificationcenter
     hyprpaper # Background image
+    change-wallpaper # My script to change the hyprpaper wallpaper
 
     # Networking
     networkmanagerapplet
@@ -598,6 +599,6 @@ in
   # Packages to explicitly allow
   #
   nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271-57-6.12.41"
+    "broadcom-sta-6.30.223.271-57-6.12.42"
   ];
 }
