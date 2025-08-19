@@ -57,11 +57,20 @@
 
         modprobe -r b43 && modprobe -r bcma && modprobe -r wl && modprobe wl
       '';
+      change-wallpaper = nixpkgs.legacyPackages.${system}.writeShellScriptBin "change-wallpaper" ''
+        script_path="$HOME/.config/hypr/wallpaper.sh"
+        if [[ ! -f $script_path ]]; then 
+          echo "Wallpaper script not found. Exiting..."
+          exit 1
+        fi
+
+        exec $script_path && "Changed wallpaper"
+      '';
     in
     {
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs probeRsRules fix-wifi; };
+        specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper; };
         modules = [
           (
             {
