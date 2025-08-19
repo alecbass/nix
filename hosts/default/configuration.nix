@@ -22,9 +22,16 @@ in
     ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.grub = {
+    enable = true;
+    device = "nodev";
+    useOSProber = true;
+    efiSupport = true;
+  };
+  boot.loader.efi = {
+    canTouchEfiVariables = true;
+    efiSysMountPoint = "/boot";
+  };
 
   networking = {
     hostName = "${hostName}"; # Define your hostname.
@@ -34,7 +41,7 @@ in
       enable = true;
 
       # Meme stuff to make DNS work on the desktop
-      dns = "none";
+      # dns = "none";
     };
 
     wireless = {
@@ -51,8 +58,8 @@ in
     ];
 
     # Meme stuff to make DNS work on the desktop
-    resolvconf.enable = pkgs.lib.mkForce false;
-    dhcpcd.extraConfig = "nohook resolve.conf";
+    # resolvconf.enable = pkgs.lib.mkForce false;
+    # dhcpcd.extraConfig = "nohook resolve.conf";
   };
 
   # Configure network proxy if necessary
