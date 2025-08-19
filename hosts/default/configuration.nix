@@ -41,7 +41,7 @@ in
       enable = true;
 
       # Meme stuff to make DNS work on the desktop
-      # dns = "none";
+      dns = "none";
     };
 
     wireless = {
