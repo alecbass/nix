@@ -168,7 +168,6 @@ in
       # no need to redefine it in your config for now)
       #media-session.enable = true;
     };
-    # Enable sound with pipewire.
     pulseaudio.enable = false;
   };
 
@@ -531,6 +530,9 @@ in
       settings = {
         General = {
           Experimental = false; # Don't show battery charge of Bluetooth devices
+        };
+        Policy = {
+          AutoEnable = true;
         };
       };
     };
