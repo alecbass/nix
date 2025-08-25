@@ -525,6 +525,15 @@ in
     graphics = {
      enable = true;
     };
+    bluetooth = {
+      enable = true;
+      powerOnBoot = false;
+      settings = {
+        General = {
+          Experimental = false; # Don't show battery charge of Bluetooth devices
+        };
+      };
+    };
   };
 
   xdg.portal = {
