@@ -66,11 +66,14 @@
 
         exec $script_path && "Changed wallpaper"
       '';
+
+      # Laptops usually have inbuilt hardware that doesn't match the home desktop
+      is-laptop = true;
     in
     {
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper; };
+        specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper is-laptop; };
         modules = [
           (
             {

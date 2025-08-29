@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, options, probeRsRules, fix-wifi, change-wallpaper, ... }:
+{ config, lib, pkgs, inputs, options, probeRsRules, fix-wifi, change-wallpaper, is-laptop, ... }:
 let
   username = "alec";
   userDescription = "Alec Bassingthwaighte";
@@ -24,14 +24,14 @@ in
   # Bootloader.
   boot.loader.grub = {
     enable = true;
-    device = "nodev";
+    device = if is-laptop then "nodev" else "/dev/sda";
     useOSProber = true;
-    efiSupport = true;
+    efiSupport = is-laptop;
   };
-  boot.loader.efi = {
+  boot.loader.efi = if is-laptop then {
     canTouchEfiVariables = true;
     efiSysMountPoint = "/boot";
-  };
+  } else {};
 
   networking = {
     hostName = "${hostName}"; # Define your hostname.
@@ -59,7 +59,7 @@ in
 
     # Meme stuff to make DNS work on the desktop
     # resolvconf.enable = pkgs.lib.mkForce false;
-    # dhcpcd.extraConfig = "nohook resolve.conf";
+    dhcpcd.extraConfig = if is-laptop then "nohook resolve.conf" else null;
   };
 
   # Configure network proxy if necessary
@@ -388,6 +388,7 @@ in
     inetutils # Network utilities such as telnet
     usbutils # Unsurprisingly, USB utilities
     alsa-utils # Sound and volume utilities
+    brightnessctl # Screen brightness controls
 
     # Device Management
     gparted
@@ -525,7 +526,7 @@ in
      enable = true;
     };
     bluetooth = {
-      enable = true;
+      enable = is-laptop;
       powerOnBoot = false;
       settings = {
         General = {
