@@ -389,6 +389,7 @@ in
     usbutils # Unsurprisingly, USB utilities
     alsa-utils # Sound and volume utilities
     brightnessctl # Screen brightness controls
+    bat # cat alternative
 
     # Device Management
     gparted
