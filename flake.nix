@@ -68,7 +68,7 @@
       '';
 
       # Laptops usually have inbuilt hardware that doesn't match the home desktop
-      is-laptop = true;
+      is-laptop = false;
     in
     {
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
