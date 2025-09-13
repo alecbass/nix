@@ -612,6 +612,6 @@ in
   # Packages to explicitly allow
   #
   nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271-57-6.12.42"
+    "broadcom-sta-6.30.223.271-57-6.12.46"
   ];
 }
