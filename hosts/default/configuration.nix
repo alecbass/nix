@@ -371,6 +371,7 @@ in
     lua-language-server
     roslyn-ls
     rzls
+    nuget-to-json # Used to generate deps.json for rzls
     # inputs.roslyn-ls # Roslyn langauge server for C#
     # inputs.rzls.packages.${pkgs.system}.default # Razor language server for Blazor
 
