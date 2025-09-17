@@ -1,5 +1,5 @@
 {
-  description = "My flake";
+  description = "My NixOS flake";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     stylix = {
@@ -21,6 +21,14 @@
     fix-wifi = { # Unused currently
       url = "path:/home/alec/Documents/nix/modules/fix-wifi.nix";
       flake = false;
+    };
+    roslyn-ls = {
+      url = "path:/home/alec/Documents/nix/modules/roslyn-ls/package.nix";
+      flake = false; # This is a package
+    };
+    rzls = {
+      url = "path:/home/alec/Documents/nix/modules/rzls/package.nix";
+      flake = false; # This is a package
     };
   };
 

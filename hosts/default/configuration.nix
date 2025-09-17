@@ -9,6 +9,11 @@ let
   homeDirectory = "/home/${username}";
   hostName = "nixos";
   timeZone = "Australia/Melbourne";
+
+  # TODO: It would be nice to have this called in the flake, but we don't have access to `pkgs` there
+  minecraft = pkgs.callPackage ../../modules/minecraft.nix { };
+  roslyn-ls = pkgs.callPackage ../../modules/roslyn-ls/package.nix { };
+  rzls = pkgs.callPackage ../../modules/rzls/package.nix { };
 in
 {
   imports =
@@ -228,10 +233,6 @@ in
       #  thunderbird
       # Programming tools
       git
-      neovim
-      vim # For when neovim crashes lol
-      shellcheck
-      lua-language-server
 
       # Python
       (python314.withPackages (ps: with ps; [
@@ -294,7 +295,7 @@ in
       stoken
 
       # Games
-      # inputs.minecraft # TODO: Re-add
+      minecraft
    ];
   };
 
@@ -325,6 +326,10 @@ in
     WLR_NO_HARDWARE_CURSORS = "1";
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
+
+    # .NET LSP variables for Neovim
+    ROSLYN_BASE_PATH = "${roslyn-ls}/";
+    RZLS_BASE_PATH = "${rzls}/";
   };
 
 
@@ -358,6 +363,16 @@ in
   environment.systemPackages = with pkgs; [
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
+
+    # Editors
+    neovim
+    vim # For when neovim crashes lol
+    shellcheck
+    lua-language-server
+    roslyn-ls
+    rzls
+    # inputs.roslyn-ls # Roslyn langauge server for C#
+    # inputs.rzls.packages.${pkgs.system}.default # Razor language server for Blazor
 
     # C/C++
     libgcc
@@ -613,5 +628,6 @@ in
   #
   nixpkgs.config.permittedInsecurePackages = [
     "broadcom-sta-6.30.223.271-57-6.12.46"
+    "broadcom-sta-6.30.223.271-57-6.12.47"
   ];
 }
