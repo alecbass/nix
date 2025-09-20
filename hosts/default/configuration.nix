@@ -63,8 +63,8 @@ in
     ];
 
     # Meme stuff to make DNS work on the desktop
-    # resolvconf.enable = pkgs.lib.mkForce false;
-    dhcpcd.extraConfig = if is-laptop then "nohook resolve.conf" else null;
+    resolvconf.enable = if is-laptop then null else pkgs.lib.mkForce false;
+    dhcpcd.extraConfig = if is-laptop then null else "nohook resolve.conf";
   };
 
   # Configure network proxy if necessary
