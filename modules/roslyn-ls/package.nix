@@ -37,8 +37,6 @@ buildDotnetModule rec {
   src = fetchFromGitHub {
     owner = "dotnet";
     repo = "roslyn";
-    # rev = "VSCode-CSharp-${vsVersion}";
-    # hash = "sha256-h7m3ONQBWvTs7Y6UUBCGNMnmz5wx3XYOXC1jAuoGPNA=";
 
     rev = "76e5e267c0a9f4435a942fbd3e4cef4272f40843";
     hash = "sha256-YGJh0vQu4IH3VWaTU3TKNkvRFfiLxz4tJUows2C48wY=";
