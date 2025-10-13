@@ -27,6 +27,9 @@ with pkgs; rec {
     # Self-hosting
     k3s
 
+    # Streaming
+    stremio
+
     # Miscellaneous
     greetd.tuigreet
     libsForQt5.qt5.qtgraphicaleffects
@@ -158,11 +161,12 @@ with pkgs; rec {
 
     # Other utilities
     unzip
+
     # postman Currently not able to download on nixpkgs 25.05
     thonny # For MicroPython
 
-    # Powercor-specific
-    stoken
+    # Tendl-specific
+    _1password-cli
   ];
 
 }
