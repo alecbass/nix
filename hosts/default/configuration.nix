@@ -232,7 +232,7 @@ in
       "dialout" # Allows user to echo to /dev/ttyACM0 (and other devices) for hardware debugging
       "plugdev" # Allows user to access USB devices, see custom udev rules below
     ];
-    packages = packages.user-packages ++ [ minecraft ];
+    packages = packages.userPackages ++ [ minecraft ];
   };
 
   # Allow dynamically-linked executable to run
@@ -296,11 +296,11 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = packages.system-packages ++ [
+  environment.systemPackages = packages.systemPackages ++ [
     inputs.hyprpanel.packages.${pkgs.system}.default # Used instead of an overlay
     change-wallpaper
     fix-wifi
-    customSddmTheme
+    # customSddmTheme
   ];
 
   #

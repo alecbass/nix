@@ -1,6 +1,6 @@
 { pkgs, ... }:
 with pkgs; rec {
-  system-packages = [
+  systemPackages = [
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
 
@@ -86,7 +86,7 @@ with pkgs; rec {
     kdePackages.qtsvg # To make file icons appear in Dolphin
   ];
 
-  user-packages = [
+  userPackages = [
     #  thunderbird
     # Programming tools
     git

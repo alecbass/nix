@@ -1,5 +1,5 @@
 {
-  description = "My NixOS flake";
+  description = "My NixOS flake: can be used to create a NixOS flake or create a local environment with the same configuration.";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     flake-utils.url = "github:numtide/flake-utils";
@@ -40,7 +40,9 @@
       flake-utils,
       ...
     }@inputs:
-    flake-utils.lib.eachDefaultSystem (system:
+    let
+      nixosSystem = "x86_64-linux"; # I only run NixOS on an x86 machine
+      allSystems = flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
           inherit system;
@@ -86,12 +88,12 @@
         # Laptops usually have inbuilt hardware that doesn't match the home desktop
         is-laptop = false;
 
-        packages = import ./packages.nix { inherit pkgs; };
+        packages = import ./packages.nix { inherit pkgs customSddmThemeOverlay; };
         python = with pkgs; (python312Full.withPackages(ps: with ps; [
           black
         ]));
         python-deps = with pkgs; [ python poetry ];
-        tendl-deps = with pkgs; [ minio ] ++ python-deps;
+        tendlDeps = with pkgs; [ minio ] ++ python-deps;
       in
       {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {
@@ -119,8 +121,13 @@
           ];
         };
         devShells.default = with pkgs; mkShell {
-          buildInputs = packages.user-packages ++ packages.system-packages ++ tendl-deps;
+          buildInputs = packages.userPackages ++ packages.systemPackages ++ tendlDeps;
         };
       }
     );
+  in
+  # Spread the result all eachDefaultSystem to the end result
+  allSystems // {
+    nixosConfigurations.default = allSystems.nixosConfigurations."${nixosSystem}".default;
+  };
 }
