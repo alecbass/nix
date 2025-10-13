@@ -232,7 +232,7 @@ in
       "dialout" # Allows user to echo to /dev/ttyACM0 (and other devices) for hardware debugging
       "plugdev" # Allows user to access USB devices, see custom udev rules below
     ];
-    packages = packages.userPackages ++ [ minecraft ];
+    packages = packages.userPackages ++ [ minecraft stremio ];
   };
 
   # Allow dynamically-linked executable to run

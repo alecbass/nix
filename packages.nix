@@ -143,7 +143,6 @@ with pkgs; rec {
     pritunl-client
 
     # Streaming
-    stremio
     jellyfin # Video streaming service
 
     # Other utilities
