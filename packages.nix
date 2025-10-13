@@ -102,6 +102,7 @@ with pkgs; rec {
 
     # Terminal
     zellij # Terminal tiling manager
+    bash
 
     # Python
     (python314.withPackages (ps: with ps; [
