@@ -24,6 +24,9 @@ with pkgs; rec {
     # Networking
     networkmanagerapplet
 
+    # Self-hosting
+    k3s
+
     # Miscellaneous
     greetd.tuigreet
     libsForQt5.qt5.qtgraphicaleffects
@@ -76,9 +79,6 @@ with pkgs; rec {
 
     # Linux utils
     bat # cat alternative
-
-    # Self-hosting
-    k3s
   ];
 
   hyprlandPackages = [
