@@ -233,6 +233,7 @@ in
       #  thunderbird
       # Programming tools
       git
+      gh # Github
 
       # Python
       (python314.withPackages (ps: with ps; [
@@ -631,5 +632,6 @@ in
     "broadcom-sta-6.30.223.271-57-6.12.46"
     "broadcom-sta-6.30.223.271-57-6.12.47"
     "broadcom-sta-6.30.223.271-57-6.12.50"
+    "broadcom-sta-6.30.223.271-57-6.12.51"
   ];
 }
