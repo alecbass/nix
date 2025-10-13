@@ -18,6 +18,9 @@ with pkgs; rec {
     alsa-utils # Sound and volume utilities
     brightnessctl # Screen brightness controls
 
+    # Device Management
+    gparted
+
     # Miscellaneous
     greetd.tuigreet
     libsForQt5.qt5.qtgraphicaleffects
@@ -70,9 +73,6 @@ with pkgs; rec {
 
     # Linux utils
     bat # cat alternative
-
-    # Device Management
-    gparted
 
     # Networking
     networkmanagerapplet
