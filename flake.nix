@@ -48,6 +48,7 @@
           inherit system;
           config = {
             allowUnfree = true;
+            allowSupportedSystem = true;
             permittedInsecurePackages = [];
           };
         };
