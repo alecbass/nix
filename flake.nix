@@ -124,7 +124,7 @@
 
         # Shell-only environment
         devShells.default = with pkgs; mkShell {
-          buildInputs = packages.userPackages ++ tendlDeps;
+          buildInputs = packages.systemPackages ++ packages.userPackages ++ tendlDeps;
         };
       }
     );
