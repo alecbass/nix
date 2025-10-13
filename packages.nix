@@ -10,6 +10,14 @@ with pkgs; rec {
     glibc
     glibcInfo
 
+    # Linux utils
+    htop # Process viewer
+    neofetch # Basic details
+    inetutils # Network utilities such as telnet
+    usbutils # Unsurprisingly, USB utilities
+    alsa-utils # Sound and volume utilities
+    brightnessctl # Screen brightness controls
+
     # Miscellaneous
     greetd.tuigreet
     libsForQt5.qt5.qtgraphicaleffects
@@ -61,12 +69,6 @@ with pkgs; rec {
     libiconv
 
     # Linux utils
-    htop # Process viewer
-    neofetch # Basic details
-    inetutils # Network utilities such as telnet
-    usbutils # Unsurprisingly, USB utilities
-    alsa-utils # Sound and volume utilities
-    brightnessctl # Screen brightness controls
     bat # cat alternative
 
     # Device Management
