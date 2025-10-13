@@ -296,7 +296,7 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = packages.systemPackages ++ packages.hyprlandPackages ++ [
+  environment.systemPackages = packages.nixosOnlyDeps ++ packages.systemPackages ++ packages.hyprlandPackages ++ [
     inputs.hyprpanel.packages.${pkgs.system}.default # Used instead of an overlay
     change-wallpaper
     fix-wifi

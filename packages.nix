@@ -1,5 +1,36 @@
 { pkgs, ... }:
 with pkgs; rec {
+  # System packages that only work on NixOS and not on a Darwin flake
+  nixosOnlyDeps = [
+    # Terminal
+    ghostty
+    kitty
+
+    # C/C++
+    glibc
+    glibcInfo
+
+    # Miscellaneous
+    greetd.tuigreet
+    libsForQt5.qt5.qtgraphicaleffects
+    kdePackages.dolphin
+    kdePackages.kio
+    kdePackages.kio-extras
+    kdePackages.breeze-icons
+    kdePackages.dolphin-plugins
+    kdePackages.kdesdk-thumbnailers
+    kdePackages.kdegraphics-thumbnailers
+    kdePackages.kdegraphics-mobipocket
+    kdePackages.kimageformats
+    kdePackages.calligra
+    kdePackages.qtimageformats
+    kdePackages.ffmpegthumbs
+    kdePackages.taglib
+    kdePackages.baloo
+    kdePackages.baloo-widgets
+    kdePackages.qtsvg # To make file icons appear in Dolphin
+  ];
+
   systemPackages = [
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
@@ -22,18 +53,12 @@ with pkgs; rec {
     clang-tools
     libclang
     libgcc
-    glibc
-    glibcInfo
     cmake
 
     # Needed for Rust compilation
     openssl
     pkg-config
     libiconv
-
-    # Terminal
-    ghostty
-    kitty # For Hyprland
 
     # Linux utils
     htop # Process viewer
@@ -52,26 +77,6 @@ with pkgs; rec {
 
     # Self-hosting
     k3s
-
-    # Miscellaneous
-    greetd.tuigreet
-    libsForQt5.qt5.qtgraphicaleffects
-    kdePackages.dolphin
-    kdePackages.kio
-    kdePackages.kio-extras
-    kdePackages.breeze-icons
-    kdePackages.dolphin-plugins
-    kdePackages.kdesdk-thumbnailers
-    kdePackages.kdegraphics-thumbnailers
-    kdePackages.kdegraphics-mobipocket
-    kdePackages.kimageformats
-    kdePackages.calligra
-    kdePackages.qtimageformats
-    kdePackages.ffmpegthumbs
-    kdePackages.taglib
-    kdePackages.baloo
-    kdePackages.baloo-widgets
-    kdePackages.qtsvg # To make file icons appear in Dolphin
   ];
 
   hyprlandPackages = [
