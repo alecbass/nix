@@ -121,8 +121,10 @@
             inputs.home-manager.nixosModules.default
           ];
         };
+
+        # Shell-only environment
         devShells.default = with pkgs; mkShell {
-          buildInputs = packages.userPackages ++ packages.systemPackages ++ tendlDeps;
+          buildInputs = packages.userPackages ++ tendlDeps;
         };
       }
     );

@@ -48,17 +48,6 @@ with pkgs; rec {
     # Device Management
     gparted
 
-    # Wayland-specific
-    hyprshot
-    hypridle
-    grim
-    slurp
-    waybar
-    dunst
-    wl-clipboard
-    swaynotificationcenter
-    hyprpaper # Background image
-
     # Networking
     networkmanagerapplet
 
@@ -84,6 +73,19 @@ with pkgs; rec {
     kdePackages.baloo
     kdePackages.baloo-widgets
     kdePackages.qtsvg # To make file icons appear in Dolphin
+  ];
+
+  hyprlandPackages = [
+    # Wayland-specific
+    hyprshot
+    hypridle
+    grim
+    slurp
+    waybar
+    dunst
+    wl-clipboard
+    swaynotificationcenter
+    hyprpaper # Background image
   ];
 
   userPackages = [
