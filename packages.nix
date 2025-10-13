@@ -21,6 +21,9 @@ with pkgs; rec {
     # Device Management
     gparted
 
+    # Networking
+    networkmanagerapplet
+
     # Miscellaneous
     greetd.tuigreet
     libsForQt5.qt5.qtgraphicaleffects
@@ -73,9 +76,6 @@ with pkgs; rec {
 
     # Linux utils
     bat # cat alternative
-
-    # Networking
-    networkmanagerapplet
 
     # Self-hosting
     k3s
