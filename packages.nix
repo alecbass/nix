@@ -34,7 +34,6 @@ with pkgs; rec {
     # Terminal
     ghostty
     kitty # For Hyprland
-    zellij # Terminal tiling manager
 
     # Linux utils
     htop # Process viewer
@@ -93,6 +92,9 @@ with pkgs; rec {
     # Programming tools
     git
     gh # Github
+
+    # Terminal
+    zellij # Terminal tiling manager
 
     # Python
     (python314.withPackages (ps: with ps; [
