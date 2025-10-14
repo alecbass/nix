@@ -138,7 +138,6 @@ with pkgs; rec {
     # Databases
     pgadmin4
     dbeaver-bin
-    postgresql
 
     # Browsers
     google-chrome

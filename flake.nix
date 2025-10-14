@@ -90,10 +90,7 @@
         is-laptop = false;
 
         packages = import ./packages.nix { inherit pkgs customSddmThemeOverlay; };
-        python = with pkgs; (python312Full.withPackages(ps: with ps; [
-          black
-        ]));
-        python-deps = with pkgs; [ python poetry ];
+        python-deps = with pkgs; [ poetry ];
         tendlDeps = with pkgs; [ minio ] ++ python-deps;
       in
       {
