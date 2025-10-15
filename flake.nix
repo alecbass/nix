@@ -90,8 +90,6 @@
         is-laptop = false;
 
         packages = import ./packages.nix { inherit pkgs customSddmThemeOverlay; };
-        python-deps = with pkgs; [ poetry ];
-        tendlDeps = with pkgs; [ minio ] ++ python-deps;
       in
       {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {
@@ -121,7 +119,7 @@
 
         # Shell-only environment
         devShells.default = with pkgs; mkShell {
-          buildInputs = packages.systemPackages ++ packages.userPackages ++ tendlDeps ++ [ direnv ];
+          buildInputs = packages.systemPackages ++ packages.userPackages ++ [ direnv ];
         };
       }
     );
