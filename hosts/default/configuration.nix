@@ -182,18 +182,6 @@ in
   security.rtkit.enable = true;
 
   systemd.services = {
-    # onedrive = {
-    #   description = "Onedrive Sync Service";
-    #   after = [ "network-online.target" ];
-    #   wantedBy = [ "multi-user.target" ];
-    #   serviceConfig = {
-    #     Type = "simple";
-    #     User = username;
-    #     ExecStart = "${pkgs.onedrive}/bin/onedrive --monitor";
-    #     Restart = "always";
-    #     RestartSec = 10;
-    #   };
-    # };
     flatpak-repo = {
       path = [ pkgs.flatpak ];
       script = "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo";
@@ -203,19 +191,28 @@ in
       wantedBy = [ "multi-user.target" ];
       requires = [ "virtlogd.service" ];
     };
-    # Run wifi fix script on startup if the ERR_UNSUPPORTED_PHY error occured during system launch
-    fix-wifi = {
-      enable = false; # Failing to run currently
-      script = "fix-wifi";
-      wantedBy = [ "multi-user.target" ];
-    };
   };
 
-  # Run Wifi fix script on startup
-  systemd.user.services.fix-wifi = {
-    enable = true;
-    script = "fix-wifi";
-    wantedBy = [ "multi-user.target" ]; # Starts after login
+
+  systemd.user.services = {
+    change-wallpaper = {
+      enable = true;
+      description = "Sets a Hyprpaper wallpaper at launch";
+      serviceConfig.PassEnvironment = "DISPLAY";
+      script = ''
+        change-wallpaper
+      '';
+      wantedBy = [ "multi-user.target" ]; # starts after login
+    };
+    # Run Wifi fix script on startup
+    fix-wifi = {
+      enable = true;
+      description = "Restarts the user wifi in case it failed to launch on Linux";
+      script = ''
+        fix-wifi
+      '';
+      wantedBy = [ "multi-user.target" ]; # Starts after login
+    };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
