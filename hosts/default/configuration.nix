@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, fix-wifi, change-wallpaper, is-laptop, ... }:
+{ config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, fix-wifi, change-wallpaper, add-ssh-key, is-laptop, ... }:
 let
   username = "alec";
   userDescription = "Alec Bassingthwaighte";
@@ -301,6 +301,7 @@ in
     inputs.hyprpanel.packages.${pkgs.system}.default # Used instead of an overlay
     change-wallpaper
     fix-wifi
+    add-ssh-key
     # customSddmTheme
   ];
 
@@ -485,5 +486,6 @@ in
     "broadcom-sta-6.30.223.271-57-6.12.50"
     "broadcom-sta-6.30.223.271-57-6.12.51"
     "broadcom-sta-6.30.223.271-57-6.12.52"
+    "broadcom-sta-6.30.223.271-57-6.12.54"
   ];
 }

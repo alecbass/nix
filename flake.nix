@@ -66,6 +66,7 @@
         };
 
         probeRsRules = builtins.readFile ./config/udev/69-probe-rs.rules;
+
         fix-wifi = pkgs.writeShellScriptBin "fix-wifi" ''
           set -e
 
@@ -76,6 +77,7 @@
 
           modprobe -r b43 && modprobe -r bcma && modprobe -r wl && modprobe wl
         '';
+
         change-wallpaper = pkgs.writeShellScriptBin "change-wallpaper" ''
           script_path="$HOME/.config/hypr/wallpaper.sh"
           if [[ ! -f $script_path ]]; then 
@@ -84,6 +86,16 @@
           fi
 
           exec $script_path && "Changed wallpaper"
+        '';
+        
+        add-ssh-key = pkgs.writeShellScriptBin "add-ssh-key" ''
+          key_path="$HOME/.ssh/id_ed25519"
+          if [[ ! -f $key_path ]]; then 
+            echo "SSh key not found. Exiting..."
+            exit 1
+          fi
+
+          ssh-add $key_path && echo "Added SSH key"
         '';
 
         # Laptops usually have inbuilt hardware that doesn't match the home desktop
@@ -94,7 +106,7 @@
       {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper is-laptop; };
+          specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper add-ssh-key is-laptop; };
           modules = [
             (
               {

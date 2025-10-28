@@ -58,6 +58,9 @@ with pkgs; rec {
     # Editors
     neovim
     vim # For when neovim crashes lol
+    code-cursor
+    
+    # LSPs
     shellcheck
     lua-language-server
     roslyn-ls
