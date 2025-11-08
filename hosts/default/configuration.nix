@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, fix-wifi, change-wallpaper, add-ssh-key, is-laptop, ... }:
+{ config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, fix-wifi, change-wallpaper, add-ssh-key, isLaptop, ... }:
 let
   username = "alec";
   userDescription = "Alec Bassingthwaighte";
@@ -17,26 +17,27 @@ let
   minecraft = pkgs.callPackage ../../modules/minecraft.nix { };
   roslyn-ls = pkgs.callPackage ../../modules/roslyn-ls/package.nix { };
   rzls = pkgs.callPackage ../../modules/rzls/package.nix { };
+
+  hardwareConfigurationImports = if isLaptop then [ ./laptop-hardware-configuration.nix ] else [ ./hardware-configuration.nix ];
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+  imports = [
       ./user.nix
       ../../modules/nvidia-drivers.nix
       ../../modules/nvidia-prime-drivers.nix
       ../../modules/intel-drivers.nix
       inputs.home-manager.nixosModules.default
-    ];
+    ] ++ hardwareConfigurationImports; # Include the results of the hardware scan.
 
   # Bootloader.
   boot.loader.grub = {
     enable = true;
-    device = if is-laptop then "nodev" else "/dev/sda";
+    device = if isLaptop then "nodev" else "/dev/sda";
     useOSProber = true;
-    efiSupport = is-laptop;
+    efiSupport = isLaptop;
+    configurationLimit = 5;
   };
-  boot.loader.efi = if is-laptop then {
+  boot.loader.efi = if isLaptop then {
     canTouchEfiVariables = true;
     efiSysMountPoint = "/boot";
   } else {};
@@ -63,11 +64,13 @@ in
       "1.1.1.1"
       "2001:4860:4860::8888"
       "2001:4860:4860::8844"
-    ];
+    ] ++ hardwareConfigurationImports;
 
     # Meme stuff to make DNS work on the desktop
-    resolvconf.enable = if is-laptop then null else pkgs.lib.mkForce false;
-    dhcpcd.extraConfig = if is-laptop then null else "nohook resolve.conf";
+    # resolvconf.enable = if isLaptop then null else pkgs.lib.mkForce false;
+    # dhcpcd.extraConfig = if isLaptop then else "nohook resolve.conf";
+    resolvconf.enable = pkgs.lib.mkForce false;
+    dhcpcd.extraConfig = "nohook resolve.conf";
   };
 
   # Configure network proxy if necessary
@@ -396,7 +399,7 @@ in
      enable = true;
     };
     bluetooth = {
-      enable = is-laptop;
+      enable = isLaptop;
       powerOnBoot = false;
       settings = {
         General = {

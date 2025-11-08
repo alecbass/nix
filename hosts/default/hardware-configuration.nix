@@ -3,20 +3,20 @@
 # to /etc/nixos/configuration.nix instead.
 
 # NOTE(alec): Hehe I modified it anyway to have variable laptop inputs
-{ config, lib, pkgs, modulesPath, is-laptop, ... }:
+{ config, lib, pkgs, modulesPath, isLaptop, ... }:
 
 {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = if is-laptop then [ "xhci_pci" "ahci" "nvme" "rtsx_usb_sdmmc" ] else [ "xhci_pci" "ahci" "nvme" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = if isLaptop then [ "xhci_pci" "ahci" "nvme" "rtsx_usb_sdmmc" ] else [ "xhci_pci" "ahci" "nvme" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = if is-laptop then [] else [ "kvm-intel" "wl" ];
-  boot.extraModulePackages = if is-laptop then [] else [ config.boot.kernelPackages.broadcom_sta ];
+  boot.kernelModules = if isLaptop then [] else [ "kvm-intel" "wl" ];
+  boot.extraModulePackages = if isLaptop then [] else [ config.boot.kernelPackages.broadcom_sta ];
 
   fileSystems."/" =
-    { device = if is-laptop then "/dev/disk/by-uuid/46d2e2d9-5c16-45f7-a500-663dcb50aac2" else "/dev/disk/by-uuid/5b3d0530-cc9c-4b3e-adf8-45eb98296dbb";
+    { device = if isLaptop then "/dev/disk/by-uuid/46d2e2d9-5c16-45f7-a500-663dcb50aac2" else "/dev/disk/by-uuid/5b3d0530-cc9c-4b3e-adf8-45eb98296dbb";
       fsType = "ext4";
     };
 

@@ -99,14 +99,14 @@
         '';
 
         # Laptops usually have inbuilt hardware that doesn't match the home desktop
-        is-laptop = false;
+        isLaptop = true;
 
         packages = import ./packages.nix { inherit pkgs customSddmThemeOverlay; };
       in
       {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper add-ssh-key is-laptop; };
+          specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper add-ssh-key isLaptop; };
           modules = [
             (
               {
