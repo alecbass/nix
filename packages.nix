@@ -85,6 +85,7 @@ with pkgs; rec {
 
     # Linux utils
     bat # cat alternative
+    ripgrep # Searching tool
   ];
 
   hyprlandPackages = [
