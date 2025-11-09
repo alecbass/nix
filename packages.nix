@@ -170,6 +170,9 @@ with pkgs; rec {
 
     # Tendl-specific
     _1password-cli
+
+    # LLMs
+    llama-cpp
   ];
 
 }
