@@ -41,6 +41,11 @@ in
     canTouchEfiVariables = true;
     efiSysMountPoint = "/boot";
   } else {};
+  # Detect inbuild microphone
+  boot.extraModprobeConfig = if isLaptop then "
+options snd-hda-intel model=dell-headset-multi
+options snd-hda-intel model=headset-mic
+  " else "";
 
   networking = {
     hostName = "${hostName}"; # Define your hostname.
