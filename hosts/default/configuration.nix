@@ -8,7 +8,7 @@ let
   userDescription = "Alec Bassingthwaighte";
   homeDirectory = "/home/${username}";
   hostName = "nixos";
-  timeZone = "Australia/Melbourne";
+  timeZone = "Australia/Brisbane";
 
 
   packages = import ../../packages.nix { inherit pkgs; };
@@ -83,7 +83,7 @@ options snd-hda-intel model=headset-mic
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Set your time zone.
-  time.timeZone = "Australia/Melbourne";
+  time.timeZone = timeZone;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_AU.UTF-8";
