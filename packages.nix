@@ -30,6 +30,9 @@ with pkgs; rec {
     # Streaming
     stremio
 
+    # Editing
+    gimp-with-plugins
+
     # Miscellaneous
     greetd.tuigreet
     libsForQt5.qt5.qtgraphicaleffects
@@ -153,7 +156,6 @@ with pkgs; rec {
     yt-dlp
 
     # Editing
-    gimp-with-plugins
     ffmpeg
 
     # VPN
