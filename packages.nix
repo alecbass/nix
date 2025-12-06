@@ -28,13 +28,13 @@ with pkgs; rec {
     k3s
 
     # Streaming
-    stremio
+    # stremio # NOTE(alec): Removed as it uses qt-5 which nix does't build nicely anymore
 
     # Editing
     gimp-with-plugins
 
     # Miscellaneous
-    greetd.tuigreet
+    tuigreet
     libsForQt5.qt5.qtgraphicaleffects
     kdePackages.dolphin
     kdePackages.kio
@@ -61,7 +61,7 @@ with pkgs; rec {
     # Editors
     neovim
     vim # For when neovim crashes lol
-    code-cursor
+    # code-cursor
     
     # LSPs
     shellcheck

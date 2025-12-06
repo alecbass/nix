@@ -7,14 +7,14 @@
 }:
 let
   pname = "rzls";
-
-  dotnet-sdk =
-    with dotnetCorePackages;
+  dotnet-sdk = with dotnetCorePackages; 
+    # Don't inherit SDK 8.0 packages and targetPackages as rzls restore can't find the 9.0.11 packages
     combinePackages [
-      sdk_9_0_1xx
+      sdk_9_0
       sdk_8_0
     ];
-  dotnet-runtime = dotnetCorePackages.runtime_9_0;
+
+  dotnet-runtime = dotnetCorePackages.sdk_9_0;
 in
 buildDotnetModule {
   inherit pname dotnet-sdk dotnet-runtime;
@@ -22,12 +22,13 @@ buildDotnetModule {
   src = fetchFromGitHub {
     owner = "dotnet";
     repo = "razor";
-    rev = "90c12b14924f312df21758d63d7db6ff0290fa5c"; # main
-
-    hash = "sha256-a0Mg5WozSK/AqSyevkZqYQ4z87GsZYJWvNKzVDc/3Vo="; # main
+    rev = "VSCode-CSharp-2.100.11";
+    hash = "sha256-+GAoLo4yXnSLbQiWgKpqdOlS72pvhtw0Z2/4qnKCn2g=";
+    # rev = "8ffc1c75d0bc26e09ab7553f5cf830996626b8ee";
+    # hash = "sha256-FRF253BveWi5mihj94zEwSjwX1f3Cd56B7vbLpFhH2I=";
   };
 
-  version = "9.0.109";
+  version = "9.0.111"; # https://github.com/dotnet/razor/blob/8ffc1c75d0bc26e09ab7553f5cf830996626b8ee/global.json
   projectFile = "src/Razor/src/rzls/rzls.csproj";
   useDotnetFromEnv = true;
   nugetDeps = ./deps.json;
@@ -43,6 +44,7 @@ buildDotnetModule {
   dotnetFlags = [
     # this removes the Microsoft.WindowsDesktop.App.Ref dependency
     "-p:EnableWindowsTargeting=false"
+    "-p:PublishReadyToRun=false"
   ];
 
   dotnetInstallFlags = [

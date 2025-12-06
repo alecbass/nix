@@ -10,21 +10,39 @@
 }:
 let
   pname = "roslyn-ls";
+  # NOTE(alec): https://github.com/dotnet/roslyn/blob/main/eng/targets/TargetFrameworks.props
+  # At the time of writing builds to net9.0
   dotnet-sdk =
     with dotnetCorePackages;
-    sdk_9_0_1xx
+    sdk_10_0
     // {
       inherit
         (combinePackages [
-          sdk_9_0_1xx
+          sdk_10_0
+          sdk_9_0
           sdk_8_0
         ])
         packages
         targetPackages
         ;
     };
+
+    # combinePackages [
+    #   sdk_10_0
+    #   sdk_9_0
+    # ]
+    # // {
+    #   inherit
+    #     (combinePackages [
+    #       sdk_9_0
+    #       sdk_8_0
+    #     ])
+    #     packages
+    #     targetPackages
+    #     ;
+    # };
   # need sdk on runtime as well
-  dotnet-runtime = dotnetCorePackages.sdk_9_0;
+  dotnet-runtime = dotnetCorePackages.sdk_10_0;
   rid = dotnetCorePackages.systemToDotnetRid stdenvNoCC.targetPlatform.system;
 
   project = "Microsoft.CodeAnalysis.LanguageServer";
@@ -32,21 +50,19 @@ in
 buildDotnetModule rec {
   inherit pname dotnet-sdk dotnet-runtime;
 
-  # Pinned to the last version using .NET SDK 9 as 10 gives a segmentation fault while building
-  vsVersion = "2.84.19";
+  vsVersion = "2.100.11";
   src = fetchFromGitHub {
     owner = "dotnet";
     repo = "roslyn";
 
-    rev = "76e5e267c0a9f4435a942fbd3e4cef4272f40843";
-    hash = "sha256-YGJh0vQu4IH3VWaTU3TKNkvRFfiLxz4tJUows2C48wY=";
+    rev = "VSCode-CSharp-${vsVersion}";
+    hash = "sha256-PXb5BmXPfkitY/Lc2HMhAqX48dXqIYX+I4iFzvnvWTE=";
   };
 
   # versioned independently from vscode-csharp
   # "roslyn" in here:
   # https://github.com/dotnet/vscode-csharp/blob/main/package.json
-  # version = "5.0.0-1.25204.1";
-  version = "5.0.0-2.25458.10";
+  version = "5.3.0-2.25571.4";
   projectFile = "src/LanguageServer/${project}/${project}.csproj";
   useDotnetFromEnv = true;
   nugetDeps = ./deps.json;
@@ -59,6 +75,11 @@ buildDotnetModule rec {
     # Upstream uses rollForward = latestPatch, which pins to an *exact* .NET SDK version.
     jq '.sdk.rollForward = "latestMinor"' < global.json > global.json.tmp
     mv global.json.tmp global.json
+
+    # Change .NET SDK version to 10
+    # --replace "<NetRoslyn>net9.0</NetRoslyn>" "<NetRoslyn>net10.0</NetRoslyn>"
+    substituteInPlace eng/targets/TargetFrameworks.props \
+        --replace "net9.0" "net10.0"
   '';
 
   dotnetFlags = [

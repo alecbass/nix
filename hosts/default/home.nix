@@ -5,7 +5,7 @@
 }: let
   userName = "alec";
   homeDirectory = "/home/${userName}";
-  stateVersion = "24.11";
+  stateVersion = "25.11";
 in {
   home = {
     username = userName;

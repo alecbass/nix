@@ -101,12 +101,14 @@
         # Laptops usually have inbuilt hardware that doesn't match the home desktop
         isLaptop = true;
 
-        packages = import ./packages.nix { inherit pkgs customSddmThemeOverlay; };
+        roslyn-ls = pkgs.callPackage ./modules/roslyn-ls/package.nix { inherit pkgs; };
+        rzls = pkgs.callPackage ./modules/rzls/package.nix { inherit pkgs; };
+        packages = import ./packages.nix { inherit pkgs roslyn-ls rzls; };
       in
       {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper add-ssh-key isLaptop; };
+          specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper add-ssh-key isLaptop roslyn-ls rzls; };
           modules = [
             (
               {

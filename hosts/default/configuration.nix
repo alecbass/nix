@@ -161,11 +161,11 @@ options snd-hda-intel model=headset-mic
     xserver = {
       enable = true;
       videoDrivers = [ "nvidia" ];
-      displayManager = {
-        gdm = {
-          enable = true;
-          wayland = true;
-        };
+    };
+    displayManager = {
+      gdm = {
+        enable = true;
+        wayland = true;
       };
     };
     # Enable CUPS to print documents.

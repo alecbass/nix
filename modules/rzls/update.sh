@@ -23,7 +23,7 @@ cat > $buildDir/Server.csproj <<EOF
 <Project Sdk="Microsoft.Build.NoTargets/1.0.80">
     <PropertyGroup>
         <RestorePackagesPath>out</RestorePackagesPath>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
         <AutomaticallyUseReferenceAssemblyPackages>false</AutomaticallyUseReferenceAssemblyPackages>
     </PropertyGroup>
@@ -34,7 +34,7 @@ cat > $buildDir/Server.csproj <<EOF
 EOF
 
 dotnet restore -s "https://pkgs.dev.azure.com/azure-public/vside/_packaging/msft_consumption/nuget/v3/index.json" "$buildDir/Server.csproj"
-version_commit="$(exiftool -ProductVersion -s3 $buildDir/out/rzls.linux-x64/$new_rzls_version/content/LanguageServer/linux-x64/rzls.dll | grep -Po '(?<=\+).*')"
+version_commit="$(exiftool -ProductVersion -s3 $uildDir/out/rzls.linux-x64/$new_rzls_version/content/LanguageServer/linux-x64/rzls.dll | grep -Po '(?<=\+).*')"
 
 cd ../../../..
 update-source-version rzls "${new_rzls_version}" --rev=$version_commit
