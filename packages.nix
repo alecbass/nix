@@ -69,6 +69,8 @@ with pkgs; rec {
     roslyn-ls
     rzls
     nuget-to-json # Used to generate deps.json for rzls
+    stylua # Formatter for Lua
+    roslyn-ls # C# and Razor
 
     # C/C++
     libgcc
