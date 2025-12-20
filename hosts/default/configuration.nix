@@ -483,12 +483,6 @@ options snd-hda-intel model=headset-mic
   # Packages to explicitly allow
   #
   nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271-57-6.12.46"
-    "broadcom-sta-6.30.223.271-57-6.12.47"
-    "broadcom-sta-6.30.223.271-57-6.12.50"
-    "broadcom-sta-6.30.223.271-57-6.12.51"
-    "broadcom-sta-6.30.223.271-57-6.12.52"
-    "broadcom-sta-6.30.223.271-57-6.12.54"
-    "broadcom-sta-6.30.223.271-57-6.12.55"
+    "broadcom-sta-6.30.223.271-59-6.12.62"
   ];
 }

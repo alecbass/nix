@@ -95,7 +95,7 @@
         '';
 
         # Laptops usually have inbuilt hardware that doesn't match the home desktop
-        isLaptop = true;
+        isLaptop = false;
 
         packages = import ./packages.nix { inherit pkgs; };
       in
