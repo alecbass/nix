@@ -23,14 +23,6 @@
       url = "path:/home/alec/Documents/nix/modules/fix-wifi.nix";
       flake = false;
     };
-    roslyn-ls = {
-      url = "path:/home/alec/Documents/nix/modules/roslyn-ls/package.nix";
-      flake = false; # This is a package
-    };
-    rzls = {
-      url = "path:/home/alec/Documents/nix/modules/rzls/package.nix";
-      flake = false; # This is a package
-    };
   };
 
   outputs =
@@ -105,14 +97,12 @@
         # Laptops usually have inbuilt hardware that doesn't match the home desktop
         isLaptop = false;
 
-        roslyn-ls = pkgs.callPackage ./modules/roslyn-ls/package.nix { inherit pkgs; };
-        rzls = pkgs.callPackage ./modules/rzls/package.nix { inherit pkgs; };
-        packages = import ./packages.nix { inherit pkgs roslyn-ls rzls; };
+        packages = import ./packages.nix { inherit pkgs; };
       in
       {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper add-ssh-key isLaptop roslyn-ls rzls; };
+          specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper add-ssh-key isLaptop; };
           modules = [
             (
               {

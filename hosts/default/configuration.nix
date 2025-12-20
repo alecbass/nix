@@ -15,8 +15,6 @@ let
 
   # TODO: It would be nice to have this called in the flake, but we don't have access to `pkgs` there
   minecraft = pkgs.callPackage ../../modules/minecraft.nix { };
-  roslyn-ls = pkgs.callPackage ../../modules/roslyn-ls/package.nix { };
-  rzls = pkgs.callPackage ../../modules/rzls/package.nix { };
 
   hardwareConfigurationImports = if isLaptop then [ ./laptop-hardware-configuration.nix ] else [ ./hardware-configuration.nix ];
 in
@@ -271,10 +269,6 @@ options snd-hda-intel model=headset-mic
     WLR_NO_HARDWARE_CURSORS = "1";
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
-
-    # .NET LSP variables for Neovim
-    ROSLYN_BASE_PATH = "${roslyn-ls}/";
-    RZLS_BASE_PATH = "${rzls}/";
   };
 
 

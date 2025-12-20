@@ -66,11 +66,9 @@ with pkgs; rec {
     # LSPs
     shellcheck
     lua-language-server
-    roslyn-ls
-    rzls
+    roslyn-ls # C# and Razor
     nuget-to-json # Used to generate deps.json for rzls
     stylua # Formatter for Lua
-    roslyn-ls # C# and Razor
 
     # C/C++
     libgcc
