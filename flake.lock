@@ -87,7 +87,7 @@
     "fix-wifi": {
       "flake": false,
       "locked": {
-        "lastModified": 1755060244,
+        "lastModified": 1755340777,
         "narHash": "sha256-F9zPkxI3Rs1bioogePE3jj1w1bLu2WtzosqB8tJIxFE=",
         "path": "/home/alec/Documents/nix/modules/fix-wifi.nix",
         "type": "path"
@@ -196,19 +196,11 @@
         ]
       },
       "locked": {
-<<<<<<< Updated upstream
         "lastModified": 1765979862,
         "narHash": "sha256-/r9/1KamvbHJx6I40H4HsSXnEcBAkj46ZwibhBx9kg0=",
         "owner": "nix-community",
         "repo": "home-manager",
         "rev": "d3135ab747fd9dac250ffb90b4a7e80634eacbe9",
-=======
-        "lastModified": 1765384171,
-        "narHash": "sha256-FuFtkJrW1Z7u+3lhzPRau69E0CNjADku1mLQQflUORo=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "44777152652bc9eacf8876976fa72cc77ca8b9d8",
->>>>>>> Stashed changes
         "type": "github"
       },
       "original": {
@@ -264,7 +256,7 @@
     "minecraft": {
       "flake": false,
       "locked": {
-        "lastModified": 1748236829,
+        "lastModified": 1755340777,
         "narHash": "sha256-oGr8D9OrXIUipV8QAq/PdEGmOQNX2XxU/0+TAVPElL0=",
         "path": "/home/alec/Documents/nix/modules/minecraft.nix",
         "type": "path"
@@ -276,19 +268,11 @@
     },
     "nixpkgs": {
       "locked": {
-<<<<<<< Updated upstream
         "lastModified": 1765838191,
         "narHash": "sha256-m5KWt1nOm76ILk/JSCxBM4MfK3rYY7Wq9/TZIIeGnT8=",
         "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "c6f52ebd45e5925c188d1a20119978aa4ffd5ef6",
-=======
-        "lastModified": 1765311797,
-        "narHash": "sha256-mSD5Ob7a+T2RNjvPvOA1dkJHGVrNVl8ZOrAwBjKBDQo=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "09eb77e94fa25202af8f3e81ddc7353d9970ac1b",
->>>>>>> Stashed changes
         "type": "github"
       },
       "original": {
@@ -334,35 +318,6 @@
         "stylix": "stylix"
       }
     },
-<<<<<<< Updated upstream
-    "roslyn-ls": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1766208475,
-        "narHash": "sha256-XjJPlLk1IYKE0KD+7/9YqbJTNBjIMl34f7g/YIUxa0o=",
-        "path": "/home/alec/Documents/nix/modules/roslyn-ls/package.nix",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/alec/Documents/nix/modules/roslyn-ls/package.nix",
-        "type": "path"
-      }
-    },
-    "rzls": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1766208475,
-        "narHash": "sha256-L5QUdGxIwRj8dJD4z5/bpOq1GHATcD+uARF4LEH8o8U=",
-        "path": "/home/alec/Documents/nix/modules/rzls/package.nix",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/alec/Documents/nix/modules/rzls/package.nix",
-        "type": "path"
-      }
-    },
-=======
->>>>>>> Stashed changes
     "stylix": {
       "inputs": {
         "base16": "base16",
@@ -384,19 +339,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-<<<<<<< Updated upstream
         "lastModified": 1765900102,
         "narHash": "sha256-Ea1R+dGLu/psLNMgYKoDpVLg9psGq9drKUOOcety1fo=",
         "owner": "nix-community",
         "repo": "stylix",
         "rev": "259af48fe5dc004c11aa2b1339814138517616bf",
-=======
-        "lastModified": 1765478257,
-        "narHash": "sha256-GMCAQgs+h4aHhLP3LF6JxI5uNg+fLPlRhHwRrJJ+3+Y=",
-        "owner": "nix-community",
-        "repo": "stylix",
-        "rev": "a7fb3944d1fb4daa073ba82e1a9d34b5f05adb9f",
->>>>>>> Stashed changes
         "type": "github"
       },
       "original": {
