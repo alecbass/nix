@@ -70,8 +70,6 @@ options snd-hda-intel model=headset-mic
     ] ++ hardwareConfigurationImports;
 
     # Meme stuff to make DNS work on the desktop
-    # resolvconf.enable = if isLaptop then null else pkgs.lib.mkForce false;
-    # dhcpcd.extraConfig = if isLaptop then else "nohook resolve.conf";
     resolvconf.enable = pkgs.lib.mkForce false;
     dhcpcd.extraConfig = "nohook resolve.conf";
   };
