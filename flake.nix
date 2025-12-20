@@ -99,7 +99,7 @@
         '';
 
         # Laptops usually have inbuilt hardware that doesn't match the home desktop
-        isLaptop = true;
+        isLaptop = false;
 
         roslyn-ls = pkgs.callPackage ./modules/roslyn-ls/package.nix { inherit pkgs; };
         rzls = pkgs.callPackage ./modules/rzls/package.nix { inherit pkgs; };
