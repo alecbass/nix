@@ -68,7 +68,7 @@
         probeRsRules = builtins.readFile ./config/udev/69-probe-rs.rules;
 
         fix-wifi = pkgs.writeShellScriptBin "fix-wifi" ''
-          set -e
+          set -euxo pipefail
 
           if [[ $(whoami) != "root" ]]; then
             echo "This script should be run as sudo. Exiting..."
@@ -79,6 +79,8 @@
         '';
 
         change-wallpaper = pkgs.writeShellScriptBin "change-wallpaper" ''
+          set -euxo pipefail
+
           script_path="$HOME/.config/hypr/wallpaper.sh"
           if [[ ! -f $script_path ]]; then 
             echo "Wallpaper script not found. Exiting..."
@@ -89,6 +91,8 @@
         '';
         
         add-ssh-key = pkgs.writeShellScriptBin "add-ssh-key" ''
+          set -euxo pipefail
+
           key_path="$HOME/.ssh/id_ed25519"
           if [[ ! -f $key_path ]]; then 
             echo "SSh key not found. Exiting..."
