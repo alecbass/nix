@@ -94,6 +94,13 @@
           ssh-add $key_path && echo "Added SSH key"
         '';
 
+        gemini = pkgs.writeShellScriptBin "gemini" ''
+          # Runs the Gemini CLI tool without worrrying about Zod package clashes
+          set -euxo pipefail
+          
+          pnpm dlx @google/gemini-cli
+        '';
+
         # Laptops usually have inbuilt hardware that doesn't match the home desktop
         isLaptop = false;
 
@@ -102,7 +109,7 @@
       {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper add-ssh-key isLaptop; };
+          specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper add-ssh-key gemini isLaptop; };
           modules = [
             (
               {

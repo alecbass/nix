@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, fix-wifi, change-wallpaper, add-ssh-key, isLaptop, ... }:
+{ config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, fix-wifi, change-wallpaper, add-ssh-key, gemini, isLaptop, ... }:
 let
   username = "alec";
   userDescription = "Alec Bassingthwaighte";
@@ -302,6 +302,7 @@ options snd-hda-intel model=headset-mic
     change-wallpaper
     fix-wifi
     add-ssh-key
+    gemini
     # customSddmTheme
   ];
 
