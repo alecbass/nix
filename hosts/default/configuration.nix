@@ -195,6 +195,26 @@ options snd-hda-intel model=headset-mic
       wantedBy = [ "multi-user.target" ];
       requires = [ "virtlogd.service" ];
     };
+    fix-wifi = {
+      enable = true;
+      description = "Restarts the user wifi in case it failed to launch on Linux";
+      wantedBy = [ "multi-user.target" ]; # Starts after login
+      path = [ pkgs.kmod fix-wifi ]; # Required dependencies: modprobe (through kmod) and the fix-wifi script
+
+      script = ''
+        set -euxo pipefail
+        fix-wifi
+        echo "Restarted Wifi"
+      '';
+
+      # Run the script once as sudo after login
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = false;
+        User = "root"; # The script needs to run as sudo
+        Group = "root";
+      };
+    };
   };
 
 
@@ -207,15 +227,6 @@ options snd-hda-intel model=headset-mic
         change-wallpaper
       '';
       wantedBy = [ "multi-user.target" ]; # starts after login
-    };
-    # Run Wifi fix script on startup
-    fix-wifi = {
-      enable = true;
-      description = "Restarts the user wifi in case it failed to launch on Linux";
-      script = ''
-        fix-wifi
-      '';
-      wantedBy = [ "multi-user.target" ]; # Starts after login
     };
   };
 
