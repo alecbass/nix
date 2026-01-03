@@ -44,6 +44,10 @@ in {
       # ".config/starship.toml".source = ../../dotfiles/.config/starship.toml;
       ".config/rofi/config-emoji.rasi".text = "";
       ".config/rofi/config-long.rasi".text = "";
+
+
+      # Shell scripts
+      ".bashrc".source = ../../config/files/.bashrc;
     };
 
     sessionVariables = {

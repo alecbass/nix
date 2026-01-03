@@ -269,10 +269,6 @@ options snd-hda-intel model=headset-mic
     dedicatedServer.openFirewall = false; # Ports in the firewall for Steam Dedicated Server
   };
 
-  programs.bash.shellAliases = {
-    rm = "rm -i";
-  };
-
   environment.sessionVariables = {
     # If your cursor becomes invisible
     WLR_NO_HARDWARE_CURSORS = "1";
