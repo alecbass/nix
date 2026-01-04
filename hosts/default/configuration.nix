@@ -54,6 +54,9 @@ options snd-hda-intel model=headset-mic
 
       # Meme stuff to make DNS work on the desktop
       dns = "none";
+
+      # On desktop home wifi, setting this to false prevents the speed from dropping to near zero after a few minutes
+      wifi.powersave = if isLaptop then null else false;
     };
 
     wireless = {
@@ -63,15 +66,17 @@ options snd-hda-intel model=headset-mic
 
     # Set DNS
     nameservers = [
+      "127.0.0.1"
+      "::1"
       "8.8.8.8"
       "1.1.1.1"
       "2001:4860:4860::8888"
       "2001:4860:4860::8844"
-    ] ++ hardwareConfigurationImports;
+    ];
 
     # Meme stuff to make DNS work on the desktop
-    resolvconf.enable = pkgs.lib.mkForce false;
-    dhcpcd.extraConfig = "nohook resolve.conf";
+    resolvconf.enable = if isLaptop then null else pkgs.lib.mkForce false;
+    dhcpcd.extraConfig = if isLaptop then null else "nohook resolve.conf";
   };
 
   # Configure network proxy if necessary
