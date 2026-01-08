@@ -19,7 +19,7 @@ with pkgs; rec {
     brightnessctl # Screen brightness controls
 
     # Windows emulation
-    wine64
+    wine # 32-bit, use wine64 for 64-bit
 
     # Device Management
     gparted
