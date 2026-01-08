@@ -18,6 +18,9 @@ with pkgs; rec {
     alsa-utils # Sound and volume utilities
     brightnessctl # Screen brightness controls
 
+    # Windows emulation
+    wine64
+
     # Device Management
     gparted
 
@@ -90,6 +93,9 @@ with pkgs; rec {
     bat # cat alternative
     ripgrep # Searching tool
     htop # Process monitoring tool
+
+    # Networking
+    wireguard-tools
   ];
 
   hyprlandPackages = [
