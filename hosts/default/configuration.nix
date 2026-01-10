@@ -404,6 +404,11 @@ options snd-hda-intel model=headset-mic
       modesetting = {
         enable = true;
       };
+      nvidiaSettings = true;
+      powerManagement = {
+        enable = false;
+        finegrained = false;
+      };
     };
     graphics = {
      enable = true;
