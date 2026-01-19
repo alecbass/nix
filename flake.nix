@@ -19,10 +19,6 @@
       url = "path:/home/alec/Documents/nix/modules/minecraft.nix";
       flake = false; # This is a package
     };
-    run-llama = {
-      url = "path:/home/alec/Documents/nix/modules/run-llama/module.nix";
-      flake = false; # This is a package
-    };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,7 +30,6 @@
       self,
       nixpkgs,
       flake-utils,
-      run-llama,
       rust-overlay,
       ...
     }@inputs:
@@ -66,52 +61,10 @@
 
         probeRsRules = builtins.readFile ./config/udev/69-probe-rs.rules;
 
-        fix-wifi = pkgs.writeShellScriptBin "fix-wifi" ''
-          set -euxo pipefail
-
-          if [[ $(whoami) != "root" ]]; then
-            echo "This script should be run as sudo. Exiting..."
-            exit 1
-          fi
-
-          modprobe -r b43 && modprobe -r bcma && modprobe -r wl && modprobe wl
-        '';
-
-        change-wallpaper = pkgs.writeShellScriptBin "change-wallpaper" ''
-          set -euxo pipefail
-
-          script_path="$HOME/.config/hypr/wallpaper.sh"
-          if [[ ! -f $script_path ]]; then 
-            echo "Wallpaper script not found. Exiting..."
-            exit 1
-          fi
-
-          exec $script_path && "Changed wallpaper"
-        '';
-        
-        add-ssh-key = pkgs.writeShellScriptBin "add-ssh-key" ''
-          set -euxo pipefail
-
-          key_path="$HOME/.ssh/id_ed25519"
-          if [[ ! -f $key_path ]]; then 
-            echo "SSh key not found. Exiting..."
-            exit 1
-          fi
-
-          ssh-add $key_path && echo "Added SSH key"
-        '';
-
-        gemini = pkgs.writeShellScriptBin "gemini" ''
-          # Runs the Gemini CLI tool without worrrying about Zod package clashes
-          set -euxo pipefail
-          
-          pnpm dlx @google/gemini-cli
-        '';
-
         # Laptops usually have inbuilt hardware that doesn't match the home desktop
         isLaptop = false;
 
-        packages = import ./packages.nix { inherit pkgs fix-wifi change-wallpaper add-ssh-key gemini run-llama overlays; };
+        packages = import ./packages.nix { inherit pkgs; };
       in
       {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {

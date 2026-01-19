@@ -301,22 +301,8 @@
         "hyprpanel": "hyprpanel",
         "minecraft": "minecraft",
         "nixpkgs": "nixpkgs",
-        "run-llama": "run-llama",
         "rust-overlay": "rust-overlay",
         "stylix": "stylix"
-      }
-    },
-    "run-llama": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1768819558,
-        "narHash": "sha256-BSa/Tw3Y995brfmy1BH65/sxXV/pLeVYptLUeIy1qZU=",
-        "path": "/home/alec/Documents/nix/modules/run-llama/module.nix",
-        "type": "path"
-      },
-      "original": {
-        "path": "/home/alec/Documents/nix/modules/run-llama/module.nix",
-        "type": "path"
       }
     },
     "rust-overlay": {

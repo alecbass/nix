@@ -1,5 +1,49 @@
-{ pkgs, fix-wifi, change-wallpaper, add-ssh-key, gemini, run-llama, ... }:
-with pkgs; rec {
+{ pkgs, ... }:
+with pkgs; let
+  fix-wifi = pkgs.writeShellScriptBin "fix-wifi" ''
+    set -euxo pipefail
+
+    if [[ $(whoami) != "root" ]]; then
+      echo "This script should be run as sudo. Exiting..."
+      exit 1
+    fi
+
+    modprobe -r b43 && modprobe -r bcma && modprobe -r wl && modprobe wl
+  '';
+
+  change-wallpaper = pkgs.writeShellScriptBin "change-wallpaper" ''
+    set -euxo pipefail
+
+    script_path="$HOME/.config/hypr/wallpaper.sh"
+    if [[ ! -f $script_path ]]; then 
+      echo "Wallpaper script not found. Exiting..."
+      exit 1
+    fi
+
+    exec $script_path && "Changed wallpaper"
+  '';
+  
+  add-ssh-key = pkgs.writeShellScriptBin "add-ssh-key" ''
+    set -euxo pipefail
+
+    key_path="$HOME/.ssh/id_ed25519"
+    if [[ ! -f $key_path ]]; then 
+      echo "SSh key not found. Exiting..."
+      exit 1
+    fi
+
+    ssh-add $key_path && echo "Added SSH key"
+  '';
+
+  gemini = pkgs.writeShellScriptBin "gemini" ''
+    # Runs the Gemini CLI tool without worrrying about Zod package clashes
+    set -euxo pipefail
+    
+    pnpm dlx @google/gemini-cli
+  '';
+
+  run-llama = import ./modules/run-llama/module.nix { inherit pkgs; };
+in rec {
   # System packages that only work on NixOS and not on a Darwin flake
   nixosOnlyDeps = [
     # Terminal
