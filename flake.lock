@@ -302,6 +302,7 @@
         "minecraft": "minecraft",
         "nixpkgs": "nixpkgs",
         "run-llama": "run-llama",
+        "rust-overlay": "rust-overlay",
         "stylix": "stylix"
       }
     },
@@ -316,6 +317,26 @@
       "original": {
         "path": "/home/alec/Documents/nix/modules/run-llama/module.nix",
         "type": "path"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768791178,
+        "narHash": "sha256-ZVqH14w7y40DEQOghli1c28NopVNFk1MNNRzEIwMa6M=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "3941028eccc4d981f75c933786e1fd95b71024f1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "stylix": {

@@ -23,6 +23,10 @@
       url = "path:/home/alec/Documents/nix/modules/run-llama/module.nix";
       flake = false; # This is a package
     };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -31,14 +35,16 @@
       nixpkgs,
       flake-utils,
       run-llama,
+      rust-overlay,
       ...
     }@inputs:
     let
       nixosSystem = "x86_64-linux"; # I only run NixOS on an x86 machine
       allSystems = flake-utils.lib.eachDefaultSystem (system:
       let
+        overlays = [ (import rust-overlay) ];
         pkgs = import nixpkgs {
-          inherit system;
+          inherit system overlays;
           config = {
             allowUnfree = true;
             allowSupportedSystem = true;
@@ -105,7 +111,7 @@
         # Laptops usually have inbuilt hardware that doesn't match the home desktop
         isLaptop = false;
 
-        packages = import ./packages.nix { inherit pkgs fix-wifi change-wallpaper add-ssh-key gemini run-llama; };
+        packages = import ./packages.nix { inherit pkgs fix-wifi change-wallpaper add-ssh-key gemini run-llama overlays; };
       in
       {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {
@@ -122,9 +128,7 @@
                 nixpkgs.config.allowUnfree = true;
 
                 # Add the custom theme overlay
-                nixpkgs.overlays = [
-                  customSddmThemeOverlay
-                ];
+                nixpkgs.overlays = [ customSddmThemeOverlay ];
               }
             )
             ./hosts/default/configuration.nix

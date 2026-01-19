@@ -88,10 +88,22 @@ with pkgs; rec {
     libgcc
     cmake
 
+
+    # Rust
+    rustup
+    rust-analyzer
+    (rust-bin.fromRustupToolchainFile ./rust-toolchain.toml)
+
     # Needed for Rust compilation
     openssl
     pkg-config
     libiconv
+
+    # Go
+    go
+
+    # Debugging
+    gdb
 
     # Linux utils
     bat # cat alternative
@@ -136,20 +148,9 @@ with pkgs; rec {
       pyright
     ]))
 
-    # Rust
-    cargo
-    rustc
-    rustup
-
     # JavaScript/TypeScript
     nodejs_24
     corepack_24
-
-    # Go
-    go
-
-    # Debugging
-    gdb
 
     # Docker
     docker
