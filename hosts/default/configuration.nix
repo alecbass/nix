@@ -2,16 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, fix-wifi, change-wallpaper, add-ssh-key, gemini, isLaptop, ... }:
+{ config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, isLaptop, packages, ... }:
 let
   username = "alec";
   userDescription = "Alec Bassingthwaighte";
   homeDirectory = "/home/${username}";
   hostName = "nixos";
   timeZone = "Australia/Brisbane";
-
-
-  packages = import ../../packages.nix { inherit pkgs; };
 
   # TODO: It would be nice to have this called in the flake, but we don't have access to `pkgs` there
   minecraft = pkgs.callPackage ../../modules/minecraft.nix { };
@@ -204,7 +201,7 @@ options snd-hda-intel model=headset-mic
       enable = true;
       description = "Restarts the user wifi in case it failed to launch on Linux";
       wantedBy = [ "multi-user.target" ]; # Starts after login
-      path = [ pkgs.kmod fix-wifi ]; # Required dependencies: modprobe (through kmod) and the fix-wifi script
+      path = packages.nixosOnlyDeps ++ [ pkgs.kmod ]; # Required dependencies: modprobe (through kmod) and the fix-wifi script
 
       script = ''
         set -euxo pipefail
@@ -221,7 +218,6 @@ options snd-hda-intel model=headset-mic
       };
     };
   };
-
 
   systemd.user.services = {
     change-wallpaper = {
@@ -311,10 +307,6 @@ options snd-hda-intel model=headset-mic
   # $ nix search wget
   environment.systemPackages = packages.nixosOnlyDeps ++ packages.systemPackages ++ packages.hyprlandPackages ++ [
     inputs.hyprpanel.packages.${pkgs.system}.default # Used instead of an overlay
-    change-wallpaper
-    fix-wifi
-    add-ssh-key
-    gemini
     # customSddmTheme
   ];
 
@@ -499,6 +491,6 @@ options snd-hda-intel model=headset-mic
   # Packages to explicitly allow
   #
   nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271-59-6.12.63"
+    "broadcom-sta-6.30.223.271-59-6.12.65"
   ];
 }

@@ -19,6 +19,10 @@
       url = "path:/home/alec/Documents/nix/modules/minecraft.nix";
       flake = false; # This is a package
     };
+    run-llama = {
+      url = "path:/home/alec/Documents/nix/modules/run-llama/module.nix";
+      flake = false; # This is a package
+    };
   };
 
   outputs =
@@ -26,6 +30,7 @@
       self,
       nixpkgs,
       flake-utils,
+      run-llama,
       ...
     }@inputs:
     let
@@ -100,12 +105,12 @@
         # Laptops usually have inbuilt hardware that doesn't match the home desktop
         isLaptop = false;
 
-        packages = import ./packages.nix { inherit pkgs; };
+        packages = import ./packages.nix { inherit pkgs fix-wifi change-wallpaper add-ssh-key gemini run-llama; };
       in
       {
         nixosConfigurations.default = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper add-ssh-key gemini isLaptop; };
+          specialArgs = { inherit inputs probeRsRules isLaptop packages; };
           modules = [
             (
               {

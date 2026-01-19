@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, fix-wifi, change-wallpaper, add-ssh-key, gemini, run-llama, ... }:
 with pkgs; rec {
   # System packages that only work on NixOS and not on a Darwin flake
   nixosOnlyDeps = [
@@ -35,6 +35,10 @@ with pkgs; rec {
 
     # Editing
     gimp-with-plugins
+
+    # Desktop-specific
+    change-wallpaper
+    fix-wifi
 
     # Miscellaneous
     tuigreet
@@ -93,6 +97,7 @@ with pkgs; rec {
     bat # cat alternative
     ripgrep # Searching tool
     htop # Process monitoring tool
+    direnv # Local environment loader
 
     # Networking
     wireguard-tools
@@ -109,6 +114,7 @@ with pkgs; rec {
     wl-clipboard
     swaynotificationcenter
     hyprpaper # Background image
+    change-wallpaper
   ];
 
   userPackages = [
@@ -116,6 +122,7 @@ with pkgs; rec {
     # Programming tools
     git
     gh # Github
+    add-ssh-key
 
     # Terminal
     zellij # Terminal tiling manager
@@ -182,6 +189,8 @@ with pkgs; rec {
 
     # LLMs
     llama-cpp
+    run-llama # Custom Qwen3-Coder script
+    gemini
   ];
 
 }
