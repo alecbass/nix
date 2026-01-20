@@ -27,12 +27,20 @@ in
   # Bootloader.
   boot.loader.grub = {
     enable = true;
-    device = "/dev/sda";
+    device = "nodev";
     useOSProber = true;
-    efiSupport = false;
+    efiSupport = true;
     configurationLimit = 5;
   };
-  boot.loader.efi = {};
+  boot.loader.efi = {
+    canTouchEfiVariables = true;
+    efiSysMountPoint = "/boot";
+  };
+  # Detect inbuild microphone
+  boot.extraModprobeConfig = "
+options snd-hda-intel model=dell-headset-multi
+options snd-hda-intel model=headset-mic
+  ";
 
   networking = {
     hostName = "${hostName}"; # Define your hostname.
@@ -43,9 +51,6 @@ in
 
       # Meme stuff to make DNS work on the desktop
       dns = "none";
-
-      # On desktop home wifi, setting this to false prevents the speed from dropping to near zero after a few minutes
-      wifi.powersave = false;
     };
 
     wireless = {
@@ -62,10 +67,6 @@ in
       "2001:4860:4860::8888"
       "2001:4860:4860::8844"
     ];
-
-    # Meme stuff to make DNS work on the desktop
-    resolvconf.enable = pkgs.lib.mkForce false;
-    dhcpcd.extraConfig = "nohook resolve.conf";
   };
 
   # Configure network proxy if necessary
@@ -395,7 +396,19 @@ in
       };
     };
     graphics = {
+     enable = true;
+    };
+    bluetooth = {
       enable = true;
+      powerOnBoot = false;
+      settings = {
+        General = {
+          Experimental = false; # Don't show battery charge of Bluetooth devices
+        };
+        Policy = {
+          AutoEnable = true;
+        };
+      };
     };
   };
 
