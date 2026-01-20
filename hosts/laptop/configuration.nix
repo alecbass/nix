@@ -17,7 +17,7 @@ let
 in
 {
   imports = [
-      ./user.nix
+      ../default/user.nix
       ../../modules/nvidia-drivers.nix
       ../../modules/nvidia-prime-drivers.nix
       ../../modules/intel-drivers.nix
@@ -433,7 +433,7 @@ options snd-hda-intel model=headset-mic
 
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
-    users.${username} = import ./home.nix;
+    users.${username} = import ../default/home.nix;
     useGlobalPkgs = false;
     useUserPackages = true;
     backupFileExtension = "backup";
