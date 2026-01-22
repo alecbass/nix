@@ -80,7 +80,7 @@
                 nixpkgs.overlays = [ customSddmThemeOverlay ];
               }
             )
-            ./hosts/laptop/configuration.nix
+            ./hosts/default/configuration.nix
             inputs.stylix.nixosModules.stylix
             inputs.home-manager.nixosModules.default
           ];
@@ -103,7 +103,7 @@
                 nixpkgs.overlays = [ customSddmThemeOverlay ];
               }
             )
-            ./hosts/default/configuration.nix
+            ./hosts/laptop/configuration.nix
             inputs.stylix.nixosModules.stylix
             inputs.home-manager.nixosModules.default
           ];
