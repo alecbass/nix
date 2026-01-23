@@ -28,3 +28,8 @@ eval "$(ssh-agent)"
 # Aliases
 alias rm="rm -i"
 alias ls="ls -lAs"
+
+# Open up a Zellij tab if it isn't open already
+if [[ ! -v ZELLIJ ]]; then
+    zellij
+fi

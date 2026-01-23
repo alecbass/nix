@@ -16,4 +16,5 @@ llama-server \
   --cache-type-v q5_1 \
   --flash-attn on \
   --host 127.0.0.1 \
+  --jinja \
   --port 8080
