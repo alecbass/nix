@@ -262,13 +262,19 @@ in
     dedicatedServer.openFirewall = false; # Ports in the firewall for Steam Dedicated Server
   };
 
+  # Run an SSH agen to remember keys
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = true;
+  };
+
   environment.sessionVariables = {
     # If your cursor becomes invisible
     WLR_NO_HARDWARE_CURSORS = "1";
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
+    SSH_ASKPASS_REQUIRE = "prefer";
   };
-
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
