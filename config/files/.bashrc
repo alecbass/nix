@@ -22,9 +22,6 @@ eval "$(direnv hook bash)"
 # Add .NET Core SDK tools
 export PATH="$PATH:/home/alec/.dotnet/tools"
 
-# Start SSh agent so we don't have to keep re-typing the Git agent
-eval "$(ssh-agent)"
-
 # Aliases
 alias rm="rm -i"
 alias ls="ls -lAs"
