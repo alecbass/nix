@@ -79,6 +79,7 @@ in rec {
 
     # Editing
     gimp-with-plugins
+    libreoffice-qt
 
     # Desktop-specific
     change-wallpaper
