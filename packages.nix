@@ -135,8 +135,6 @@ in rec {
 
 
     # Rust
-    rustup
-    rust-analyzer
     (rust-bin.fromRustupToolchainFile ./rust-toolchain.toml)
 
     # Needed for Rust compilation
