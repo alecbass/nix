@@ -153,6 +153,7 @@ in rec {
     ripgrep # Searching tool
     htop # Process monitoring tool
     direnv # Local environment loader
+    lsof # See processes by port
 
     # Networking
     wireguard-tools
