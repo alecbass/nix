@@ -19,6 +19,10 @@
       url = "path:/home/alec/Documents/nix/modules/minecraft.nix";
       flake = false; # This is a package
     };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -26,14 +30,16 @@
       self,
       nixpkgs,
       flake-utils,
+      rust-overlay,
       ...
     }@inputs:
     let
       nixosSystem = "x86_64-linux"; # I only run NixOS on an x86 machine
       allSystems = flake-utils.lib.eachDefaultSystem (system:
       let
+        overlays = [ (import rust-overlay) ];
         pkgs = import nixpkgs {
-          inherit system;
+          inherit system overlays;
           config = {
             allowUnfree = true;
             allowSupportedSystem = true;
@@ -55,57 +61,11 @@
 
         probeRsRules = builtins.readFile ./config/udev/69-probe-rs.rules;
 
-        fix-wifi = pkgs.writeShellScriptBin "fix-wifi" ''
-          set -euxo pipefail
-
-          if [[ $(whoami) != "root" ]]; then
-            echo "This script should be run as sudo. Exiting..."
-            exit 1
-          fi
-
-          modprobe -r b43 && modprobe -r bcma && modprobe -r wl && modprobe wl
-        '';
-
-        change-wallpaper = pkgs.writeShellScriptBin "change-wallpaper" ''
-          set -euxo pipefail
-
-          script_path="$HOME/.config/hypr/wallpaper.sh"
-          if [[ ! -f $script_path ]]; then 
-            echo "Wallpaper script not found. Exiting..."
-            exit 1
-          fi
-
-          exec $script_path && "Changed wallpaper"
-        '';
-        
-        add-ssh-key = pkgs.writeShellScriptBin "add-ssh-key" ''
-          set -euxo pipefail
-
-          key_path="$HOME/.ssh/id_ed25519"
-          if [[ ! -f $key_path ]]; then 
-            echo "SSh key not found. Exiting..."
-            exit 1
-          fi
-
-          ssh-add $key_path && echo "Added SSH key"
-        '';
-
-        gemini = pkgs.writeShellScriptBin "gemini" ''
-          # Runs the Gemini CLI tool without worrrying about Zod package clashes
-          set -euxo pipefail
-          
-          pnpm dlx @google/gemini-cli
-        '';
-
-        # Laptops usually have inbuilt hardware that doesn't match the home desktop
-        isLaptop = false;
-
         packages = import ./packages.nix { inherit pkgs; };
-      in
-      {
-        nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+
+        desktopConfig = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs probeRsRules fix-wifi change-wallpaper add-ssh-key gemini isLaptop; };
+          specialArgs = { inherit inputs probeRsRules packages; };
           modules = [
             (
               {
@@ -117,9 +77,7 @@
                 nixpkgs.config.allowUnfree = true;
 
                 # Add the custom theme overlay
-                nixpkgs.overlays = [
-                  customSddmThemeOverlay
-                ];
+                nixpkgs.overlays = [ customSddmThemeOverlay ];
               }
             )
             ./hosts/default/configuration.nix
@@ -128,6 +86,32 @@
           ];
         };
 
+        laptopConfig = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs probeRsRules packages; };
+          modules = [
+            (
+              {
+                config,
+                pkgs,
+                ...
+              }:
+              {
+                nixpkgs.config.allowUnfree = true;
+
+                # Add the custom theme overlay
+                nixpkgs.overlays = [ customSddmThemeOverlay ];
+              }
+            )
+            ./hosts/laptop/configuration.nix
+            inputs.stylix.nixosModules.stylix
+            inputs.home-manager.nixosModules.default
+          ];
+        };
+      in
+      {
+        nixosConfigurations.default = desktopConfig;
+        nixosConfigurations.laptop = laptopConfig;
         # Shell-only environment
         devShells.default = with pkgs; mkShell {
           buildInputs = packages.systemPackages ++ packages.userPackages ++ [ direnv ];

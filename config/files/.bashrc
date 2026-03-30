@@ -22,9 +22,15 @@ eval "$(direnv hook bash)"
 # Add .NET Core SDK tools
 export PATH="$PATH:/home/alec/.dotnet/tools"
 
-# Start SSh agent so we don't have to keep re-typing the Git agent
-eval "$(ssh-agent)"
-
 # Aliases
 alias rm="rm -i"
 alias ls="ls -lAs"
+
+if [[ -f $HOME/git-completion.bash ]]; then
+    source "$HOME/git-completion.bash"
+fi
+
+# Open up a Zellij tab if it isn't open already
+if [[ ! -v ZELLIJ ]]; then
+    zellij
+fi

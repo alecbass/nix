@@ -8,4 +8,29 @@ if [[ $(whoami) != "root" ]]; then
     exit 1
 fi
 
-nixos-rebuild switch --flake .#default
+profile=$1
+profiles=("default" "laptop")
+
+if [[ -z "$profile" ]]; then
+    while [[ -z "$profile" ]]; do
+        select profile in "${profiles[@]}"; do
+            case $profile in
+                "default")
+                    echo "Selected profile $profile"
+                    break;
+                    ;;
+                "laptop")
+                    echo "Selected profile $profile"
+                    break
+                    ;;
+                *)
+                    echo "Invalid profile, please select again"
+                    ;;
+            esac
+        done
+    done
+fi
+
+echo "Rebuilding profile: $profile"
+
+nixos-rebuild switch --flake ".#${profile}"

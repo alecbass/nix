@@ -1,5 +1,49 @@
 { pkgs, ... }:
-with pkgs; rec {
+with pkgs; let
+  fix-wifi = pkgs.writeShellScriptBin "fix-wifi" ''
+    set -euxo pipefail
+
+    if [[ $(whoami) != "root" ]]; then
+      echo "This script should be run as sudo. Exiting..."
+      exit 1
+    fi
+
+    modprobe -r b43 && modprobe -r bcma && modprobe -r wl && modprobe wl
+  '';
+
+  change-wallpaper = pkgs.writeShellScriptBin "change-wallpaper" ''
+    set -euxo pipefail
+
+    script_path="$HOME/.config/hypr/wallpaper.sh"
+    if [[ ! -f $script_path ]]; then 
+      echo "Wallpaper script not found. Exiting..."
+      exit 1
+    fi
+
+    exec $script_path && "Changed wallpaper"
+  '';
+  
+  add-ssh-key = pkgs.writeShellScriptBin "add-ssh-key" ''
+    set -euxo pipefail
+
+    key_path="$HOME/.ssh/id_ed25519"
+    if [[ ! -f $key_path ]]; then 
+      echo "SSh key not found. Exiting..."
+      exit 1
+    fi
+
+    ssh-add $key_path && echo "Added SSH key"
+  '';
+
+  gemini = pkgs.writeShellScriptBin "gemini" ''
+    # Runs the Gemini CLI tool without worrrying about Zod package clashes
+    set -euxo pipefail
+    
+    pnpm dlx @google/gemini-cli
+  '';
+
+  run-llama = import ./modules/run-llama/module.nix { inherit pkgs; };
+in rec {
   # System packages that only work on NixOS and not on a Darwin flake
   nixosOnlyDeps = [
     # Terminal
@@ -35,6 +79,11 @@ with pkgs; rec {
 
     # Editing
     gimp-with-plugins
+    libreoffice-qt
+
+    # Desktop-specific
+    change-wallpaper
+    fix-wifi
 
     # Miscellaneous
     tuigreet
@@ -84,15 +133,27 @@ with pkgs; rec {
     libgcc
     cmake
 
+
+    # Rust
+    (rust-bin.fromRustupToolchainFile ./rust-toolchain.toml)
+
     # Needed for Rust compilation
     openssl
     pkg-config
     libiconv
 
+    # Go
+    go
+
+    # Debugging
+    gdb
+
     # Linux utils
     bat # cat alternative
     ripgrep # Searching tool
     htop # Process monitoring tool
+    direnv # Local environment loader
+    lsof # See processes by port
 
     # Networking
     wireguard-tools
@@ -109,6 +170,7 @@ with pkgs; rec {
     wl-clipboard
     swaynotificationcenter
     hyprpaper # Background image
+    change-wallpaper
   ];
 
   userPackages = [
@@ -116,6 +178,7 @@ with pkgs; rec {
     # Programming tools
     git
     gh # Github
+    add-ssh-key
 
     # Terminal
     zellij # Terminal tiling manager
@@ -129,20 +192,9 @@ with pkgs; rec {
       pyright
     ]))
 
-    # Rust
-    cargo
-    rustc
-    rustup
-
     # JavaScript/TypeScript
     nodejs_24
     corepack_24
-
-    # Go
-    go
-
-    # Debugging
-    gdb
 
     # Docker
     docker
@@ -182,6 +234,8 @@ with pkgs; rec {
 
     # LLMs
     llama-cpp
+    run-llama # Custom Qwen3-Coder script
+    gemini
   ];
 
 }
