@@ -275,6 +275,10 @@ options snd-hda-intel model=headset-mic
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
     SSH_ASKPASS_REQUIRE = "prefer";
+
+    # For World of Warcraft
+    WINEARCH = "win64";
+    WINEPREFIX = "$HOME/.wine-battlenet";
   };
 
   # Allow unfree packages
@@ -490,6 +494,6 @@ options snd-hda-intel model=headset-mic
   # Packages to explicitly allow
   #
   nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271-59-6.12.76"
+    "broadcom-sta-6.30.223.271-59-6.12.78"
   ];
 }

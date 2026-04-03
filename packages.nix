@@ -63,7 +63,7 @@ in rec {
     brightnessctl # Screen brightness controls
 
     # Windows emulation
-    wine # 32-bit, use wine64 for 64-bit
+    # wine # 32-bit, use wine64 for 64-bit
 
     # Device Management
     gparted
@@ -236,6 +236,13 @@ in rec {
     llama-cpp
     run-llama # Custom Qwen3-Coder script
     gemini
+
+    # Wine - for https://nixos.wiki/wiki/Battle.net
+    (wineWowPackages.full.override {
+      wineRelease = "staging";
+      mingwSupport = true;
+    })
+    winetricks
   ];
 
 }
