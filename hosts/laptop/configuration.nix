@@ -51,6 +51,8 @@ options snd-hda-intel model=headset-mic
 
       # Meme stuff to make DNS work on the desktop
       dns = "none";
+
+      wifi.powersave = null;
     };
 
     wireless = {
@@ -67,6 +69,10 @@ options snd-hda-intel model=headset-mic
       "2001:4860:4860::8888"
       "2001:4860:4860::8844"
     ];
+
+    # Meme stuff to make DNS work on the desktop
+    resolvconf.enable = pkgs.lib.mkForce true;
+    dhcpcd.extraConfig = null; # "nohook resolve.conf";
   };
 
   # Configure network proxy if necessary
@@ -191,7 +197,7 @@ options snd-hda-intel model=headset-mic
       requires = [ "virtlogd.service" ];
     };
     fix-wifi = {
-      enable = true;
+      enable = false;
       description = "Restarts the user wifi in case it failed to launch on Linux";
       wantedBy = [ "multi-user.target" ]; # Starts after login
       path = packages.nixosOnlyDeps ++ [ pkgs.kmod ]; # Required dependencies: modprobe (through kmod) and the fix-wifi script
