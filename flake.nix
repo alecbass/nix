@@ -122,5 +122,6 @@
   # Spread the result all eachDefaultSystem to the end result
   allSystems // {
     nixosConfigurations.default = allSystems.nixosConfigurations."${nixosSystem}".default;
+    nixosConfigurations.laptop = allSystems.nixosConfigurations."${nixosSystem}".laptop;
   };
 }
