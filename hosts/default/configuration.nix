@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, packages, ... }:
+{ config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, packages, nixosPermittedInsecurePackages, ... }:
 let
   username = "alec";
   userDescription = "Alec Bassingthwaighte";
@@ -480,7 +480,5 @@ in
   #
   # Packages to explicitly allow
   #
-  nixpkgs.config.permittedInsecurePackages = [
-    "broadcom-sta-6.30.223.271-59-6.12.78"
-  ];
+  nixpkgs.config.permittedInsecurePackages = nixosPermittedInsecurePackages;
 }

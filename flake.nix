@@ -35,6 +35,7 @@
     }@inputs:
     let
       nixosSystem = "x86_64-linux"; # I only run NixOS on an x86 machine
+      nixosPermittedInsecurePackages = [ "broadcom-sta-6.30.223.271-59-6.12.81" ];
       allSystems = flake-utils.lib.eachDefaultSystem (system:
       let
         overlays = [ (import rust-overlay) ];
@@ -65,7 +66,7 @@
 
         desktopConfig = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs probeRsRules packages; };
+          specialArgs = { inherit inputs probeRsRules packages nixosPermittedInsecurePackages; };
           modules = [
             (
               {
@@ -88,7 +89,7 @@
 
         laptopConfig = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs probeRsRules packages; };
+          specialArgs = { inherit inputs probeRsRules packages nixosPermittedInsecurePackages; };
           modules = [
             (
               {
