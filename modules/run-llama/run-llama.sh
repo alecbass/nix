@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
-set -euxo pipefail
+set -euo pipefail
 
 context_size=${1:-40960}
 
 echo "Running LLM"
 echo "Context size: $context_size"
 
+coder_model="unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF"
+model="unsloth/Qwen3.6-35B-A3B-GGUF"
+
 llama-server \
-  --hf-repo "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF" \
+  --hf-repo $model \
   --n-gpu-layers 999 \
   --ubatch-size 768 \
   --temp 0.2 \
