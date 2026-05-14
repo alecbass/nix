@@ -7,6 +7,7 @@ default_model="unsloth/Qwen3.6-27B-GGUF"
 
 model_name=${1:-$default_model}
 context_size=${2:-40960}
+gpu_layers=${3:-64}
 
 echo "Running LLM"
 echo "Model: $model_name"
@@ -14,8 +15,8 @@ echo "Context size: $context_size"
 
 llama-server \
   --hf-repo "$model_name" \
-  --n-gpu-layers 999 \
-  --ubatch-size 768 \
+  --n-gpu-layers "$gpu_layers" \
+  --ubatch-size 512 \
   --temp 0.2 \
   --ctx-size "$context_size" \
   --cache-type-k q5_1 \
