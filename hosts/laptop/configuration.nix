@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, packages, ... }:
+{ config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, packages, nixosPermittedInsecurePackages, ... }:
 let
   username = "alec";
   userDescription = "Alec Bassingthwaighte";
