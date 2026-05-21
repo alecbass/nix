@@ -107,13 +107,11 @@ in rec {
   ];
 
   systemPackages = [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
+    wget
 
     # Editors
     neovim
     vim # For when neovim crashes lol
-    # code-cursor
     
     # LSPs
     shellcheck
@@ -202,7 +200,6 @@ in rec {
     # podman-tui
 
     # Databases
-    pgadmin4
     dbeaver-bin
 
     # Browsers
@@ -211,17 +208,10 @@ in rec {
     # Socials
     discord
     slack
-    teams-for-linux
     yt-dlp
 
     # Editing
     ffmpeg
-
-    # VPN
-    pritunl-client
-
-    # Streaming
-    jellyfin # Video streaming service
 
     # Other utilities
     unzip
@@ -229,13 +219,9 @@ in rec {
     # postman Currently not able to download on nixpkgs 25.05
     thonny # For MicroPython
 
-    # Tendl-specific
-    _1password-cli
-
     # LLMs
     llama-cpp
-    run-llama # Custom Qwen3-Coder script
-    gemini
+    run-llama # Custom LLM serving script
 
     # Wine - for https://nixos.wiki/wiki/Battle.net
     (wineWowPackages.full.override {
