@@ -50,7 +50,7 @@ options snd-hda-intel model=headset-mic
       enable = true;
 
       # Meme stuff to make DNS work on the desktop
-      dns = "none";
+      # dns = "none";
 
       wifi.powersave = null;
     };
@@ -62,8 +62,8 @@ options snd-hda-intel model=headset-mic
 
     # Set DNS
     nameservers = [
-      "127.0.0.1"
-      "::1"
+      # "127.0.0.1"
+      # "::1"
       "8.8.8.8"
       "1.1.1.1"
       "2001:4860:4860::8888"
