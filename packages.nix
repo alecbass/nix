@@ -188,6 +188,7 @@ in rec {
       # pip - pip3.12 uses a C recursion symbol which Python 3.14 has since removed
       ruff
       pyright
+      uv
     ]))
 
     # JavaScript/TypeScript
