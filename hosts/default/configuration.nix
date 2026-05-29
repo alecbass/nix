@@ -50,7 +50,7 @@ in
 
     wireless = {
       # Enables wireless support via wpa_supplicant.
-      enable = false; # Clashes with networkmanager
+      # enable = false; # Clashes with networkmanager
     };
 
     # Set DNS
@@ -138,13 +138,6 @@ in
     };
   };
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
-
   # Enable Wayland - https://github.com/dc-tec/nixos-config/blob/main/modules%2Fgraphical%2Fdesktop%2Fhyprland%2Fdefault.nix
 
   services = {
@@ -154,8 +147,12 @@ in
     };
     displayManager = {
       gdm = {
+        enable = false;
+      };
+      sddm = {
+        # https://github.com/nixos/nixpkgs/issues/523332
         enable = true;
-        wayland = true;
+        wayland.enable = true; # Workaround until Gnome can be launched in NixOS 26.05
       };
     };
     # Enable CUPS to print documents.
@@ -253,6 +250,7 @@ in
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    withUWSM = true;
   };
 
   # Enable Steam - gamingggggg
@@ -271,6 +269,7 @@ in
   environment.sessionVariables = {
     # If your cursor becomes invisible
     WLR_NO_HARDWARE_CURSORS = "1";
+
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
     SSH_ASKPASS_REQUIRE = "prefer";

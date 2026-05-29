@@ -56,7 +56,6 @@ in rec {
 
     # Linux utils
     htop # Process viewer
-    neofetch # Basic details
     inetutils # Network utilities such as telnet
     usbutils # Unsurprisingly, USB utilities
     alsa-utils # Sound and volume utilities
@@ -225,7 +224,7 @@ in rec {
     run-llama # Custom LLM serving script
 
     # Wine - for https://nixos.wiki/wiki/Battle.net
-    (wineWowPackages.full.override {
+    (wineWow64Packages.full.override {
       wineRelease = "staging";
       mingwSupport = true;
     })
