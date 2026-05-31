@@ -118,6 +118,9 @@ in rec {
     roslyn-ls # C# and Razor
     nuget-to-json # Used to generate deps.json for rzls
     stylua # Formatter for Lua
+    bash-language-server # Bash
+    vtsls # TypeScript
+    terraform-ls # Terraform
 
     # C/C++
     libgcc
