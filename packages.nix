@@ -113,14 +113,18 @@ in rec {
     vim # For when neovim crashes lol
     
     # LSPs
-    shellcheck
-    lua-language-server
+    shellcheck # Scripts
+    lua-language-server # Lua
     roslyn-ls # C# and Razor
     nuget-to-json # Used to generate deps.json for rzls
     stylua # Formatter for Lua
     bash-language-server # Bash
     vtsls # TypeScript
     terraform-ls # Terraform
+    vscode-langservers-extracted # HTML, CSS, JSON, ESLint
+    docker-language-server # Docker
+    docker-compose-language-service # Docker Compose
+    diagnostic-languageserver # Custom LSPs
 
     # C/C++
     libgcc
@@ -145,6 +149,17 @@ in rec {
     # Go
     go
 
+    # JavaScript / TypeScript
+    typescript
+    eslint
+    prettier
+    nodejs_24
+    corepack_24
+
+    # CSS
+    stylelint
+    stylelint-lsp
+
     # Debugging
     gdb
 
@@ -154,6 +169,7 @@ in rec {
     htop # Process monitoring tool
     direnv # Local environment loader
     lsof # See processes by port
+    tldr # 
 
     # Networking
     wireguard-tools
@@ -192,10 +208,6 @@ in rec {
       pyright
       uv
     ]))
-
-    # JavaScript/TypeScript
-    nodejs_24
-    corepack_24
 
     # Docker
     docker
