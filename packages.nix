@@ -24,7 +24,7 @@ with pkgs; let
   '';
   
   add-ssh-key = pkgs.writeShellScriptBin "add-ssh-key" ''
-    set -euxo pipefail
+    set -euo pipefail
 
     key_path="$HOME/.ssh/id_ed25519"
     if [[ ! -f $key_path ]]; then 
