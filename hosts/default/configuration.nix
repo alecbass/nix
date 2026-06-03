@@ -147,11 +147,11 @@ in
     };
     displayManager = {
       gdm = {
-        enable = false;
+        enable = true;
       };
       sddm = {
         # https://github.com/nixos/nixpkgs/issues/523332
-        enable = true;
+        enable = false;
         wayland.enable = true; # Workaround until Gnome can be launched in NixOS 26.05
       };
     };
@@ -277,6 +277,9 @@ in
     # For World of Warcraft
     WINEARCH = "win64";
     WINEPREFIX = "$HOME/.wine-battlenet";
+
+    # Let GDM find gnome-session https://github.com/NixOS/nixpkgs/issues/523332#issuecomment-4528189167
+    XDG_DATA_DIRS = ["${pkgs.gdm}/share"];
   };
 
   # Allow unfree packages

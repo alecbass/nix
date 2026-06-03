@@ -62,7 +62,7 @@ in {
       XDG_DATA_HOME = "$HOME/.local/share";
       XDG_STATE_HOME = "$HOME/.local/state";
       XDG_CACHE_HOME = "$HOME/.cache";
-      XDG_SCREENSHOTS_DIR = "$HOME/Pictures/screenshots";
+      XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots";
 
       # Path modifications - now as a string
       # PATH = "$HOME/.local/bin:$HOME/go/bin:$PATH";

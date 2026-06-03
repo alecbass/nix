@@ -285,6 +285,9 @@ options snd-hda-intel model=headset-mic
     # For World of Warcraft
     WINEARCH = "win64";
     WINEPREFIX = "$HOME/.wine-battlenet";
+
+    # Let GDM find gnome-session https://github.com/NixOS/nixpkgs/issues/523332#issuecomment-4528189167
+    XDG_DATA_DIRS = ["${pkgs.gdm}/share"];
   };
 
   # Allow unfree packages
