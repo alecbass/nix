@@ -147,11 +147,11 @@ in
     };
     displayManager = {
       gdm = {
-        enable = true;
+        enable = false;
       };
       sddm = {
         # https://github.com/nixos/nixpkgs/issues/523332
-        enable = false;
+        enable = true;
         wayland.enable = true; # Workaround until Gnome can be launched in NixOS 26.05
       };
     };
