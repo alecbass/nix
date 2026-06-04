@@ -34,8 +34,8 @@
       ...
     }@inputs:
     let
-      nixosSystem = "x86_64-linux"; # I only run NixOS on an x86 machine
-      nixosPermittedInsecurePackages = [ "broadcom-sta-6.30.223.271-59-6.18.33" ];
+      nixosSystem = "x86_64-linux"; # I only run NixOS on x86 machines
+      nixosPermittedInsecurePackages = [ "broadcom-sta-6.30.223.271-59-6.18.34" ];
       allSystems = flake-utils.lib.eachDefaultSystem (system:
       let
         overlays = [ (import rust-overlay) ];
