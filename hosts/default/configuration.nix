@@ -8,18 +8,21 @@ let
   userDescription = "Alec Bassingthwaighte";
   homeDirectory = "/home/${username}";
   hostName = "nixos";
-  timeZone = "Australia/Brisbane";
 
   # TODO: It would be nice to have this called in the flake, but we don't have access to `pkgs` there
   minecraft = pkgs.callPackage ../../modules/minecraft.nix { };
 
+  i18n = (import ../i18n.nix {});
   networking = (import ../networking.nix { inherit config pkgs; });
+  time = (import ../time.nix {});
+  stylix = (import ../stylix.nix { inherit pkgs; });
+  services = (import ../services.nix { inherit probeRsRules; });
 
   hardwareConfigurationImports = [ ./hardware-configuration.nix ];
 in
 {
   imports = [
-      ./user.nix
+      ../user.nix
       ../../modules/nvidia-drivers.nix
       ../../modules/nvidia-prime-drivers.nix
       ../../modules/intel-drivers.nix
@@ -37,112 +40,16 @@ in
   boot.loader.efi = {};
 
   networking = networking.networking;
+  i18n = i18n.i18n;
+  time = time.time;
+  stylix = stylix.stylix;
+  services = services.services;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Set your time zone.
-  time.timeZone = timeZone;
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_AU.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_AU.UTF-8";
-    LC_IDENTIFICATION = "en_AU.UTF-8";
-    LC_MEASUREMENT = "en_AU.UTF-8";
-    LC_MONETARY = "en_AU.UTF-8";
-    LC_NAME = "en_AU.UTF-8";
-    LC_NUMERIC = "en_AU.UTF-8";
-    LC_PAPER = "en_AU.UTF-8";
-    LC_TELEPHONE = "en_AU.UTF-8";
-    LC_TIME = "en_AU.UTF-8";
-  };
-
-  stylix = {
-    enable = true;
-    base16Scheme = {
-      base00 = "191724";
-      base01 = "1f1d2e";
-      base02 = "26233a";
-      base03 = "6e6a86";
-      base04 = "908caa";
-      base05 = "e0def4";
-      base06 = "e0def4";
-      base07 = "524f67";
-      base08 = "eb6f92";
-      base09 = "f6c177";
-      base0A = "ebbcba";
-      base0B = "31748f";
-      base0C = "9ccfd8";
-      base0D = "c4a7e7";
-      base0E = "f6c177";
-      base0F = "524f67";
-    };
-    image = ../../config/assets/wall.png;
-    polarity = "dark";
-    opacity.terminal = 0.8;
-    cursor.package = pkgs.bibata-cursors;
-    cursor.name = "Bibata-Modern-Ice";
-    cursor.size = 24;
-    fonts = {
-      # monospace = {
-      #   package = pkgs.nerd-fonts.jetbrains-mono;
-      #   name = "JetBrainsMono Nerd Font Mono";
-      # };
-      sansSerif = {
-        package = pkgs.montserrat;
-        name = "Montserrat";
-      };
-      serif = {
-        package = pkgs.montserrat;
-        name = "Montserrat";
-      };
-      sizes = {
-        applications = 12;
-        terminal = 15;
-        desktop = 11;
-        popups = 12;
-      };
-    };
-  };
-
-  # Enable Wayland - https://github.com/dc-tec/nixos-config/blob/main/modules%2Fgraphical%2Fdesktop%2Fhyprland%2Fdefault.nix
-
-  services = {
-    xserver = {
-      enable = true;
-      videoDrivers = [ "nvidia" ];
-    };
-    displayManager = {
-      gdm = {
-        enable = false;
-      };
-      sddm = {
-        # https://github.com/nixos/nixpkgs/issues/523332
-        enable = true;
-        wayland.enable = true; # Workaround until Gnome can be launched in NixOS 26.05
-      };
-    };
-    # Enable CUPS to print documents.
-    printing.enable = true;
-    pipewire = {
-      enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      pulse.enable = true;
-      jack.enable = true;
-      wireplumber.enable = true;
-
-      # use the example session manager (no others are packaged yet so this is enabled by default,
-      # no need to redefine it in your config for now)
-      #media-session.enable = true;
-    };
-    pulseaudio.enable = false;
-  };
 
   security.rtkit.enable = true;
 
@@ -407,15 +314,6 @@ in
     useUserPackages = true;
     backupFileExtension = "backup";
   };
-
-  #
-  # Udev rule overwrites
-  #
-  # Allow rs-probe access
-  services.udev.extraRules = probeRsRules;
-
-  # Allow USBs to be mounted
-  services.udisks2.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
