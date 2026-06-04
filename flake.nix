@@ -45,6 +45,7 @@
             allowUnfree = true;
             allowSupportedSystem = true;
             permittedInsecurePackages = [];
+            cudaSupport = true; # For llama-cpp to allow GPU usage
           };
         };
 
