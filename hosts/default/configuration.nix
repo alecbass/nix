@@ -13,6 +13,8 @@ let
   # TODO: It would be nice to have this called in the flake, but we don't have access to `pkgs` there
   minecraft = pkgs.callPackage ../../modules/minecraft.nix { };
 
+  networking = (import ../networking.nix { inherit config pkgs; });
+
   hardwareConfigurationImports = [ ./hardware-configuration.nix ];
 in
 {
@@ -34,39 +36,7 @@ in
   };
   boot.loader.efi = {};
 
-  networking = {
-    hostName = "${hostName}"; # Define your hostname.
-
-    networkmanager = {
-      # Enable networking
-      enable = true;
-
-      # Meme stuff to make DNS work on the desktop
-      dns = "none";
-
-      # On desktop home wifi, setting this to false prevents the speed from dropping to near zero after a few minutes
-      wifi.powersave = false;
-    };
-
-    wireless = {
-      # Enables wireless support via wpa_supplicant.
-      # enable = false; # Clashes with networkmanager
-    };
-
-    # Set DNS
-    nameservers = [
-      "127.0.0.1"
-      "::1"
-      "8.8.8.8"
-      "1.1.1.1"
-      "2001:4860:4860::8888"
-      "2001:4860:4860::8844"
-    ];
-
-    # Meme stuff to make DNS work on the desktop
-    resolvconf.enable = pkgs.lib.mkForce false;
-    dhcpcd.extraConfig = "nohook resolve.conf";
-  };
+  networking = networking.networking;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
