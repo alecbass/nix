@@ -15,39 +15,39 @@ in {
     file = {
       # TODO: Use my dotfiles repository
       # # Hyprland Config
-      # ".config/hypr".source = ../../dotfiles/.config/hypr;
+      # ".config/hypr".source = ../dotfiles/.config/hypr;
       # wlogout icons
-      ".config/wlogout/icons".source = ../../config/wlogout;
+      ".config/wlogout/icons".source = ../config/wlogout;
       #
       # # Top Level Files symlinks
-      # ".zshrc".source = ../../dotfiles/.zshrc;
-      # ".gitconfig".source = ../../dotfiles/.gitconfig;
-      # ".ideavimrc".source = ../../dotfiles/.ideavimrc;
-      # ".nirc".source = ../../dotfiles/.nirc;
-      # ".local/bin/wallpaper".source = ../../dotfiles/.local/bin/wallpaper;
+      # ".zshrc".source = ../dotfiles/.zshrc;
+      # ".gitconfig".source = ../dotfiles/.gitconfig;
+      # ".ideavimrc".source = ../dotfiles/.ideavimrc;
+      # ".nirc".source = ../dotfiles/.nirc;
+      # ".local/bin/wallpaper".source = ../dotfiles/.local/bin/wallpaper;
       #
       # # Config directories
-      # ".config/alacritty".source = ../../dotfiles/.config/alacritty;
-      # ".config/dunst".source = ../../dotfiles/.config/dunst;
-      # ".config/fastfetch".source = ../../dotfiles/.config/fastfetch;
-      # ".config/kitty".source = ../../dotfiles/.config/kitty;
-      # ".config/mpv".source = ../../dotfiles/.config/mpv;
-      # ".config/tmux/tmux.conf".source = ../../dotfiles/.config/tmux/tmux.conf;
-      # ".config/waybar".source = ../../dotfiles/.config/waybar;
-      # ".config/yazi".source = ../../dotfiles/.config/yazi;
-      # ".config/wezterm".source = ../../dotfiles/.config/wezterm;
-      # ".config/ghostty".source = ../../dotfiles/.config/ghostty;
-      # ".config/prettier".source = ../../dotfiles/.config/prettier;
+      # ".config/alacritty".source = ../dotfiles/.config/alacritty;
+      # ".config/dunst".source = ../dotfiles/.config/dunst;
+      # ".config/fastfetch".source = ../dotfiles/.config/fastfetch;
+      # ".config/kitty".source = ../dotfiles/.config/kitty;
+      # ".config/mpv".source = ../dotfiles/.config/mpv;
+      # ".config/tmux/tmux.conf".source = ../dotfiles/.config/tmux/tmux.conf;
+      # ".config/waybar".source = ../dotfiles/.config/waybar;
+      # ".config/yazi".source = ../dotfiles/.config/yazi;
+      # ".config/wezterm".source = ../dotfiles/.config/wezterm;
+      # ".config/ghostty".source = ../dotfiles/.config/ghostty;
+      # ".config/prettier".source = ../dotfiles/.config/prettier;
       #
       # # Individual config files
-      # ".config/kwalletrc".source = ../../dotfiles/.config/kwalletrc;
-      # ".config/starship.toml".source = ../../dotfiles/.config/starship.toml;
+      # ".config/kwalletrc".source = ../dotfiles/.config/kwalletrc;
+      # ".config/starship.toml".source = ../dotfiles/.config/starship.toml;
       ".config/rofi/config-emoji.rasi".text = "";
       ".config/rofi/config-long.rasi".text = "";
 
 
       # Shell scripts
-      ".bashrc".source = ../../config/files/.bashrc;
+      ".bashrc".source = ../config/files/.bashrc;
     };
 
     sessionVariables = {
@@ -65,7 +65,7 @@ in {
       XDG_SCREENSHOTS_DIR = "$HOME/Pictures/Screenshots";
 
       # Path modifications - now as a string
-      # PATH = "$HOME/.local/bin:$HOME/go/bin:$PATH";
+      # PATH = "$HOME/.local/bin:$HO../bin:$PATH";
 
       # Wayland and Hyprland specific
       JAVA_AWT_WM_NOREPARENTING = 1;
@@ -83,17 +83,17 @@ in {
 
     sessionPath = [
       "$HOME/.local/bin"
-      "$HOME/go/bin"
+      "$HO../bin"
     ];
 
     packages = [
-      (import ../../scripts/rofi-launcher.nix {inherit pkgs;})
+      (import ../scripts/rofi-launcher.nix {inherit pkgs;})
     ];
   };
 
   imports = [
-    # ../../config/rofi/rofi.nix
-    ../../config/wlogout.nix
+    # ../config/rofi/rofi.nix
+    ../config/wlogout.nix
   ];
 
   # Styling

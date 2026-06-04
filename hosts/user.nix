@@ -1,4 +1,5 @@
-{ packages, ... }: let
+{ packages, ... }:
+let
   userName = "alec";
   userDescription = "Alec Bassingthwaighte";
 in {
@@ -15,4 +16,6 @@ in {
     ];
     packages = packages.userPackages;
   };
+
+  userName = userName;
 }

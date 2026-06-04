@@ -4,11 +4,6 @@
 
 { config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, packages, nixosPermittedInsecurePackages, ... }:
 let
-  username = "alec";
-  userDescription = "Alec Bassingthwaighte";
-  homeDirectory = "/home/${username}";
-  hostName = "nixos";
-
   # TODO: It would be nice to have this called in the flake, but we don't have access to `pkgs` there
   minecraft = pkgs.callPackage ../../modules/minecraft.nix { };
 
@@ -25,13 +20,13 @@ let
   fonts = (import ../fonts.nix { inherit pkgs; });
   xdg = (import ../xdg.nix { inherit pkgs; });
   user = (import ../user.nix { inherit packages; });
+  homeManager = (import ../home-manager.nix { inherit inputs user; });
 
   hardwareConfigurationImports = [ ./hardware-configuration.nix ];
 in
 {
   # TODO(alec): Import here rather than in the let declaration maybe?
   imports = [
-    ../user.nix
     ../../modules/nvidia-drivers.nix
     ../../modules/nvidia-prime-drivers.nix
     ../../modules/intel-drivers.nix
@@ -61,6 +56,7 @@ in
   fonts = fonts.fonts;
   xdg = xdg.xdg;
   users = user.users;
+  home-manager = homeManager.home-manager;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -100,14 +96,6 @@ in
   #
   # Home Manager
   #
-
-  home-manager = {
-    extraSpecialArgs = { inherit inputs; };
-    users.${username} = import ./home.nix;
-    useGlobalPkgs = false;
-    useUserPackages = true;
-    backupFileExtension = "backup";
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
