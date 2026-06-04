@@ -24,17 +24,19 @@ let
   virtualisation = (import ../virtualisation.nix { });
   fonts = (import ../fonts.nix { inherit pkgs; });
   xdg = (import ../xdg.nix { inherit pkgs; });
+  user = (import ../user.nix { inherit packages; });
 
   hardwareConfigurationImports = [ ./hardware-configuration.nix ];
 in
 {
+  # TODO(alec): Import here rather than in the let declaration maybe?
   imports = [
-      ../user.nix
-      ../../modules/nvidia-drivers.nix
-      ../../modules/nvidia-prime-drivers.nix
-      ../../modules/intel-drivers.nix
-      inputs.home-manager.nixosModules.default
-    ] ++ hardwareConfigurationImports; # Include the results of the hardware scan.
+    ../user.nix
+    ../../modules/nvidia-drivers.nix
+    ../../modules/nvidia-prime-drivers.nix
+    ../../modules/intel-drivers.nix
+    inputs.home-manager.nixosModules.default
+  ] ++ hardwareConfigurationImports; # Include the results of the hardware scan.
 
   # Bootloader.
   boot.loader.grub = {
@@ -58,6 +60,7 @@ in
   virtualisation = virtualisation.virtualisation;
   fonts = fonts.fonts;
   xdg = xdg.xdg;
+  users = user.users;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -67,19 +70,6 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${username} = {
-    isNormalUser = true;
-    description = "Alec Bassingthwaighte";
-    extraGroups = [
-      "networkmanager" # Default
-      "wheel" # Default
-      "docker" # Allows Docker usage
-      "dialout" # Allows user to echo to /dev/ttyACM0 (and other devices) for hardware debugging
-      "plugdev" # Allows user to access USB devices, see custom udev rules below
-    ];
-    packages = packages.userPackages ++ [ minecraft ];
-  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
