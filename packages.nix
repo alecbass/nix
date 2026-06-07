@@ -1,14 +1,16 @@
 { pkgs, ... }:
 with pkgs; let
   fix-wifi = pkgs.writeShellScriptBin "fix-wifi" ''
-    set -euxo pipefail
+    set -euo pipefail
 
     if [[ $(whoami) != "root" ]]; then
       echo "This script should be run as sudo. Exiting..."
       exit 1
     fi
 
+    echo "Restarting wifi module..."
     modprobe -r b43 && modprobe -r bcma && modprobe -r wl && modprobe wl
+    echo "Restarted wifi!"
   '';
 
   change-wallpaper = pkgs.writeShellScriptBin "change-wallpaper" ''
