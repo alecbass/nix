@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     minecraft = {
-      url = "path:/home/alec/Documents/nix/modules/minecraft.nix";
+      url = "path:/home/alec/repos/nix/modules/minecraft.nix";
       flake = false; # This is a package
     };
     rust-overlay = {
