@@ -183,11 +183,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780883961,
-        "narHash": "sha256-WU6SUrESuPiEXEUvX4D51AgWrXRJty+sLJBwBaDBGqE=",
+        "lastModified": 1781184346,
+        "narHash": "sha256-cZRlW47U6A2nWvAmnZeeO6Xvq23gxYbVLel4KxqOrcQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "4eb4fec41674d5b059aa2eedf0f98453890546fa",
+        "rev": "ea6d221d7aa85652d014b6f719dddf036037515b",
         "type": "github"
       },
       "original": {
@@ -245,11 +245,11 @@
       "locked": {
         "lastModified": 1748236829,
         "narHash": "sha256-oGr8D9OrXIUipV8QAq/PdEGmOQNX2XxU/0+TAVPElL0=",
-        "path": "/home/alec/Documents/nix/modules/minecraft.nix",
+        "path": "/home/alec/repos/nix/modules/minecraft.nix",
         "type": "path"
       },
       "original": {
-        "path": "/home/alec/Documents/nix/modules/minecraft.nix",
+        "path": "/home/alec/repos/nix/modules/minecraft.nix",
         "type": "path"
       }
     },
@@ -312,11 +312,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780888890,
-        "narHash": "sha256-MUQPFiskEENaJ2N82TRIqpKlHXGXJJkPfKH6W788oQo=",
+        "lastModified": 1781234414,
+        "narHash": "sha256-HdA+P4fKRGOomkewnI/Tww5Wz4xK1O7+hDO90YAsPB4=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "7d5f8d75fc195a236b46633d7679139698aeb35f",
+        "rev": "1d18bfe3de6244c641ca4e8011186d0981b81d76",
         "type": "github"
       },
       "original": {
