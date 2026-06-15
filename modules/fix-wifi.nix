@@ -19,9 +19,9 @@ let
     modprobe -r b43 && modprobe -r bcma && modprobe -r wl && modprobe wl
   '';
 in
-  pkgs.symlinkJoin {
-    name = "fix-wifi";
-    paths = [
-      fix-wifi
-    ];
-  }
+pkgs.symlinkJoin {
+  name = "fix-wifi";
+  paths = [
+    fix-wifi
+  ];
+}

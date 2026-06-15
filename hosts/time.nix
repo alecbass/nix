@@ -1,7 +1,7 @@
 { }:
 let
   timeZone = "Australia/Brisbane";
-in 
+in
 {
   # Set your time zone.
   time.timeZone = timeZone;

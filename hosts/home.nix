@@ -1,12 +1,13 @@
 {
-  config,
   pkgs,
   ...
-}: let
+}:
+let
   userName = "alec";
   homeDirectory = "/home/${userName}";
   stateVersion = "25.11";
-in {
+in
+{
   home = {
     username = userName;
     homeDirectory = homeDirectory;
@@ -18,7 +19,6 @@ in {
       ".config/wlogout/icons".source = ../config/wlogout;
       ".config/rofi/config-emoji.rasi".text = "";
       ".config/rofi/config-long.rasi".text = "";
-
 
       # Shell scripts
       ".bashrc".source = ../config/files/.bashrc;
@@ -61,7 +61,7 @@ in {
     ];
 
     packages = [
-      (import ../scripts/rofi-launcher.nix {inherit pkgs;})
+      (import ../scripts/rofi-launcher.nix { inherit pkgs; })
     ];
   };
 

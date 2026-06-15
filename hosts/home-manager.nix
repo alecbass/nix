@@ -1,4 +1,3 @@
-
 { inputs, user }:
 {
   home-manager = {

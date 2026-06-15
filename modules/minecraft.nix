@@ -66,8 +66,9 @@ let
       libdrm
       libgbm
       libuuid
-    ] ++ (with xorg; [
-        libX11
+    ]
+    ++ (with xorg; [
+      libX11
     ])
   );
 
@@ -169,7 +170,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Official launcher for Minecraft, a sandbox-building game";
     homepage = "https://minecraft.net";
-    maintainers = with maintainers; [ ryantm alecbass ];
+    maintainers = with maintainers; [
+      ryantm
+      alecbass
+    ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];

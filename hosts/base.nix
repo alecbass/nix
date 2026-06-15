@@ -2,11 +2,16 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, options, customSddmTheme, probeRsRules, packages, nixosPermittedInsecurePackages, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  probeRsRules,
+  packages,
+  nixosPermittedInsecurePackages,
+  ...
+}:
 let
-  # TODO: It would be nice to have this called in the flake, but we don't have access to `pkgs` there
-  minecraft = pkgs.callPackage ../modules/minecraft.nix { };
-
   i18n = (import ./i18n.nix { });
   networking = (import ./networking.nix { inherit config pkgs; });
   time = (import ./time.nix { });
@@ -24,7 +29,7 @@ let
 in
 {
   # TODO(alec): Import here rather than in the let declaration maybe?
-  imports = [];
+  imports = [ ];
 
   networking = networking.networking;
   i18n = i18n.i18n;
@@ -45,10 +50,8 @@ in
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -91,7 +94,10 @@ in
   #
   # Nix overrides
   #
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   #
   # Packages to explicitly allow

@@ -1,5 +1,6 @@
 { pkgs, ... }:
-with pkgs; let
+with pkgs;
+let
   fix-wifi = pkgs.writeShellScriptBin "fix-wifi" ''
     set -euo pipefail
 
@@ -24,7 +25,7 @@ with pkgs; let
 
     exec $script_path && "Changed wallpaper"
   '';
-  
+
   add-ssh-key = pkgs.writeShellScriptBin "add-ssh-key" ''
     set -euo pipefail
 
@@ -37,15 +38,9 @@ with pkgs; let
     ssh-add $key_path && echo "Added SSH key"
   '';
 
-  gemini = pkgs.writeShellScriptBin "gemini" ''
-    # Runs the Gemini CLI tool without worrrying about Zod package clashes
-    set -euxo pipefail
-    
-    pnpm dlx @google/gemini-cli
-  '';
-
   run-llama = import ./modules/run-llama/module.nix { inherit pkgs; };
-in rec {
+in
+{
   # System packages that only work on NixOS and not on a Darwin flake
   nixosOnlyDeps = [
     # Terminal
@@ -113,7 +108,7 @@ in rec {
     # Editors
     neovim
     vim # For when neovim crashes lol
-    
+
     # LSPs
     shellcheck # Scripts
     lua-language-server # Lua
@@ -138,7 +133,6 @@ in rec {
     libclang
     libgcc
     cmake
-
 
     # Rust
     (rust-bin.fromRustupToolchainFile ./rust-toolchain.toml)
@@ -171,13 +165,14 @@ in rec {
     htop # Process monitoring tool
     direnv # Local environment loader
     lsof # See processes by port
-    tldr # 
+    tldr
 
     # Networking
     wireguard-tools
 
     # Nix-related
     nixfmt
+    nixd
   ];
 
   hyprlandPackages = [
@@ -206,13 +201,15 @@ in rec {
     bash
 
     # Python
-    (python314.withPackages (ps: with ps; [
-      # Setup pip
-      # pip - pip3.12 uses a C recursion symbol which Python 3.14 has since removed
-      ruff
-      pyright
-      uv
-    ]))
+    (python314.withPackages (
+      ps: with ps; [
+        # Setup pip
+        # pip - pip3.12 uses a C recursion symbol which Python 3.14 has since removed
+        ruff
+        pyright
+        uv
+      ]
+    ))
 
     # Docker
     docker
@@ -240,7 +237,7 @@ in rec {
     thonny # For MicroPython
 
     # LLMs
-    (llama-cpp.override { 
+    (llama-cpp.override {
       # Pass your config value here if the derivation supports it
       cudaSupport = true; # Compiele with GPU usage
     })

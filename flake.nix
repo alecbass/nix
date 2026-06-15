@@ -27,7 +27,6 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       flake-utils,
       rust-overlay,
@@ -36,94 +35,108 @@
     let
       nixosSystem = "x86_64-linux"; # I only run NixOS on x86 machines
       nixosPermittedInsecurePackages = [ "broadcom-sta-6.30.223.271-59-6.18.35" ];
-      allSystems = flake-utils.lib.eachDefaultSystem (system:
-      let
-        overlays = [ (import rust-overlay) ];
-        pkgs = import nixpkgs {
-          inherit system overlays;
-          config = {
-            allowUnfree = true;
-            allowSupportedSystem = true;
-            permittedInsecurePackages = [];
-            cudaSupport = true; # For llama-cpp to allow GPU usage
+      allSystems = flake-utils.lib.eachDefaultSystem (
+        system:
+        let
+          overlays = [ (import rust-overlay) ];
+          pkgs = import nixpkgs {
+            inherit system overlays;
+            config = {
+              allowUnfree = true;
+              allowSupportedSystem = true;
+              permittedInsecurePackages = [ ];
+              cudaSupport = true; # For llama-cpp to allow GPU usage
+            };
           };
-        };
 
-        # Define the custom SDDM theme as an overlay
-        customSddmThemeOverlay = final: prev: {
-          customSddmTheme = prev.stdenv.mkDerivation {
-            name = "rose-pine";
-            src = ./modules/sddm-theme;
-            installPhase = ''
-              mkdir -p $out/share/sddm/themes/rose-pine
-              cp -r $src/* $out/share/sddm/themes/rose-pine
-            '';
+          # Define the custom SDDM theme as an overlay
+          customSddmThemeOverlay = final: prev: {
+            customSddmTheme = prev.stdenv.mkDerivation {
+              name = "rose-pine";
+              src = ./modules/sddm-theme;
+              installPhase = ''
+                mkdir -p $out/share/sddm/themes/rose-pine
+                cp -r $src/* $out/share/sddm/themes/rose-pine
+              '';
+            };
           };
-        };
 
-        probeRsRules = builtins.readFile ./config/udev/69-probe-rs.rules;
+          probeRsRules = builtins.readFile ./config/udev/69-probe-rs.rules;
 
-        packages = import ./packages.nix { inherit pkgs; };
+          packages = import ./packages.nix { inherit pkgs; };
 
-        desktopConfig = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs probeRsRules packages nixosPermittedInsecurePackages; };
-          modules = [
-            (
-              {
-                config,
-                pkgs,
-                ...
-              }:
-              {
-                nixpkgs.config.allowUnfree = true;
+          desktopConfig = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit
+                inputs
+                probeRsRules
+                packages
+                nixosPermittedInsecurePackages
+                ;
+            };
+            modules = [
+              (
+                {
+                  ...
+                }:
+                {
+                  nixpkgs.config.allowUnfree = true;
 
-                # Add the custom theme overlay
-                nixpkgs.overlays = [ customSddmThemeOverlay ];
-              }
-            )
-            ./hosts/default/configuration.nix
-            inputs.stylix.nixosModules.stylix
-            inputs.home-manager.nixosModules.default
-          ];
-        };
+                  # Add the custom theme overlay
+                  nixpkgs.overlays = [ customSddmThemeOverlay ];
+                }
+              )
+              ./hosts/default/configuration.nix
+              inputs.stylix.nixosModules.stylix
+              inputs.home-manager.nixosModules.default
+            ];
+          };
 
-        laptopConfig = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs probeRsRules packages nixosPermittedInsecurePackages; };
-          modules = [
-            (
-              {
-                config,
-                pkgs,
-                ...
-              }:
-              {
-                nixpkgs.config.allowUnfree = true;
+          laptopConfig = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit
+                inputs
+                probeRsRules
+                packages
+                nixosPermittedInsecurePackages
+                ;
+            };
+            modules = [
+              (
+                {
+                  ...
+                }:
+                {
+                  nixpkgs.config.allowUnfree = true;
 
-                # Add the custom theme overlay
-                nixpkgs.overlays = [ customSddmThemeOverlay ];
-              }
-            )
-            ./hosts/laptop/configuration.nix
-            inputs.stylix.nixosModules.stylix
-            inputs.home-manager.nixosModules.default
-          ];
-        };
-      in
-      {
-        nixosConfigurations.default = desktopConfig;
-        nixosConfigurations.laptop = laptopConfig;
-        # Shell-only environment
-        devShells.default = with pkgs; mkShell {
-          buildInputs = packages.systemPackages ++ packages.userPackages ++ [ direnv ];
-        };
-      }
-    );
-  in
-  # Spread the result all eachDefaultSystem to the end result
-  allSystems // {
-    nixosConfigurations.default = allSystems.nixosConfigurations."${nixosSystem}".default;
-    nixosConfigurations.laptop = allSystems.nixosConfigurations."${nixosSystem}".laptop;
-  };
+                  # Add the custom theme overlay
+                  nixpkgs.overlays = [ customSddmThemeOverlay ];
+                }
+              )
+              ./hosts/laptop/configuration.nix
+              inputs.stylix.nixosModules.stylix
+              inputs.home-manager.nixosModules.default
+            ];
+          };
+        in
+        {
+          nixosConfigurations.default = desktopConfig;
+          nixosConfigurations.laptop = laptopConfig;
+          # Shell-only environment
+          devShells.default =
+            with pkgs;
+            mkShell {
+              buildInputs = packages.systemPackages ++ packages.userPackages ++ [ direnv ];
+            };
+        }
+      );
+    in
+    # Spread the result all eachDefaultSystem to the end result
+    allSystems
+    // {
+      nixosConfigurations.default = allSystems.nixosConfigurations."${nixosSystem}".default;
+      nixosConfigurations.laptop = allSystems.nixosConfigurations."${nixosSystem}".laptop;
+    };
 }

@@ -34,7 +34,6 @@
     };
     pulseaudio.enable = false;
 
-
     # Udev rule overwrites
     # Allow rs-probe access
     udev.extraRules = probeRsRules;

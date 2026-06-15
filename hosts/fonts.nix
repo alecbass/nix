@@ -1,6 +1,6 @@
 { pkgs }:
 {
-  fonts.packages = with pkgs; [ 
+  fonts.packages = with pkgs; [
     nerd-fonts._3270
     nerd-fonts.agave
     nerd-fonts.anonymice

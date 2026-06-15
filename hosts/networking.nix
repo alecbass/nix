@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   hostName = "nixos";
-in 
+in
 {
   networking = {
     hostName = "${hostName}"; # Define your hostname.

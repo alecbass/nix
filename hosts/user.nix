@@ -2,11 +2,12 @@
 let
   userName = "alec";
   userDescription = "Alec Bassingthwaighte";
-in {
+in
+{
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${userName} = {
     isNormalUser = true;
-    description = "Alec Bassingthwaighte";
+    description = userDescription;
     extraGroups = [
       "networkmanager" # Default
       "wheel" # Default
