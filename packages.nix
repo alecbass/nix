@@ -175,6 +175,9 @@ in rec {
 
     # Networking
     wireguard-tools
+
+    # Nix-related
+    nixfmt
   ];
 
   hyprlandPackages = [
