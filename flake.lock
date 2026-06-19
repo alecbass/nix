@@ -243,8 +243,8 @@
     "minecraft": {
       "flake": false,
       "locked": {
-        "lastModified": 1748236829,
-        "narHash": "sha256-oGr8D9OrXIUipV8QAq/PdEGmOQNX2XxU/0+TAVPElL0=",
+        "lastModified": 1781519515,
+        "narHash": "sha256-o3aUC71jKHp3+095jZS80L2daL4uGPRK4yyWmq35OTg=",
         "path": "/home/alec/repos/nix/modules/minecraft.nix",
         "type": "path"
       },
@@ -312,11 +312,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781493707,
-        "narHash": "sha256-lzf7qdQWuiY0T9VEbfH2CmP1LZQAYooU/sZuSgEJEBk=",
+        "lastModified": 1781839264,
+        "narHash": "sha256-B0RwmQxE9TqI9XAdgHKGHavdcuhqM2nMoW/PVh8X14A=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "06f25b8e40805beb2121a4dae4cc37d6f981800f",
+        "rev": "ee87764910f5d67d18694a7eb94bc0d7ae9f4655",
         "type": "github"
       },
       "original": {
