@@ -100,6 +100,9 @@ in
     kdePackages.baloo
     kdePackages.baloo-widgets
     kdePackages.qtsvg # To make file icons appear in Dolphin
+
+    rofi
+    (import ./scripts/rofi-launcher.nix { inherit pkgs; })
   ];
 
   systemPackages = [

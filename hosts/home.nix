@@ -14,11 +14,8 @@ in
     stateVersion = stateVersion; # Please read the comment before changing.
 
     file = {
-      # TODO: Use my dotfiles repository
-      # # Hyprland Config
+      # Log out options
       ".config/wlogout/icons".source = ../config/wlogout;
-      ".config/rofi/config-emoji.rasi".text = "";
-      ".config/rofi/config-long.rasi".text = "";
 
       # Shell scripts
       ".bashrc".source = ../config/files/.bashrc;
@@ -59,19 +56,14 @@ in
       "$HOME/.local/bin"
       "$HO../bin"
     ];
-
-    packages = [
-      (import ../scripts/rofi-launcher.nix { inherit pkgs; })
-    ];
   };
 
   imports = [
-    # ../config/rofi/rofi.nix
     ../config/wlogout.nix
   ];
 
   # Styling
-  stylix.targets.waybar.enable = false;
+  stylix.targets.waybar.enable = true;
   gtk = {
     iconTheme = {
       name = "Papirus-Dark";
@@ -82,32 +74,6 @@ in
     };
     gtk4.extraConfig = {
       gtk-application-prefer-dark-theme = 1;
-    };
-  };
-  qt = {
-    enable = true;
-    style.name = "kvantum";
-    platformTheme.name = "qtct";
-  };
-
-  services.hypridle = {
-    settings = {
-      general = {
-        after_sleep_cmd = "hyprctl dispatch dpms on";
-        ignore_dbus_inhibit = false;
-        lock_cmd = "hyprlock";
-      };
-      listener = [
-        {
-          timeout = 900;
-          on-timeout = "hyprlock";
-        }
-        {
-          timeout = 1200;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
-        }
-      ];
     };
   };
 

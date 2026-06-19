@@ -61,7 +61,7 @@
             };
           };
 
-          probeRsRules = builtins.readFile ./config/udev/69-probe-rs.rules;
+          probeRsRules = builtins.readFile ./udev/69-probe-rs.rules;
 
           packages = import ./packages.nix { inherit pkgs; };
 
