@@ -9,7 +9,7 @@ if [[ $(whoami) != "root" ]]; then
 fi
 
 profile=$1
-profiles=("default" "laptop")
+profiles=("default" "laptop" "oktopi")
 
 if [[ -z "$profile" ]]; then
     while [[ -z "$profile" ]]; do

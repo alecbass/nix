@@ -120,10 +120,40 @@
               inputs.home-manager.nixosModules.default
             ];
           };
+
+	  oktopiConfig = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit
+                inputs
+                probeRsRules
+                packages
+                nixosPermittedInsecurePackages
+                ;
+            };
+            modules = [
+              (
+                {
+                  ...
+                }:
+                {
+                  nixpkgs.config.allowUnfree = true;
+
+                  # Add the custom theme overlay
+                  nixpkgs.overlays = [ customSddmThemeOverlay ];
+                }
+              )
+              ./hosts/oktopi/configuration.nix
+              inputs.stylix.nixosModules.stylix
+              inputs.home-manager.nixosModules.default
+            ];
+          };
+
         in
         {
           nixosConfigurations.default = desktopConfig;
           nixosConfigurations.laptop = laptopConfig;
+          nixosConfigurations.oktopi = oktopiConfig;
           # Shell-only environment
           devShells.default =
             with pkgs;
@@ -138,5 +168,6 @@
     // {
       nixosConfigurations.default = allSystems.nixosConfigurations."${nixosSystem}".default;
       nixosConfigurations.laptop = allSystems.nixosConfigurations."${nixosSystem}".laptop;
+      nixosConfigurations.oktopi = allSystems.nixosConfigurations."${nixosSystem}".oktopi;
     };
 }
