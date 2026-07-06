@@ -34,7 +34,7 @@
     }@inputs:
     let
       nixosSystem = "x86_64-linux"; # I only run NixOS on x86 machines
-      nixosPermittedInsecurePackages = [ "broadcom-sta-6.30.223.271-59-6.18.36" ];
+      nixosPermittedInsecurePackages = [ "broadcom-sta-6.30.223.271-59-6.18.37" ];
       allSystems = flake-utils.lib.eachDefaultSystem (
         system:
         let
@@ -44,7 +44,7 @@
             config = {
               allowUnfree = true;
               allowSupportedSystem = true;
-              permittedInsecurePackages = [ ];
+              permittedInsecurePackages = nixosPermittedInsecurePackages;
               cudaSupport = true; # For llama-cpp to allow GPU usage
             };
           };
