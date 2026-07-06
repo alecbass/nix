@@ -14,7 +14,6 @@ in
     ../../modules/nvidia-prime-drivers.nix
     ../../modules/intel-drivers.nix
   ];
-  # ++ hardwareConfigurationImports;
 
   wsl = {
     enable = true;
@@ -26,13 +25,13 @@ in
 
   # WSL handles everything else, including hardware configuration
   # networking = nixos-wsl.nixosModules.default.options.wsl.config.networking; # Let Windows handle the networking
-  networking = {
+  # networking = {
     # dhcp is handled by windows
-    dhcpcd.enable = false;
+    # dhcpcd.enable = false;
 
     # disable resolvconf if WSL is managing it
-    resolvconf.enable = lib.mkIf config.wsl.wslConf.network.generateResolvConf false;
-  };
+    # resolvconf.enable = lib.mkIf config.wsl.wslConf.network.generateResolvConf false;
+  # };
 
   #
   # Hardware
