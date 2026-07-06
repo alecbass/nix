@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, nixos-wsl, packages, ... }:
+{ lib, pkgs, config, nixos-wsl, packages, ... }:
 let
   user = import ../user.nix { inherit packages; };
 in
@@ -25,7 +25,14 @@ in
   };
 
   # WSL handles everything else, including hardware configuration
-  networking = {}; # Let Windows handle the networking
+  # networking = nixos-wsl.nixosModules.default.options.wsl.config.networking; # Let Windows handle the networking
+  networking = {
+    # dhcp is handled by windows
+    dhcpcd.enable = false;
+
+    # disable resolvconf if WSL is managing it
+    resolvconf.enable = lib.mkIf config.wsl.wslConf.network.generateResolvConf false;
+  };
 
   #
   # Hardware

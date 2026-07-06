@@ -259,7 +259,7 @@
     "minecraft": {
       "flake": false,
       "locked": {
-        "lastModified": 1781519515,
+        "lastModified": 1783302542,
         "narHash": "sha256-o3aUC71jKHp3+095jZS80L2daL4uGPRK4yyWmq35OTg=",
         "path": "/home/alec/repos/nix/modules/minecraft.nix",
         "type": "path"
