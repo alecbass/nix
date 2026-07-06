@@ -240,11 +240,11 @@ in
     thonny # For MicroPython
 
     # LLMs
-    (llama-cpp.override {
+    # (llama-cpp.override {
       # Pass your config value here if the derivation supports it
-      cudaSupport = true; # Compiele with GPU usage
-    })
-    run-llama # Custom LLM serving script
+      # cudaSupport = true; # Compiele with GPU usage
+    # })
+    # run-llama # Custom LLM serving script
     opencode
 
     # Wine - for https://nixos.wiki/wiki/Battle.net
