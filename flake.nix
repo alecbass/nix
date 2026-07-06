@@ -23,6 +23,7 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
   };
 
   outputs =
@@ -30,6 +31,7 @@
       nixpkgs,
       flake-utils,
       rust-overlay,
+      nixos-wsl,
       ...
     }@inputs:
     let
@@ -121,7 +123,7 @@
             ];
           };
 
-	  oktopiConfig = nixpkgs.lib.nixosSystem {
+	  wslConfig = nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
               inherit
@@ -129,6 +131,7 @@
                 probeRsRules
                 packages
                 nixosPermittedInsecurePackages
+                nixos-wsl
                 ;
             };
             modules = [
@@ -143,7 +146,7 @@
                   nixpkgs.overlays = [ customSddmThemeOverlay ];
                 }
               )
-              ./hosts/oktopi/configuration.nix
+              ./hosts/wsl/configuration.nix
               inputs.stylix.nixosModules.stylix
               inputs.home-manager.nixosModules.default
             ];
@@ -153,7 +156,7 @@
         {
           nixosConfigurations.default = desktopConfig;
           nixosConfigurations.laptop = laptopConfig;
-          nixosConfigurations.oktopi = oktopiConfig;
+          nixosConfigurations.wsl = wslConfig;
           # Shell-only environment
           devShells.default =
             with pkgs;
@@ -168,6 +171,6 @@
     // {
       nixosConfigurations.default = allSystems.nixosConfigurations."${nixosSystem}".default;
       nixosConfigurations.laptop = allSystems.nixosConfigurations."${nixosSystem}".laptop;
-      nixosConfigurations.oktopi = allSystems.nixosConfigurations."${nixosSystem}".oktopi;
+      nixosConfigurations.wsl = allSystems.nixosConfigurations."${nixosSystem}".wsl;
     };
 }
