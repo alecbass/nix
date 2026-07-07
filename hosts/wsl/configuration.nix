@@ -10,9 +10,9 @@ in
   imports = [
     nixos-wsl.nixosModules.default
     ../base.nix
-    ../../modules/nvidia-drivers.nix
-    ../../modules/nvidia-prime-drivers.nix
-    ../../modules/intel-drivers.nix
+    # ../../modules/nvidia-drivers.nix
+    # ../../modules/nvidia-prime-drivers.nix
+    # ../../modules/intel-drivers.nix
   ];
 
   wsl = {

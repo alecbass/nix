@@ -13,7 +13,7 @@
 }:
 let
   i18n = (import ./i18n.nix { });
-  networking = (import ./networking.nix { inherit config pkgs; });
+  # networking = (import ./networking.nix { inherit config pkgs; });
   time = (import ./time.nix { });
   stylix = (import ./stylix.nix { inherit pkgs; });
   services = (import ./services.nix { inherit probeRsRules; });
@@ -31,7 +31,7 @@ in
   # TODO(alec): Import here rather than in the let declaration maybe?
   imports = [ ];
 
-  networking = networking.networking;
+  # networking = networking.networking;
   i18n = i18n.i18n;
   time = time.time;
   stylix = stylix.stylix;
