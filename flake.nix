@@ -23,6 +23,7 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
   };
 
   outputs =
@@ -30,6 +31,7 @@
       nixpkgs,
       flake-utils,
       rust-overlay,
+      nixos-wsl,
       ...
     }@inputs:
     let
@@ -120,10 +122,41 @@
               inputs.home-manager.nixosModules.default
             ];
           };
+
+          wslConfig = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = {
+              inherit
+                inputs
+                probeRsRules
+                packages
+                nixosPermittedInsecurePackages
+                nixos-wsl
+                ;
+            };
+            modules = [
+              (
+                {
+                  ...
+                }:
+                {
+                  nixpkgs.config.allowUnfree = true;
+
+                  # Add the custom theme overlay
+                  nixpkgs.overlays = [ customSddmThemeOverlay ];
+                }
+              )
+              ./hosts/wsl/configuration.nix
+              inputs.stylix.nixosModules.stylix
+              inputs.home-manager.nixosModules.default
+            ];
+          };
+
         in
         {
           nixosConfigurations.default = desktopConfig;
           nixosConfigurations.laptop = laptopConfig;
+          nixosConfigurations.wsl = wslConfig;
           # Shell-only environment
           devShells.default =
             with pkgs;
@@ -138,5 +171,6 @@
     // {
       nixosConfigurations.default = allSystems.nixosConfigurations."${nixosSystem}".default;
       nixosConfigurations.laptop = allSystems.nixosConfigurations."${nixosSystem}".laptop;
+      nixosConfigurations.wsl = allSystems.nixosConfigurations."${nixosSystem}".wsl;
     };
 }
