@@ -123,7 +123,7 @@
             ];
           };
 
-	  wslConfig = nixpkgs.lib.nixosSystem {
+          wslConfig = nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = {
               inherit

@@ -4,7 +4,6 @@
 
 {
   lib,
-  pkgs,
   config,
   nixos-wsl,
   packages,
@@ -17,21 +16,17 @@ in
   imports = [
     nixos-wsl.nixosModules.default
     ../base.nix
-    # ../../modules/nvidia-drivers.nix
-    # ../../modules/nvidia-prime-drivers.nix
-    # ../../modules/intel-drivers.nix
   ];
 
   wsl = {
     enable = true;
     defaultUser = user.userName; # Set your primary login username - from user.nix
 
-    # Optional: Integrate Windows PATH into Linux
     wslConf.interop.appendWindowsPath = true;
-    wslConf.network.generateResolvConf = false;
+    wslConf.network.generateResolvConf = false; # Manually handle networking - might remove
   };
 
-  # Overrides because Windows settings take precedence
+  # Forcefully set DNS and override resolv.conf - might remove
   networking.enableIPv6 = false;
   networking.networkmanager.enable = lib.mkForce false;
   networking.nameservers = [
@@ -54,17 +49,11 @@ in
   xdg.portal.enable = lib.mkForce false;
   systemd.user.services.change-wallpaper.enable = lib.mkForce false;
 
-  # The prompt UI doesn't show up. Ask in the tty instead
+  # The prompt UI for SSH doesn't show up. Ask in the tty instead
   programs.ssh.enableAskPassword = lib.mkForce false;
   environment.sessionVariables."SSH_ASKPASS_REQUIRE" = lib.mkForce "never";
 
-  # WSL handles everything else, including hardware configuration
-
-  #
-  # Hardware
-  #
-
-  # Enable Nvidia GPU drivers
+  # Enable Nvidia GPU drivers - unneeded
   hardware = {
     nvidia = {
       open = true;
@@ -82,4 +71,6 @@ in
       enable = true;
     };
   };
+
+  # WSL handles everything else, including hardware configuration
 }
