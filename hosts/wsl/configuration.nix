@@ -42,15 +42,17 @@ in
   networking.resolvconf.enable = true;
   boot.kernel.sysctl."net.ipv6.conf.eth0.disable_ipv6" = true;
 
-  # Native NixOS and/or Hyprland-specific, disable
+  # Don't run any NixOS native stuff
   systemd.services.libvirtd.enable = lib.mkForce false;
   systemd.services.fix-wifi.enable = lib.mkForce false;
-  systemd.user.services.change-wallpaper.enable = lib.mkForce false;
+
+  # Disable everything to do with display and Hyprland
   services.xserver.enable = lib.mkForce false;
   services.displayManager.sddm.enable = lib.mkForce false;
   programs.hyprland.enable = lib.mkForce false;
   programs.ssh.startAgent = lib.mkForce true;
   xdg.portal.enable = lib.mkForce false;
+  systemd.user.services.change-wallpaper.enable = lib.mkForce false;
 
   # The prompt UI doesn't show up. Ask in the tty instead
   programs.ssh.enableAskPassword = lib.mkForce false;
