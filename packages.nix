@@ -246,6 +246,7 @@ in
     # })
     # run-llama # Custom LLM serving script
     opencode
+    claude-code
 
     # Wine - for https://nixos.wiki/wiki/Battle.net
     (wineWow64Packages.full.override {
