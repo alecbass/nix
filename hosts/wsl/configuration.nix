@@ -30,22 +30,33 @@ in
     wslConf.interop.appendWindowsPath = true;
     wslConf.network.generateResolvConf = false;
   };
+
+  # Overrides because Windows settings take precedence
   networking.enableIPv6 = false;
   networking.networkmanager.enable = lib.mkForce false;
-  networking.nameservers = [ "8.8.8.8" "1.1.1.1" "8.8.4.4" ];
+  networking.nameservers = [
+    "8.8.8.8"
+    "1.1.1.1"
+    "8.8.4.4"
+  ];
   networking.resolvconf.enable = true;
   boot.kernel.sysctl."net.ipv6.conf.eth0.disable_ipv6" = true;
 
-  # WSL handles everything else, including hardware configuration
-  # networking = nixos-wsl.nixosModules.default.options.wsl.config.networking; # Let Windows handle the networking
-  # networking = {
-  # dhcp is handled by windows
-  # dhcpcd.enable = false;
+  # Native NixOS and/or Hyprland-specific, disable
+  systemd.services.libvirtd.enable = lib.mkForce false;
+  systemd.services.fix-wifi.enable = lib.mkForce false;
+  systemd.user.services.change-wallpaper.enable = lib.mkForce false;
+  services.xserver.enable = lib.mkForce false;
+  services.displayManager.sddm.enable = lib.mkForce false;
+  programs.hyprland.enable = lib.mkForce false;
+  programs.ssh.startAgent = lib.mkForce true;
+  xdg.portal.enable = lib.mkForce false;
 
-  # disable resolvconf if WSL is managing it
-  # resolvconf.enable = lib.mkIf config.wsl.wslConf.network.generateResolvConf false;
-  # };
-  programs.ssh.startAgent = lib.mkForce false;
+  # The prompt UI doesn't show up. Ask in the tty instead
+  programs.ssh.enableAskPassword = lib.mkForce false;
+  environment.sessionVariables."SSH_ASKPASS_REQUIRE" = lib.mkForce "never";
+
+  # WSL handles everything else, including hardware configuration
 
   #
   # Hardware
