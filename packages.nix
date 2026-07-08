@@ -254,6 +254,9 @@ in
       mingwSupport = true;
     })
     winetricks
+
+    # Oktopi-specific
+    awscli2
   ];
 
 }

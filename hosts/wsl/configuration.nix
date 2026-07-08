@@ -23,19 +23,7 @@ in
     defaultUser = user.userName; # Set your primary login username - from user.nix
 
     wslConf.interop.appendWindowsPath = true;
-    wslConf.network.generateResolvConf = false; # Manually handle networking - might remove
   };
-
-  # Forcefully set DNS and override resolv.conf - might remove
-  networking.enableIPv6 = false;
-  networking.networkmanager.enable = lib.mkForce false;
-  networking.nameservers = [
-    "8.8.8.8"
-    "1.1.1.1"
-    "8.8.4.4"
-  ];
-  networking.resolvconf.enable = true;
-  boot.kernel.sysctl."net.ipv6.conf.eth0.disable_ipv6" = true;
 
   # Don't run any NixOS native stuff
   systemd.services.libvirtd.enable = lib.mkForce false;
