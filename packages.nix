@@ -152,8 +152,8 @@ in
     typescript
     eslint
     prettier
-    nodejs_24
-    corepack_24
+    nodejs_26
+    pnpm
 
     # CSS
     stylelint
@@ -241,8 +241,8 @@ in
 
     # LLMs
     # (llama-cpp.override {
-      # Pass your config value here if the derivation supports it
-      # cudaSupport = true; # Compiele with GPU usage
+    # Pass your config value here if the derivation supports it
+    # cudaSupport = true; # Compiele with GPU usage
     # })
     # run-llama # Custom LLM serving script
     opencode

@@ -4,7 +4,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     flake-utils.url = "github:numtide/flake-utils";
     stylix = {
-      url = "github:nix-community/stylix/release-25.11";
+      url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
@@ -14,10 +14,6 @@
     hyprpanel = {
       url = "github:Jas-SinghFSU/HyprPanel";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    minecraft = {
-      url = "path:/home/alec/repos/nix/modules/minecraft.nix";
-      flake = false; # This is a package
     };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -37,6 +33,15 @@
     let
       nixosSystem = "x86_64-linux"; # I only run NixOS on x86 machines
       nixosPermittedInsecurePackages = [ "broadcom-sta-6.30.223.271-59-6.18.38" ];
+
+      baseOsConfig = { ... }: {
+        nixpkgs.config = {
+          allowBroken = false;
+          allowUnfree = true;
+        };
+        nixpkgs.overlays = [ ];
+      };
+
       allSystems = flake-utils.lib.eachDefaultSystem (
         system:
         let
@@ -44,27 +49,14 @@
           pkgs = import nixpkgs {
             inherit system overlays;
             config = {
+              allowBroken = false;
               allowUnfree = true;
               allowSupportedSystem = true;
               permittedInsecurePackages = nixosPermittedInsecurePackages;
               cudaSupport = true; # For llama-cpp to allow GPU usage
             };
           };
-
-          # Define the custom SDDM theme as an overlay
-          customSddmThemeOverlay = final: prev: {
-            customSddmTheme = prev.stdenv.mkDerivation {
-              name = "rose-pine";
-              src = ./modules/sddm-theme;
-              installPhase = ''
-                mkdir -p $out/share/sddm/themes/rose-pine
-                cp -r $src/* $out/share/sddm/themes/rose-pine
-              '';
-            };
-          };
-
           probeRsRules = builtins.readFile ./udev/69-probe-rs.rules;
-
           packages = import ./packages.nix { inherit pkgs; };
 
           desktopConfig = nixpkgs.lib.nixosSystem {
@@ -78,17 +70,7 @@
                 ;
             };
             modules = [
-              (
-                {
-                  ...
-                }:
-                {
-                  nixpkgs.config.allowUnfree = true;
-
-                  # Add the custom theme overlay
-                  nixpkgs.overlays = [ customSddmThemeOverlay ];
-                }
-              )
+              baseOsConfig
               ./hosts/default/configuration.nix
               inputs.stylix.nixosModules.stylix
               inputs.home-manager.nixosModules.default
@@ -106,17 +88,7 @@
                 ;
             };
             modules = [
-              (
-                {
-                  ...
-                }:
-                {
-                  nixpkgs.config.allowUnfree = true;
-
-                  # Add the custom theme overlay
-                  nixpkgs.overlays = [ customSddmThemeOverlay ];
-                }
-              )
+              baseOsConfig
               ./hosts/laptop/configuration.nix
               inputs.stylix.nixosModules.stylix
               inputs.home-manager.nixosModules.default
@@ -135,17 +107,7 @@
                 ;
             };
             modules = [
-              (
-                {
-                  ...
-                }:
-                {
-                  nixpkgs.config.allowUnfree = true;
-
-                  # Add the custom theme overlay
-                  nixpkgs.overlays = [ customSddmThemeOverlay ];
-                }
-              )
+              baseOsConfig
               ./hosts/wsl/configuration.nix
               inputs.stylix.nixosModules.stylix
               inputs.home-manager.nixosModules.default
