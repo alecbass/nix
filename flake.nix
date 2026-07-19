@@ -1,10 +1,10 @@
 {
   description = "My NixOS flake: can be used to create a NixOS flake or create a local environment with the same configuration.";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     stylix = {
-      url = "github:nix-community/stylix/release-26.05";
+      url = "github:nix-community/stylix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {

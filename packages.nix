@@ -83,7 +83,7 @@ in
 
     # Miscellaneous
     tuigreet
-    libsForQt5.qt5.qtgraphicaleffects
+    qt5.qtgraphicaleffects
     kdePackages.dolphin
     kdePackages.kio
     kdePackages.kio-extras
