@@ -93,7 +93,7 @@ in
     kdePackages.kdegraphics-thumbnailers
     kdePackages.kdegraphics-mobipocket
     kdePackages.kimageformats
-    kdePackages.calligra
+    # kdePackages.calligra
     kdePackages.qtimageformats
     kdePackages.ffmpegthumbs
     kdePackages.taglib
