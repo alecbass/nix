@@ -125,6 +125,7 @@ in
     docker-language-server # Docker
     docker-compose-language-service # Docker Compose
     diagnostic-languageserver # Custom LSPs
+    luaPackages.tree-sitter-cli # For Neovim Treesitter
 
     # C/C++
     libgcc
