@@ -33,7 +33,7 @@
     let
       nixosSystem = "x86_64-linux"; # I only run NixOS on x86 machines
       nixosPermittedInsecurePackages = [
-        "broadcom-sta-6.30.223.271-59-6.18.38"
+        "broadcom-sta-6.30.223.271-59-6.18.39"
         "pnpm-9.15.9"
       ];
 
