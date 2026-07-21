@@ -32,5 +32,5 @@ fi
 
 # Open up a Zellij tab if it isn't open already
 if [[ ! -v ZELLIJ ]]; then
-    zellij
+    zellij --layout oktopit
 fi
