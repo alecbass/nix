@@ -126,6 +126,7 @@ in
     docker-compose-language-service # Docker Compose
     diagnostic-languageserver # Custom LSPs
     tree-sitter # Parser for Neovim Treesitter
+    yaml-language-server
 
     # C/C++
     libgcc
