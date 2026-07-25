@@ -1,7 +1,7 @@
 {
   pkgs,
   packages,
-  inputs,
+  ...
 }:
 {
   environment.sessionVariables = {
@@ -23,11 +23,5 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages =
-    packages.nixosOnlyDeps
-    ++ packages.systemPackages
-    ++ packages.hyprlandPackages
-    ++ [
-      inputs.hyprpanel.packages.${pkgs.system}.default # Used instead of an overlay
-      # customSddmTheme
-    ];
+    packages.nixosOnlyDeps ++ packages.systemPackages ++ packages.hyprlandPackages;
 }

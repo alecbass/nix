@@ -192,6 +192,7 @@ in
     swaynotificationcenter
     hyprpaper # Background image
     change-wallpaper
+    wayle # Top bar
   ];
 
   userPackages = [
