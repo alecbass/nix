@@ -151,7 +151,7 @@ in
     go
 
     # JavaScript / TypeScript
-    typescript
+    typescript-go # Replace with `typescript` when its version is >=7.0
     eslint
     prettier
     nodejs_26
