@@ -83,7 +83,7 @@ in
 
     # Miscellaneous
     tuigreet
-    libsForQt5.qt5.qtgraphicaleffects
+    qt5.qtgraphicaleffects
     kdePackages.dolphin
     kdePackages.kio
     kdePackages.kio-extras
@@ -93,7 +93,7 @@ in
     kdePackages.kdegraphics-thumbnailers
     kdePackages.kdegraphics-mobipocket
     kdePackages.kimageformats
-    kdePackages.calligra
+    # kdePackages.calligra
     kdePackages.qtimageformats
     kdePackages.ffmpegthumbs
     kdePackages.taglib
@@ -125,6 +125,8 @@ in
     docker-language-server # Docker
     docker-compose-language-service # Docker Compose
     diagnostic-languageserver # Custom LSPs
+    tree-sitter # Parser for Neovim Treesitter
+    yaml-language-server
 
     # C/C++
     libgcc
@@ -149,7 +151,7 @@ in
     go
 
     # JavaScript / TypeScript
-    typescript
+    typescript-go # Replace with `typescript` when its version is >=7.0
     eslint
     prettier
     nodejs_26
@@ -190,6 +192,7 @@ in
     swaynotificationcenter
     hyprpaper # Background image
     change-wallpaper
+    wayle # Top bar
   ];
 
   userPackages = [

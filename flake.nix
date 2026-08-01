@@ -1,18 +1,14 @@
 {
   description = "My NixOS flake: can be used to create a NixOS flake or create a local environment with the same configuration.";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     stylix = {
-      url = "github:nix-community/stylix/release-26.05";
+      url = "github:nix-community/stylix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprpanel = {
-      url = "github:Jas-SinghFSU/HyprPanel";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay = {
@@ -32,7 +28,9 @@
     }@inputs:
     let
       nixosSystem = "x86_64-linux"; # I only run NixOS on x86 machines
-      nixosPermittedInsecurePackages = [ "broadcom-sta-6.30.223.271-59-6.18.38" ];
+      nixosPermittedInsecurePackages = [
+        "broadcom-sta-6.30.223.271-63-6.18.40"
+      ];
 
       baseOsConfig = { ... }: {
         nixpkgs.config = {
