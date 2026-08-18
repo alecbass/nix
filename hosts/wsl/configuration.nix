@@ -29,6 +29,9 @@ in
   systemd.services.libvirtd.enable = lib.mkForce false;
   systemd.services.fix-wifi.enable = lib.mkForce false;
 
+  # Use Windows networking
+  networking.networkmanager.enable = lib.mkForce false;
+
   # Disable everything to do with display and Hyprland
   services.xserver.enable = lib.mkForce false;
   services.displayManager.sddm.enable = lib.mkForce false;
