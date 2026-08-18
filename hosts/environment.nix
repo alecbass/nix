@@ -18,6 +18,9 @@
 
     # Let GDM find gnome-session https://github.com/NixOS/nixpkgs/issues/523332#issuecomment-4528189167
     XDG_DATA_DIRS = [ "${pkgs.gdm}/share" ];
+
+    # Oktopi-specific, don't run slow Git pre-commit hooks
+    HUSKY = "0";
   };
 
   # List packages installed in system profile. To search, run:
