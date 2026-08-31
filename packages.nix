@@ -58,9 +58,6 @@ in
     alsa-utils # Sound and volume utilities
     brightnessctl # Screen brightness controls
 
-    # Windows emulation
-    # wine # 32-bit, use wine64 for 64-bit
-
     # Device Management
     gparted
 
@@ -251,12 +248,15 @@ in
     opencode
     claude-code
 
+    # Windows emulation
+    # wine # 32-bit, use wine64 for 64-bit
+
     # Wine - for https://nixos.wiki/wiki/Battle.net
-    (wineWow64Packages.full.override {
-      wineRelease = "staging";
-      mingwSupport = true;
-    })
-    winetricks
+    # (wineWow64Packages.full.override {
+    #   wineRelease = "staging";
+    #   mingwSupport = true;
+    # })
+    # winetricks
 
     # Oktopi-specific
     awscli2
