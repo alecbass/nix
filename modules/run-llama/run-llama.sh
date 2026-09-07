@@ -9,19 +9,15 @@ model_name=${1:-$default_model}
 context_size=${2:-40960}
 gpu_layers=${3:-64}
 
+model_name="unsloth/gemma-4-E2B-it-GGUF"
+
 echo "Running LLM"
 echo "Model: $model_name"
 echo "Context size: $context_size"
 
 llama-server \
   --hf-repo "$model_name" \
-  --n-gpu-layers "$gpu_layers" \
-  --ubatch-size 512 \
-  --temp 0.2 \
-  --ctx-size "$context_size" \
-  --cache-type-k q5_1 \
-  --cache-type-v q5_1 \
-  --flash-attn on \
+  --temp 1.0 \
   --host 127.0.0.1 \
   --jinja \
   --port 8080

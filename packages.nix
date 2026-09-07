@@ -71,7 +71,7 @@ in
     # stremio # NOTE(alec): Removed as it uses qt-5 which nix does't build nicely anymore
 
     # Editing
-    gimp-with-plugins
+    # gimp-with-plugins
     libreoffice-qt
 
     # Desktop-specific
@@ -240,11 +240,11 @@ in
     thonny # For MicroPython
 
     # LLMs
-    # (llama-cpp.override {
-    # Pass your config value here if the derivation supports it
-    # cudaSupport = true; # Compiele with GPU usage
-    # })
-    # run-llama # Custom LLM serving script
+    (llama-cpp.override {
+      # Pass your config value here if the derivation supports it
+      cudaSupport = false; # Compiele with GPU usage
+    })
+    run-llama # Custom LLM serving script
     opencode
     claude-code
 
