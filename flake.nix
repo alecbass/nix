@@ -29,7 +29,7 @@
     let
       nixosSystem = "x86_64-linux"; # I only run NixOS on x86 machines
       nixosPermittedInsecurePackages = [
-        "broadcom-sta-6.30.223.271-63-6.18.49"
+        "broadcom-sta-6.30.223.271-63-6.18.50"
       ];
 
       baseOsConfig = { ... }: {
@@ -44,6 +44,7 @@
         system:
         let
           overlays = [ (import rust-overlay) ];
+          hasCudaSupport = true;
           pkgs = import nixpkgs {
             inherit system overlays;
             config = {
@@ -55,7 +56,6 @@
             };
           };
           probeRsRules = builtins.readFile ./udev/69-probe-rs.rules;
-          hasCudaSupport = system.name != "wsl";
           packages = import ./packages.nix { inherit pkgs hasCudaSupport; };
 
           desktopConfig = nixpkgs.lib.nixosSystem {
