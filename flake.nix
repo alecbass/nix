@@ -51,11 +51,12 @@
               allowUnfree = true;
               allowSupportedSystem = true;
               permittedInsecurePackages = nixosPermittedInsecurePackages;
-              cudaSupport = true; # For llama-cpp to allow GPU usage
+              cudaSupport = hasCudaSupport; # For llama-cpp to allow GPU usage
             };
           };
           probeRsRules = builtins.readFile ./udev/69-probe-rs.rules;
-          packages = import ./packages.nix { inherit pkgs; };
+          hasCudaSupport = system.name != "wsl";
+          packages = import ./packages.nix { inherit pkgs hasCudaSupport; };
 
           desktopConfig = nixpkgs.lib.nixosSystem {
             inherit system;

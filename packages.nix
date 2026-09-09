@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, hasCudaSupport, ... }:
 with pkgs;
 let
   fix-wifi = pkgs.writeShellScriptBin "fix-wifi" ''
@@ -242,7 +242,7 @@ in
     # LLMs
     (llama-cpp.override {
       # Pass your config value here if the derivation supports it
-      cudaSupport = false; # Compiele with GPU usage
+      cudaSupport = hasCudaSupport; # Compiele with GPU usage
     })
     run-llama # Custom LLM serving script
     opencode
