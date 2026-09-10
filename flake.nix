@@ -44,7 +44,7 @@
         system:
         let
           overlays = [ (import rust-overlay) ];
-          hasCudaSupport = true;
+          hasCudaSupport = false;
           pkgs = import nixpkgs {
             inherit system overlays;
             config = {

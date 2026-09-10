@@ -2,27 +2,33 @@
 
 set -euo pipefail
 
-coder_model="unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF"
-default_model="unsloth/Qwen3.6-27B-GGUF"
+mode=${1:-""}
 
-model_name=${1:-$default_model}
+if [[ $mode != "fim" && $mode != "default" ]]; then
+    echo "Usage: <run_llama> <fim|default>"
+    exit 1
+fi
+
+fim_model="ggml-org/Qwen2.5-Coder-1.5B-Q8_0-GGUF"
+default_model="unsloth/gemma-4-E2B-it-GGUF"
+
+if [[ $mode == "fim" ]]; then
+    model=$fim_model
+elif [[ $mode == "default" ]]; then
+    model=$default_model
+fi
+
 context_size=${2:-40960}
-gpu_layers=${3:-64}
-
-model_name="unsloth/gemma-4-E2B-it-GGUF"
-model_name="ggml-org/Qwen2.5-Coder-1.5B-Q8_0-GGUF"
-model_name="unsloth/gemma-4-26B-A4B-it-qat-GGUF"
-
 
 echo "Running LLM"
-echo "Model: $model_name"
+echo "Model: $model"
 echo "Context size: $context_size"
 
-if [[ $model_name == "ggml-org/Qwen2.5-Coder-1.5B-Q8_0-GGUF" ]]; then
-    echo "Running Qwen2.5 Coder for autocompletion."""
+if [[ $mode == "fim" ]]; then
+    echo "Running code autocompletion."""
     llama-server \
-      --hf-repo "$model_name" \
-      --temp 1.0 \
+      --hf-repo "$model" \
+      --temp 0.1 \
       --host 127.0.0.1 \
       --jinja \
       --port 8012 \
@@ -33,9 +39,10 @@ if [[ $model_name == "ggml-org/Qwen2.5-Coder-1.5B-Q8_0-GGUF" ]]; then
       --ctx-size 0 \
       --cache-reuse 256
 else
+    echo "Running default"
     gpu_layers=8
     llama-server \
-      --hf-repo "$model_name" \
+      --hf-repo "$model" \
       --temp 1.0 \
       --host 127.0.0.1 \
       --jinja \
