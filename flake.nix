@@ -44,7 +44,6 @@
         system:
         let
           overlays = [ (import rust-overlay) ];
-          hasCudaSupport = true;
           pkgs = import nixpkgs {
             inherit system overlays;
             config = {
@@ -52,11 +51,9 @@
               allowUnfree = true;
               allowSupportedSystem = true;
               permittedInsecurePackages = nixosPermittedInsecurePackages;
-              cudaSupport = hasCudaSupport; # For llama-cpp to allow GPU usage
             };
           };
           probeRsRules = builtins.readFile ./udev/69-probe-rs.rules;
-          packages = import ./packages.nix { inherit pkgs hasCudaSupport; };
 
           desktopConfig = nixpkgs.lib.nixosSystem {
             inherit system;
@@ -64,9 +61,9 @@
               inherit
                 inputs
                 probeRsRules
-                packages
                 nixosPermittedInsecurePackages
                 ;
+              flakePkgs = pkgs;
             };
             modules = [
               baseOsConfig
@@ -82,9 +79,9 @@
               inherit
                 inputs
                 probeRsRules
-                packages
                 nixosPermittedInsecurePackages
                 ;
+              flakePkgs = pkgs;
             };
             modules = [
               baseOsConfig
@@ -100,10 +97,10 @@
               inherit
                 inputs
                 probeRsRules
-                packages
                 nixosPermittedInsecurePackages
                 nixos-wsl
                 ;
+              flakePkgs = pkgs;
             };
             modules = [
               baseOsConfig
@@ -113,6 +110,11 @@
             ];
           };
 
+          # Assume that the dev shell does not had CUDA support
+          devShellPackages = import ./packages.nix {
+            inherit pkgs;
+            hasCudaSupport = false;
+          };
         in
         {
           nixosConfigurations.default = desktopConfig;
@@ -122,7 +124,7 @@
           devShells.default =
             with pkgs;
             mkShell {
-              buildInputs = packages.systemPackages ++ packages.userPackages ++ [ direnv ];
+              buildInputs = devShellPackages.systemPackages ++ devShellPackages.userPackages ++ [ direnv ];
             };
         }
       );

@@ -7,11 +7,17 @@
   pkgs,
   inputs,
   probeRsRules,
-  packages,
+  flakePkgs,
   nixosPermittedInsecurePackages,
   ...
 }:
 let
+  packages = (
+    import ../packages.nix {
+      pkgs = flakePkgs;
+      hasCudaSupport = config.hasCudaSupport;
+    }
+  );
   i18n = (import ./i18n.nix { });
   networking = (import ./networking.nix { inherit config pkgs; });
   time = (import ./time.nix { });
@@ -29,7 +35,7 @@ let
 in
 {
   # TODO(alec): Import here rather than in the let declaration maybe?
-  imports = [ ];
+  imports = [ ../modules/has-cuda-support.nix ];
 
   networking = networking.networking;
   i18n = i18n.i18n;

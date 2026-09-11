@@ -29,6 +29,9 @@ in
   # Hardware
   #
 
+  # Enable CUDA support for llama-cpp GPU usage
+  hasCudaSupport = true;
+
   # Enable Nvidia GPU drivers
   hardware = {
     nvidia = {
