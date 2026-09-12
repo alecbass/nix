@@ -100,6 +100,16 @@ in
 
     rofi
     (import ./scripts/rofi-launcher.nix { inherit pkgs; })
+
+    # Windows emulation
+    # wine # 32-bit, use wine64 for 64-bit
+
+    # Wine - for https://nixos.wiki/wiki/Battle.net
+    (wineWow64Packages.full.override {
+      wineRelease = "staging";
+      mingwSupport = true;
+    })
+    winetricks
   ];
 
   systemPackages = [
@@ -247,16 +257,6 @@ in
     run-llama # Custom LLM serving script
     opencode
     claude-code
-
-    # Windows emulation
-    # wine # 32-bit, use wine64 for 64-bit
-
-    # Wine - for https://nixos.wiki/wiki/Battle.net
-    # (wineWow64Packages.full.override {
-    #   wineRelease = "staging";
-    #   mingwSupport = true;
-    # })
-    # winetricks
 
     # Oktopi-specific
     awscli2
