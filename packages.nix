@@ -134,6 +134,7 @@ in
     diagnostic-languageserver # Custom LSPs
     tree-sitter # Parser for Neovim Treesitter
     yaml-language-server
+    pyright # Python
 
     # C/C++
     libgcc
