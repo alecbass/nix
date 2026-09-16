@@ -9,7 +9,7 @@ if [[ $mode != "fim" && $mode != "big-fim" && $mode != "default" ]]; then
     exit 1
 fi
 
-fim_model="ggml-org/Qwen2.5-Coder-1.5B-Q8_0-GGUF"
+fim_model="Qwen/Qwen2.5-Coder-3B-Instruct-GGUF"
 big_fim_model="ggml-org/Qwen3-Coder-30B-A3B-Instruct-Q8_0-GGUF"
 default_model="unsloth/gemma-4-E2B-it-GGUF"
 
