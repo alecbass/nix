@@ -21,6 +21,9 @@
 
     # Oktopi-specific, don't run slow Git pre-commit hooks
     HUSKY = "0";
+
+    # Use Neovim for the default git commit editor
+    EDITOR = "nvim";
   };
 
   # List packages installed in system profile. To search, run:
