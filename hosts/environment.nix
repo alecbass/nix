@@ -24,6 +24,9 @@
 
     # Use Neovim for the default git commit editor
     EDITOR = "nvim";
+
+    # Use the standard Zellij profile by default
+    ZELLIJ_DEFAULT_PROFILE = "default";
   };
 
   # List packages installed in system profile. To search, run:
