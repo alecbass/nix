@@ -25,6 +25,9 @@
     # Use Neovim for the default git commit editor
     EDITOR = "nvim";
 
+    # Don't run Minuet by default
+    NEOVIM_RUN_MINUET = "0";
+
     # Use the standard Zellij profile by default
     ZELLIJ_DEFAULT_PROFILE = "default";
   };
