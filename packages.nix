@@ -220,8 +220,11 @@ in
         # Setup pip
         # pip - pip3.12 uses a C recursion symbol which Python 3.14 has since removed
         ruff
-        pyright
+        basedpyright
         uv
+
+        # Specific to Oktopi
+        pytest-language-server
       ]
     ))
 
