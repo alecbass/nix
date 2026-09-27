@@ -224,7 +224,7 @@ in
         uv
 
         # Specific to Oktopi
-        pytest-language-server
+        # pytest-language-server
       ]
     ))
 
