@@ -18,7 +18,7 @@ in
       ".config/wlogout/icons".source = ../config/wlogout;
 
       # Shell scripts
-      ".bashrc".source = ../config/files/.bashrc;
+      ".bashrc".source = ../dotfiles/bashrc;
     };
 
     sessionVariables = {
