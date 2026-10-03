@@ -100,6 +100,16 @@ in
 
     rofi
     (import ./scripts/rofi-launcher.nix { inherit pkgs; })
+
+    # Windows emulation
+    # wine # 32-bit, use wine64 for 64-bit
+
+    # Wine - for https://nixos.wiki/wiki/Battle.net
+    (wineWow64Packages.full.override {
+      wineRelease = "staging";
+      mingwSupport = true;
+    })
+    winetricks
   ];
 
   systemPackages = [
@@ -124,6 +134,7 @@ in
     diagnostic-languageserver # Custom LSPs
     tree-sitter # Parser for Neovim Treesitter
     yaml-language-server
+    basedpyright # Python
 
     # C/C++
     libgcc
@@ -209,8 +220,11 @@ in
         # Setup pip
         # pip - pip3.12 uses a C recursion symbol which Python 3.14 has since removed
         ruff
-        pyright
+        basedpyright
         uv
+
+        # Specific to Oktopi
+        # pytest-language-server
       ]
     ))
 
@@ -247,16 +261,6 @@ in
     run-llama # Custom LLM serving script
     opencode
     claude-code
-
-    # Windows emulation
-    # wine # 32-bit, use wine64 for 64-bit
-
-    # Wine - for https://nixos.wiki/wiki/Battle.net
-    # (wineWow64Packages.full.override {
-    #   wineRelease = "staging";
-    #   mingwSupport = true;
-    # })
-    # winetricks
 
     # Oktopi-specific
     awscli2

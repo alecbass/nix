@@ -51,7 +51,9 @@ in
 
   # The prompt UI for SSH doesn't show up. Ask in the tty instead
   programs.ssh.enableAskPassword = lib.mkForce false;
+
   environment.sessionVariables."SSH_ASKPASS_REQUIRE" = lib.mkForce "never";
+  environment.sessionVariables."DEFAULT_ZELLIJ_PROFILE" = lib.mkForce "oktopi";
 
   # Enable Nvidia GPU drivers - unneeded
   hardware = {

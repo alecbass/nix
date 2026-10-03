@@ -25,7 +25,7 @@ let
   services = (import ./services.nix { inherit probeRsRules; });
   security = (import ./security.nix { });
   systemd = (import ./systemd.nix { inherit pkgs packages; });
-  programs = (import ./programs.nix { });
+  programs = (import ./programs.nix { inherit pkgs; });
   environment = (import ./environment.nix { inherit pkgs packages inputs; });
   virtualisation = (import ./virtualisation.nix { });
   fonts = (import ./fonts.nix { inherit pkgs; });

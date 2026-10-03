@@ -21,6 +21,15 @@
 
     # Oktopi-specific, don't run slow Git pre-commit hooks
     HUSKY = "0";
+
+    # Use Neovim for the default git commit editor
+    EDITOR = "nvim";
+
+    # Don't run Minuet by default
+    NEOVIM_RUN_MINUET = "0";
+
+    # Use the standard Zellij profile by default
+    ZELLIJ_DEFAULT_PROFILE = "default";
   };
 
   # List packages installed in system profile. To search, run:
