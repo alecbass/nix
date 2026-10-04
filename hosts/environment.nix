@@ -12,7 +12,7 @@
     NIXOS_OZONE_WL = "1";
     SSH_ASKPASS_REQUIRE = "prefer";
 
-    # For World of Warcraft
+    # For World of Warcraft - currently disabled
     WINEARCH = "win64";
     WINEPREFIX = "$HOME/.wine-battlenet";
 
