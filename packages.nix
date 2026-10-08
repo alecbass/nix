@@ -105,11 +105,11 @@ in
     # wine # 32-bit, use wine64 for 64-bit
 
     # Wine - for https://nixos.wiki/wiki/Battle.net
-    (wineWow64Packages.full.override {
-      wineRelease = "staging";
-      mingwSupport = true;
-    })
-    winetricks
+    # (wineWow64Packages.full.override {
+    #   wineRelease = "staging";
+    #   mingwSupport = true;
+    # })
+    # winetricks
   ];
 
   systemPackages = [

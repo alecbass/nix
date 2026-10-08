@@ -33,4 +33,5 @@ fi
 
 echo "Rebuilding profile: $profile"
 
-nixos-rebuild switch --flake ".#${profile}"
+# Use submodules for dotfiles
+nixos-rebuild switch --flake ".?submodules=1#${profile}"
