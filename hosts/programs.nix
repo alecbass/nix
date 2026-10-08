@@ -7,9 +7,6 @@
   # Install firefox.
   programs.firefox.enable = true;
 
-  # Install direnv
-  programs.direnv.enable = true;
-
   # Enable Hyprland
   programs.hyprland = {
     enable = true;

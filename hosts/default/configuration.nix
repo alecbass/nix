@@ -13,6 +13,7 @@ in
     ../../modules/nvidia-drivers.nix
     ../../modules/nvidia-prime-drivers.nix
     ../../modules/gaming
+    ../../modules/development
   ]
   ++ hardwareConfigurationImports;
 

@@ -22,6 +22,7 @@ in
   imports = [
     nixos-wsl.nixosModules.default
     ../base.nix
+    ../../modules/development
   ];
 
   # My work laptop running WSL doesn't have CUDA support
