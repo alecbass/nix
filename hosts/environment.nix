@@ -10,25 +10,9 @@
 
     # Hint electron apps to use wayland
     NIXOS_OZONE_WL = "1";
-    SSH_ASKPASS_REQUIRE = "prefer";
-
-    # For World of Warcraft - currently disabled
-    WINEARCH = "win64";
-    WINEPREFIX = "$HOME/.wine-battlenet";
 
     # Let GDM find gnome-session https://github.com/NixOS/nixpkgs/issues/523332#issuecomment-4528189167
     XDG_DATA_DIRS = [ "${pkgs.gdm}/share" ];
-
-    # Oktopi-specific, don't run slow Git pre-commit hooks
-    HUSKY = "0";
-
-    # Use Neovim for the default git commit editor
-    EDITOR = "nvim";
-
-    # Don't run Minuet by default
-    NEOVIM_RUN_MINUET = "0";
-
-    # Use the standard Zellij profile by default
     ZELLIJ_DEFAULT_PROFILE = "default";
   };
 

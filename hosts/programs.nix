@@ -13,10 +13,4 @@
     xwayland.enable = true;
     withUWSM = true;
   };
-
-  # Run an SSH agen to remember keys
-  programs.ssh = {
-    startAgent = true;
-    enableAskPassword = true;
-  };
 }
