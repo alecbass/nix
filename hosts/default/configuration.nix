@@ -14,6 +14,7 @@ in
     ../../modules/nvidia-prime-drivers.nix
     ../../modules/gaming
     ../../modules/development
+    ../../modules/nixos
   ]
   ++ hardwareConfigurationImports;
 

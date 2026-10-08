@@ -1,4 +1,12 @@
-{ probeRsRules }:
+{
+  probeRsRules,
+  pkgs,
+  config,
+  ...
+}:
+let
+  systemPackages = config.environment.systemPackages;
+in
 {
   # Enable Wayland - https://github.com/dc-tec/nixos-config/blob/main/modules%2Fgraphical%2Fdesktop%2Fhyprland%2Fdefault.nix
   services = {
@@ -41,4 +49,28 @@
     # Allow USBs to be mounted
     udisks2.enable = true;
   };
+
+  systemd.services = {
+    fix-wifi = {
+      enable = true;
+      description = "Restarts the user wifi in case it failed to launch on Linux";
+      wantedBy = [ "multi-user.target" ]; # Starts after login
+      path = systemPackages ++ [ pkgs.kmod ]; # Required dependencies: modprobe (through kmod) and the fix-wifi script
+
+      script = ''
+        set -euxo pipefail
+        fix-wifi
+        echo "Restarted Wifi"
+      '';
+
+      # Run the script once as sudo after login
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = false;
+        User = "root"; # The script needs to run as sudo
+        Group = "root";
+      };
+    };
+  };
+
 }

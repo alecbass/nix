@@ -23,6 +23,7 @@ in
     nixos-wsl.nixosModules.default
     ../base.nix
     ../../modules/development
+    ../../modules/nixos # TODO(alec): Make the NixOS module ignore only for pure, non-WSL builds
   ];
 
   # My work laptop running WSL doesn't have CUDA support

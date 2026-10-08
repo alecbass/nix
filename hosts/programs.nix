@@ -6,11 +6,4 @@
 
   # Install firefox.
   programs.firefox.enable = true;
-
-  # Enable Hyprland
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    withUWSM = true;
-  };
 }

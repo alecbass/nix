@@ -6,7 +6,6 @@
   config,
   pkgs,
   inputs,
-  probeRsRules,
   flakePkgs,
   nixosPermittedInsecurePackages,
   ...
@@ -22,14 +21,12 @@ let
   networking = (import ./networking.nix { inherit config pkgs; });
   time = (import ./time.nix { });
   stylix = (import ./stylix.nix { inherit pkgs; });
-  services = (import ./services.nix { inherit probeRsRules; });
   security = (import ./security.nix { });
-  systemd = (import ./systemd.nix { inherit pkgs packages; });
+  systemd = (import ./systemd.nix { inherit pkgs; });
   programs = (import ./programs.nix { });
   environment = (import ./environment.nix { inherit pkgs packages inputs; });
   virtualisation = (import ./virtualisation.nix { });
   fonts = (import ./fonts.nix { inherit pkgs; });
-  xdg = (import ./xdg.nix { inherit pkgs; });
   user = (import ./user.nix { inherit packages; });
   homeManager = (import ./home-manager.nix { inherit inputs user; });
 in
@@ -41,14 +38,12 @@ in
   i18n = i18n.i18n;
   time = time.time;
   stylix = stylix.stylix;
-  services = services.services;
   security = security.security;
   systemd = systemd.systemd;
   programs = programs.programs;
   environment = environment.environment;
   virtualisation = virtualisation.virtualisation;
   fonts = fonts.fonts;
-  xdg = xdg.xdg;
   users = user.users;
   home-manager = homeManager.home-manager;
 
