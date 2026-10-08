@@ -12,9 +12,9 @@ in
     ../base.nix
     ../../modules/nvidia-drivers.nix
     ../../modules/nvidia-prime-drivers.nix
+    ../../modules/desktop
     ../../modules/gaming
     ../../modules/development
-    ../../modules/nixos
   ]
   ++ hardwareConfigurationImports;
 
