@@ -64,6 +64,7 @@
                 nixosPermittedInsecurePackages
                 ;
               flakePkgs = pkgs;
+              hasCudaSupport = true;
             };
             modules = [
               baseOsConfig
@@ -82,6 +83,7 @@
                 nixosPermittedInsecurePackages
                 ;
               flakePkgs = pkgs;
+              hasCudaSupport = true;
             };
             modules = [
               baseOsConfig
@@ -101,6 +103,7 @@
                 nixos-wsl
                 ;
               flakePkgs = pkgs;
+              hasCudaSupport = true;
             };
             modules = [
               baseOsConfig

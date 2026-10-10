@@ -24,6 +24,7 @@ in
     ../../modules/base
     ../../modules/desktop # TODO(alec): Make the desktop module ignore only for pure, non-WSL builds
     ../../modules/development
+    ../../modules/local-llm
   ];
 
   # My work laptop running WSL doesn't have CUDA support

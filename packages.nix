@@ -1,7 +1,6 @@
-{ pkgs, hasCudaSupport, ... }:
+{ pkgs, ... }:
 with pkgs;
 let
-  run-llama = import ./modules/run-llama/module.nix { inherit pkgs; };
 in
 {
   systemPackages = [
@@ -23,9 +22,6 @@ in
     nixd
   ];
 
-  hyprlandPackages = [
-  ];
-
   userPackages = [
     # Browsers
     google-chrome
@@ -40,13 +36,6 @@ in
 
     # Other utilities
     unzip
-
-    # LLMs
-    (llama-cpp.override {
-      # Pass your config value here if the derivation supports it
-      cudaSupport = hasCudaSupport; # Compiele with GPU usage
-    })
-    run-llama # Custom LLM serving script
   ];
 
 }

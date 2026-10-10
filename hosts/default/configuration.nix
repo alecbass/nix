@@ -15,6 +15,7 @@ in
     ../../modules/desktop
     ../../modules/gaming
     ../../modules/development
+    ../../modules/local-llm
   ]
   ++ hardwareConfigurationImports;
 
