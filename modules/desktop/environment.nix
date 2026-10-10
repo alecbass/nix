@@ -67,6 +67,13 @@ in
     # Streaming
     # stremio # NOTE(alec): Removed as it uses qt-5 which nix does't build nicely anymore
 
+    # Browsers
+    google-chrome
+
+    # Socials
+    discord
+    slack
+
     # Editing
     # gimp-with-plugins
     libreoffice-qt

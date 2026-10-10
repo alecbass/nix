@@ -1,5 +1,5 @@
 {
-  packages,
+  pkgs,
   ...
 }:
 {
@@ -7,7 +7,30 @@
     ZELLIJ_DEFAULT_PROFILE = "default";
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = packages.systemPackages;
+  environment.systemPackages = with pkgs; [
+    wget
+
+    # Linux utils
+    bat # cat alternative
+    ripgrep # Searching tool
+    htop # Process monitoring tool
+    direnv # Local environment loader
+    lsof # See processes by port
+    tldr
+
+    # Networking
+    wireguard-tools
+
+    # Nix-related
+    nixfmt
+    nixd
+
+    yt-dlp
+
+    # Editing
+    ffmpeg
+
+    # Other utilities
+    unzip
+  ];
 }

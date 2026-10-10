@@ -6,17 +6,10 @@
   config,
   pkgs,
   inputs,
-  flakePkgs,
   nixosPermittedInsecurePackages,
   ...
 }:
 let
-  packages = (
-    import ../../packages.nix {
-      pkgs = flakePkgs;
-      hasCudaSupport = config.hasCudaSupport;
-    }
-  );
   i18n = (import ./i18n.nix { });
   networking = (import ./networking.nix { inherit config pkgs; });
   time = (import ./time.nix { });
@@ -24,10 +17,10 @@ let
   security = (import ./security.nix { });
   systemd = (import ./systemd.nix { inherit pkgs; });
   programs = (import ./programs.nix { });
-  environment = (import ./environment.nix { inherit pkgs packages inputs; });
+  environment = (import ./environment.nix { inherit pkgs inputs; });
   virtualisation = (import ./virtualisation.nix { });
   fonts = (import ./fonts.nix { inherit pkgs; });
-  user = (import ./user.nix { inherit packages; });
+  user = (import ./user.nix { });
   homeManager = (import ./home-manager.nix { inherit inputs user; });
 in
 {

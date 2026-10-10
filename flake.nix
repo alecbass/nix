@@ -114,21 +114,21 @@
           };
 
           # Assume that the dev shell does not had CUDA support
-          devShellPackages = import ./packages.nix {
-            inherit pkgs;
-            hasCudaSupport = false;
-          };
+          # devShellPackages = import ./packages.nix {
+          #   inherit pkgs;
+          #   hasCudaSupport = false;
+          # };
         in
         {
           nixosConfigurations.default = desktopConfig;
           nixosConfigurations.laptop = laptopConfig;
           nixosConfigurations.wsl = wslConfig;
           # Shell-only environment
-          devShells.default =
-            with pkgs;
-            mkShell {
-              buildInputs = devShellPackages.systemPackages ++ devShellPackages.userPackages ++ [ direnv ];
-            };
+          # devShells.default =
+          #   with pkgs;
+          #   mkShell {
+          #     buildInputs = devShellPackages.systemPackages ++ devShellPackages.userPackages ++ [ direnv ];
+          #   };
         }
       );
     in

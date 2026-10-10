@@ -6,17 +6,10 @@
   lib,
   config,
   nixos-wsl,
-  flakePkgs,
   ...
 }:
 let
-  packages = (
-    import ../../packages.nix {
-      pkgs = flakePkgs;
-      hasCudaSupport = config.hasCudaSupport;
-    }
-  );
-  user = import ../user.nix { inherit packages; };
+  user = import ../user.nix { };
 in
 {
   imports = [

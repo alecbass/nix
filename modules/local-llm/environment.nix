@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 let
   # Custom LLM serving script
-  run-llama = import ./modules/run-llama/module.nix { inherit pkgs; };
+  run-llama = import ./run-llama/module.nix { inherit pkgs; };
 in
 {
   environment.systemPackages = with pkgs; [
