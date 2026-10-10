@@ -36,23 +36,15 @@
         nixpkgs.config = {
           allowBroken = false;
           allowUnfree = true;
+          allowSupportedSystem = true;
+          permittedInsecurePackages = nixosPermittedInsecurePackages;
         };
-        nixpkgs.overlays = [ ];
+        nixpkgs.overlays = [ rust-overlay ];
       };
 
       allSystems = flake-utils.lib.eachDefaultSystem (
         system:
         let
-          overlays = [ (import rust-overlay) ];
-          pkgs = import nixpkgs {
-            inherit system overlays;
-            config = {
-              allowBroken = false;
-              allowUnfree = true;
-              allowSupportedSystem = true;
-              permittedInsecurePackages = nixosPermittedInsecurePackages;
-            };
-          };
           probeRsRules = builtins.readFile ./udev/69-probe-rs.rules;
 
           desktopConfig = nixpkgs.lib.nixosSystem {
@@ -61,9 +53,7 @@
               inherit
                 inputs
                 probeRsRules
-                nixosPermittedInsecurePackages
                 ;
-              flakePkgs = pkgs;
               hasCudaSupport = true;
             };
             modules = [
@@ -80,9 +70,7 @@
               inherit
                 inputs
                 probeRsRules
-                nixosPermittedInsecurePackages
                 ;
-              flakePkgs = pkgs;
               hasCudaSupport = true;
             };
             modules = [
@@ -99,10 +87,8 @@
               inherit
                 inputs
                 probeRsRules
-                nixosPermittedInsecurePackages
                 nixos-wsl
                 ;
-              flakePkgs = pkgs;
               hasCudaSupport = true;
             };
             modules = [

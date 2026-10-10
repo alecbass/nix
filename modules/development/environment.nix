@@ -1,6 +1,5 @@
 {
   pkgs,
-  flakePkgs,
   ...
 }:
 let
@@ -51,7 +50,7 @@ in
     cmake
 
     # Rust
-    (flakePkgs.rust-bin.fromRustupToolchainFile ../../rust-toolchain.toml)
+    (pkgs.rust-bin.fromRustupToolchainFile ../../rust-toolchain.toml)
 
     # Needed for Rust compilation
     openssl
