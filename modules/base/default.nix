@@ -12,7 +12,7 @@
 }:
 let
   packages = (
-    import ../packages.nix {
+    import ../../packages.nix {
       pkgs = flakePkgs;
       hasCudaSupport = config.hasCudaSupport;
     }
@@ -32,7 +32,7 @@ let
 in
 {
   # TODO(alec): Import here rather than in the let declaration maybe?
-  imports = [ ../modules/has-cuda-support.nix ];
+  imports = [ ../has-cuda-support.nix ];
 
   networking = networking.networking;
   i18n = i18n.i18n;

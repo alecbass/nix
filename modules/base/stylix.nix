@@ -20,7 +20,7 @@
       base0E = "f6c177";
       base0F = "524f67";
     };
-    image = ../config/assets/wall.png;
+    image = ../../config/assets/wall.png;
     polarity = "dark";
     opacity.terminal = 0.8;
     cursor.package = pkgs.bibata-cursors;
