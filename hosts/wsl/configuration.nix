@@ -9,7 +9,7 @@
   ...
 }:
 let
-  user = import ../user.nix { };
+  user = import ../../modules/base/user.nix { };
 in
 {
   imports = [
