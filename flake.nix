@@ -39,7 +39,7 @@
           allowSupportedSystem = true;
           permittedInsecurePackages = nixosPermittedInsecurePackages;
         };
-        nixpkgs.overlays = [ rust-overlay ];
+        nixpkgs.overlays = [ (import rust-overlay) ];
       };
 
       allSystems = flake-utils.lib.eachDefaultSystem (

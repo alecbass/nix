@@ -6,7 +6,6 @@
   config,
   pkgs,
   inputs,
-  nixosPermittedInsecurePackages,
   ...
 }:
 let
@@ -92,9 +91,4 @@ in
     "nix-command"
     "flakes"
   ];
-
-  #
-  # Packages to explicitly allow
-  #
-  nixpkgs.config.permittedInsecurePackages = nixosPermittedInsecurePackages;
 }
