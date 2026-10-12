@@ -63,6 +63,7 @@ in
 
     # Self-hosting
     k3s
+    vaultwarden
 
     # Streaming
     # stremio # NOTE(alec): Removed as it uses qt-5 which nix does't build nicely anymore
