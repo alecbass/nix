@@ -36,6 +36,9 @@ in
 
     # Let GDM find gnome-session https://github.com/NixOS/nixpkgs/issues/523332#issuecomment-4528189167
     XDG_DATA_DIRS = [ "${pkgs.gdm}/share" ];
+
+    # For Vaultwarden
+    DATA_FOLDER = "/home/alec/vw-data";
   };
 
   # System packages that only work on NixOS and not on a Darwin flake
@@ -64,6 +67,7 @@ in
     # Self-hosting
     k3s
     vaultwarden
+    vaultwarden-webvault
 
     # Streaming
     # stremio # NOTE(alec): Removed as it uses qt-5 which nix does't build nicely anymore
