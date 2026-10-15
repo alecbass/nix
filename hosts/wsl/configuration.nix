@@ -6,22 +6,17 @@
   lib,
   config,
   nixos-wsl,
-  flakePkgs,
   ...
 }:
 let
-  packages = (
-    import ../../packages.nix {
-      pkgs = flakePkgs;
-      hasCudaSupport = config.hasCudaSupport;
-    }
-  );
-  user = import ../user.nix { inherit packages; };
+  user = import ../../modules/base/user.nix { };
 in
 {
   imports = [
     nixos-wsl.nixosModules.default
-    ../base.nix
+    ../../modules/base
+    ../../modules/development
+    ../../modules/local-llm
   ];
 
   # My work laptop running WSL doesn't have CUDA support

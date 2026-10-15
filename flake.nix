@@ -29,30 +29,22 @@
     let
       nixosSystem = "x86_64-linux"; # I only run NixOS on x86 machines
       nixosPermittedInsecurePackages = [
-        "broadcom-sta-6.30.223.271-63-6.18.54"
+        "broadcom-sta-6.30.223.271-63-6.18.55"
       ];
 
       baseOsConfig = { ... }: {
         nixpkgs.config = {
           allowBroken = false;
           allowUnfree = true;
+          allowSupportedSystem = true;
+          permittedInsecurePackages = nixosPermittedInsecurePackages;
         };
-        nixpkgs.overlays = [ ];
+        nixpkgs.overlays = [ (import rust-overlay) ];
       };
 
       allSystems = flake-utils.lib.eachDefaultSystem (
         system:
         let
-          overlays = [ (import rust-overlay) ];
-          pkgs = import nixpkgs {
-            inherit system overlays;
-            config = {
-              allowBroken = false;
-              allowUnfree = true;
-              allowSupportedSystem = true;
-              permittedInsecurePackages = nixosPermittedInsecurePackages;
-            };
-          };
           probeRsRules = builtins.readFile ./udev/69-probe-rs.rules;
 
           desktopConfig = nixpkgs.lib.nixosSystem {
@@ -61,9 +53,8 @@
               inherit
                 inputs
                 probeRsRules
-                nixosPermittedInsecurePackages
                 ;
-              flakePkgs = pkgs;
+              hasCudaSupport = true;
             };
             modules = [
               baseOsConfig
@@ -79,9 +70,8 @@
               inherit
                 inputs
                 probeRsRules
-                nixosPermittedInsecurePackages
                 ;
-              flakePkgs = pkgs;
+              hasCudaSupport = true;
             };
             modules = [
               baseOsConfig
@@ -97,10 +87,9 @@
               inherit
                 inputs
                 probeRsRules
-                nixosPermittedInsecurePackages
                 nixos-wsl
                 ;
-              flakePkgs = pkgs;
+              hasCudaSupport = true;
             };
             modules = [
               baseOsConfig
@@ -111,21 +100,21 @@
           };
 
           # Assume that the dev shell does not had CUDA support
-          devShellPackages = import ./packages.nix {
-            inherit pkgs;
-            hasCudaSupport = false;
-          };
+          # devShellPackages = import ./packages.nix {
+          #   inherit pkgs;
+          #   hasCudaSupport = false;
+          # };
         in
         {
           nixosConfigurations.default = desktopConfig;
           nixosConfigurations.laptop = laptopConfig;
           nixosConfigurations.wsl = wslConfig;
           # Shell-only environment
-          devShells.default =
-            with pkgs;
-            mkShell {
-              buildInputs = devShellPackages.systemPackages ++ devShellPackages.userPackages ++ [ direnv ];
-            };
+          # devShells.default =
+          #   with pkgs;
+          #   mkShell {
+          #     buildInputs = devShellPackages.systemPackages ++ devShellPackages.userPackages ++ [ direnv ];
+          #   };
         }
       );
     in

@@ -15,10 +15,10 @@ in
 
     file = {
       # Log out options
-      ".config/wlogout/icons".source = ../config/wlogout;
+      ".config/wlogout/icons".source = ../../config/wlogout;
 
       # Shell scripts
-      ".bashrc".source = ../dotfiles/bashrc;
+      ".bashrc".source = ../../dotfiles/bashrc;
     };
 
     sessionVariables = {
@@ -59,7 +59,7 @@ in
   };
 
   imports = [
-    ../config/wlogout.nix
+    ../../config/wlogout.nix
   ];
 
   # Styling

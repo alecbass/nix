@@ -9,9 +9,13 @@ let
 in
 {
   imports = [
-    ../base.nix
     ../../modules/nvidia-drivers.nix
     ../../modules/nvidia-prime-drivers.nix
+    ../../modules/base
+    ../../modules/desktop
+    ../../modules/gaming
+    ../../modules/development
+    ../../modules/local-llm
   ]
   ++ hardwareConfigurationImports;
 

@@ -6,49 +6,36 @@
   config,
   pkgs,
   inputs,
-  probeRsRules,
-  flakePkgs,
-  nixosPermittedInsecurePackages,
   ...
 }:
 let
-  packages = (
-    import ../packages.nix {
-      pkgs = flakePkgs;
-      hasCudaSupport = config.hasCudaSupport;
-    }
-  );
   i18n = (import ./i18n.nix { });
   networking = (import ./networking.nix { inherit config pkgs; });
   time = (import ./time.nix { });
   stylix = (import ./stylix.nix { inherit pkgs; });
-  services = (import ./services.nix { inherit probeRsRules; });
   security = (import ./security.nix { });
-  systemd = (import ./systemd.nix { inherit pkgs packages; });
-  programs = (import ./programs.nix { inherit pkgs; });
-  environment = (import ./environment.nix { inherit pkgs packages inputs; });
+  systemd = (import ./systemd.nix { inherit pkgs; });
+  programs = (import ./programs.nix { });
+  environment = (import ./environment.nix { inherit pkgs inputs; });
   virtualisation = (import ./virtualisation.nix { });
   fonts = (import ./fonts.nix { inherit pkgs; });
-  xdg = (import ./xdg.nix { inherit pkgs; });
-  user = (import ./user.nix { inherit packages; });
+  user = (import ./user.nix { });
   homeManager = (import ./home-manager.nix { inherit inputs user; });
 in
 {
   # TODO(alec): Import here rather than in the let declaration maybe?
-  imports = [ ../modules/has-cuda-support.nix ];
+  imports = [ ../has-cuda-support.nix ];
 
   networking = networking.networking;
   i18n = i18n.i18n;
   time = time.time;
   stylix = stylix.stylix;
-  services = services.services;
   security = security.security;
   systemd = systemd.systemd;
   programs = programs.programs;
   environment = environment.environment;
   virtualisation = virtualisation.virtualisation;
   fonts = fonts.fonts;
-  xdg = xdg.xdg;
   users = user.users;
   home-manager = homeManager.home-manager;
 
@@ -104,9 +91,4 @@ in
     "nix-command"
     "flakes"
   ];
-
-  #
-  # Packages to explicitly allow
-  #
-  nixpkgs.config.permittedInsecurePackages = nixosPermittedInsecurePackages;
 }
