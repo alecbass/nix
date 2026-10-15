@@ -43,32 +43,6 @@ in
 
   # System packages that only work on NixOS and not on a Darwin flake
   environment.systemPackages = with pkgs; [
-    # Terminal
-    ghostty
-    kitty
-
-    # C/C++
-    glibc
-    glibcInfo
-
-    # Linux utils
-    htop # Process viewer
-    inetutils # Network utilities such as telnet
-    usbutils # Unsurprisingly, USB utilities
-    alsa-utils # Sound and volume utilities
-    brightnessctl # Screen brightness controls
-
-    # Device Management
-    gparted
-
-    # Networking
-    networkmanagerapplet
-
-    # Self-hosting
-    k3s
-    vaultwarden
-    vaultwarden-webvault
-
     # Streaming
     # stremio # NOTE(alec): Removed as it uses qt-5 which nix does't build nicely anymore
 

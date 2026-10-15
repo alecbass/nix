@@ -32,5 +32,31 @@
 
     # Other utilities
     unzip
+
+    # Terminal
+    ghostty
+    kitty
+
+    # C/C++
+    glibc
+    glibcInfo
+
+    # Linux utils
+    htop # Process viewer
+    inetutils # Network utilities such as telnet
+    usbutils # Unsurprisingly, USB utilities
+    alsa-utils # Sound and volume utilities
+    brightnessctl # Screen brightness controls
+
+    # Device Management
+    gparted
+
+    # Networking
+    networkmanagerapplet
+
+    # Self-hosting
+    k3s
+    vaultwarden
+    vaultwarden-webvault
   ];
 }

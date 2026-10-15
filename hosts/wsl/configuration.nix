@@ -15,7 +15,6 @@ in
   imports = [
     nixos-wsl.nixosModules.default
     ../../modules/base
-    ../../modules/desktop # TODO(alec): Make the desktop module ignore only for pure, non-WSL builds
     ../../modules/development
     ../../modules/local-llm
   ];
