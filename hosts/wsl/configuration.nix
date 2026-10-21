@@ -21,6 +21,7 @@ in
 
   # My work laptop running WSL doesn't have CUDA support
   hasCudaSupport = false;
+  hasVulkanSupport = true;
 
   wsl = {
     enable = true;

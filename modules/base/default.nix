@@ -24,7 +24,10 @@ let
 in
 {
   # TODO(alec): Import here rather than in the let declaration maybe?
-  imports = [ ../has-cuda-support.nix ];
+  imports = [
+    ../has-cuda-support.nix
+    ../has-vulkan-support.nix
+  ];
 
   networking = networking.networking;
   i18n = i18n.i18n;

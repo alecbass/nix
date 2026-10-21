@@ -8,7 +8,8 @@ in
     run-llama
 
     (llama-cpp.override {
-      cudaSupport = config.hasCudaSupport; # Compiele with GPU usage
+      cudaSupport = config.hasCudaSupport; # Compile with Nvidia GPU usage
+      vulkanSupport = config.hasVulkanSupport; # Compile with Intel Arc GPU usage
     })
   ];
 }

@@ -54,7 +54,6 @@
                 inputs
                 probeRsRules
                 ;
-              hasCudaSupport = true;
             };
             modules = [
               baseOsConfig
@@ -71,7 +70,6 @@
                 inputs
                 probeRsRules
                 ;
-              hasCudaSupport = true;
             };
             modules = [
               baseOsConfig
@@ -89,7 +87,6 @@
                 probeRsRules
                 nixos-wsl
                 ;
-              hasCudaSupport = true;
             };
             modules = [
               baseOsConfig
