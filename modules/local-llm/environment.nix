@@ -9,7 +9,7 @@ in
 
     (llama-cpp.override {
       cudaSupport = config.hasCudaSupport; # Compile with Nvidia GPU usage
-      vulkanSupport = config.hasVulkanSupport; # Compile with Intel Arc GPU usage
+      vulkanSupport = config.hasVulkanSupport; # Compile with Vulkan GPU usage (Intel Arc via Dozen on WSL)
     })
   ];
 }

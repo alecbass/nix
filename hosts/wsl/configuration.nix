@@ -26,6 +26,7 @@ in
   wsl = {
     enable = true;
     defaultUser = user.userName; # Set your primary login username - from user.nix
+    useWindowsDriver = true; # Expose Windows D3D12 libs so Mesa's Dozen Vulkan driver can reach the Intel Arc GPU
 
     wslConf.interop.appendWindowsPath = true;
   };
@@ -51,18 +52,21 @@ in
   environment.sessionVariables."SSH_ASKPASS_REQUIRE" = lib.mkForce "never";
   environment.sessionVariables."DEFAULT_ZELLIJ_PROFILE" = lib.mkForce "oktopi";
 
-  # Enable Intel GPU drivers for the Oktopi laptop - unneeded
-  hardware = {
-    graphics = {
-      enable = true;
-      extraPackages = with pkgs; [
-        intel-media-driver
-        intel-ocl
-        intel-vaapi-driver
-        vpl-gpu-rt # for newer GPUs on NixOS >24.05 or unstable
-      ];
-    };
-  };
+  # Mesa's Dozen Vulkan driver dlopens libd3d12.so by name, which only lives in the driver dir
+  environment.sessionVariables.LD_LIBRARY_PATH = [ "/run/opengl-driver/lib" ];
+
+  # WSL has no /dev/dri, so native Intel drivers can't see the GPU. Mesa's Dozen
+  # Vulkan driver goes through D3D12 (/dev/dxg) to the Windows Intel Arc driver instead
+  hardware.graphics.enable = true;
+  hardware.enableRedistributableFirmware = true;
+
+  environment.systemPackages = with pkgs; [
+    intel-media-driver
+    intel-ocl
+    intel-vaapi-driver
+    vpl-gpu-rt # for newer GPUs on NixOS >24.05 or unstable
+    vulkan-tools # vulkaninfo, to check the Arc GPU is visible
+  ];
 
   # WSL handles everything else, including hardware configuration
 }
