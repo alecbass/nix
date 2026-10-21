@@ -4,7 +4,7 @@
 
 {
   lib,
-  config,
+  pkgs,
   nixos-wsl,
   ...
 }:
@@ -50,22 +50,16 @@ in
   environment.sessionVariables."SSH_ASKPASS_REQUIRE" = lib.mkForce "never";
   environment.sessionVariables."DEFAULT_ZELLIJ_PROFILE" = lib.mkForce "oktopi";
 
-  # Enable Nvidia GPU drivers - unneeded
+  # Enable Intel GPU drivers for the Oktopi laptop - unneeded
   hardware = {
-    nvidia = {
-      open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-      modesetting = {
-        enable = true;
-      };
-      nvidiaSettings = true;
-      powerManagement = {
-        enable = false;
-        finegrained = false;
-      };
-    };
     graphics = {
       enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        intel-ocl
+        intel-vaapi-driver
+        vpl-gpu-rt # for newer GPUs on NixOS >24.05 or unstable
+      ];
     };
   };
 
