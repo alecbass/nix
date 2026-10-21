@@ -11,6 +11,7 @@ fi
 
 fim_model="Qwen/Qwen2.5-Coder-3B-Instruct-GGUF"
 fim_model="mradermacher/AceCoder-Qwen2.5-Coder-7B-Ins-V1.1-i1-GGUF"
+fim_model="henrik3/sweep-next-edit-v2-7B-GGUF"
 big_fim_model="ggml-org/Qwen3-Coder-30B-A3B-Instruct-Q8_0-GGUF"
 default_model="unsloth/gemma-4-E2B-it-GGUF"
 
