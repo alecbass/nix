@@ -25,8 +25,7 @@ in
 {
   # TODO(alec): Import here rather than in the let declaration maybe?
   imports = [
-    ../has-cuda-support.nix
-    ../has-vulkan-support.nix
+    ../llama-options.nix
   ];
 
   networking = networking.networking;

@@ -10,6 +10,7 @@
 }:
 let
   user = import ../../modules/base/user.nix { };
+  hasFlashAttention = false;
 in
 {
   imports = [
@@ -22,6 +23,7 @@ in
   # My work laptop running WSL doesn't have CUDA support
   hasCudaSupport = false;
   hasVulkanSupport = true;
+  hasFlashAttention = hasFlashAttention;
 
   wsl = {
     enable = true;
@@ -57,7 +59,7 @@ in
     LD_LIBRARY_PATH = [ "/run/opengl-driver/lib" ];
 
     # Flash attention crashes with the Intel Arc GPU on the Oktopi laptop
-    LLAMA_SERVER_FLASH_ATTN = "off";
+    LLAMA_SERVER_FLASH_ATTN = hasFlashAttention;
   };
 
   # WSL has no /dev/dri, so native Intel drivers can't see the GPU. Mesa's Dozen

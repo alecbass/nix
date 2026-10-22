@@ -38,6 +38,7 @@ in
   # Enable CUDA support for llama-cpp GPU usage
   hasCudaSupport = true;
   hasVulkanSupport = false;
+  hasFlashAttention = true;
 
   # Enable Nvidia GPU drivers
   hardware = {
