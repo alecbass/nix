@@ -29,6 +29,8 @@ in
   };
   boot.loader.efi = { };
 
+  environment.sessionVariables.LLAMA_SERVER_FLASH_ATTN = "on";
+
   #
   # Hardware
   #

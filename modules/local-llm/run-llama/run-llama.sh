@@ -24,27 +24,24 @@ elif [[ $mode == "default" ]]; then
 fi
 
 context_size=${2:-40960}
+flash_attn=${LLAMA_SERVER_FLASH_ATTN:-off}
 
 echo "Running LLM"
 echo "Model: $model"
 echo "Context size: $context_size"
+echo "Flash attention: $flash_attn"
 
 if [[ $mode == "fim" ]]; then
     echo "Running code autocompletion."""
-    gpu_layers=8
+    context_size=32768
     llama-server \
       --hf-repo "$model" \
-      --temp 0.1 \
+      --temp 1.0 \
       --host 127.0.0.1 \
       --jinja \
       --port 8012 \
-      -ngl 99 \
-      -fa on \
-      -ub 1024 \
-      -b 1024 \
-      --ctx-size "$context_size" \
-      --cache-reuse 256 \
-      --gpu-layers $gpu_layers
+      -fa "$flash_attn" \
+      --ctx-size "$context_size"
 elif [[ $mode == "big-fim" ]]; then
     echo "Running BIG code autocompletion."""
     gpu_layers=8
@@ -54,8 +51,7 @@ elif [[ $mode == "big-fim" ]]; then
       --host 127.0.0.1 \
       --jinja \
       --port 8012 \
-      -ngl 99 \
-      -fa on \
+      -fa "$flash_attn" \
       -ub 1024 \
       -b 1024 \
       --ctx-size "$context_size" \
@@ -71,7 +67,7 @@ else
       --jinja \
       --port 8012 \
       -ngl 99 \
-      -fa on \
+      -fa "$flash_attn" \
       -ub 1024 \
       -b 1024 \
       --ctx-size "$context_size" \
