@@ -59,7 +59,7 @@ in
     LD_LIBRARY_PATH = [ "/run/opengl-driver/lib" ];
 
     # Flash attention crashes with the Intel Arc GPU on the Oktopi laptop
-    LLAMA_SERVER_FLASH_ATTN = hasFlashAttention;
+    LLAMA_SERVER_FLASH_ATTN = if hasFlashAttention then "on" else "off";
   };
 
   # WSL has no /dev/dri, so native Intel drivers can't see the GPU. Mesa's Dozen

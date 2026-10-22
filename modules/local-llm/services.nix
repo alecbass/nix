@@ -1,7 +1,7 @@
 { pkgs, config, ... }:
 {
   services.llama-cpp = {
-    enable = true;
+    enable = false;
     package = (
       pkgs.llama-cpp.override {
         cudaSupport = config.hasCudaSupport; # Compile with Nvidia GPU usage
