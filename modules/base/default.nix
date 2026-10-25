@@ -6,6 +6,7 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 let
@@ -50,6 +51,13 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Allow Broadcom to be build
+  nixpkgs.config.allowInsecurePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "broadcom-sta" # aka “wl”
+    ];
 
   #
   # Hardware

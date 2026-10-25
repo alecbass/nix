@@ -28,16 +28,11 @@
     }@inputs:
     let
       nixosSystem = "x86_64-linux"; # I only run NixOS on x86 machines
-      nixosPermittedInsecurePackages = [
-        "broadcom-sta-6.30.223.271-63-6.18.58"
-      ];
-
       baseOsConfig = { ... }: {
         nixpkgs.config = {
           allowBroken = false;
           allowUnfree = true;
           allowSupportedSystem = true;
-          permittedInsecurePackages = nixosPermittedInsecurePackages;
         };
         nixpkgs.overlays = [ (import rust-overlay) ];
       };
