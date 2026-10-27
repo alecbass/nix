@@ -1,7 +1,13 @@
 {
   description = "My NixOS flake: can be used to create a NixOS flake or create a local environment with the same configuration.";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs = {
+      type = "github";
+      owner = "nixos";
+      repo = "nixpkgs";
+      rev = "5c74423720793ceee7e61dde957d698483ff1e63"; # Temporarily patching over a broken Broadcom module
+      # Use branch = "nixos-unstable" when it is fixed
+    };
     flake-utils.url = "github:numtide/flake-utils";
     stylix = {
       url = "github:nix-community/stylix/master";
@@ -16,6 +22,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
+    # For screen recording
+    hyprland.url = "github:hyprwm/Hyprland/v0.56.2";
+    hyprcapture = {
+      url = "github:gfhdhytghd/HyprCapture";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
   outputs =
