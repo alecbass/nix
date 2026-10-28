@@ -6,6 +6,7 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 let
@@ -24,7 +25,9 @@ let
 in
 {
   # TODO(alec): Import here rather than in the let declaration maybe?
-  imports = [ ../has-cuda-support.nix ];
+  imports = [
+    ../llama-options.nix
+  ];
 
   networking = networking.networking;
   i18n = i18n.i18n;
@@ -48,6 +51,13 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Allow Broadcom to be build
+  nixpkgs.config.allowInsecurePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "broadcom-sta" # aka “wl”
+    ];
 
   #
   # Hardware

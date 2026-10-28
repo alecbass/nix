@@ -1,7 +1,13 @@
 {
   description = "My NixOS flake: can be used to create a NixOS flake or create a local environment with the same configuration.";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs = {
+      type = "github";
+      owner = "nixos";
+      repo = "nixpkgs";
+      rev = "5c74423720793ceee7e61dde957d698483ff1e63"; # Temporarily patching over a broken Broadcom module
+      # Use branch = "nixos-unstable" when it is fixed
+    };
     flake-utils.url = "github:numtide/flake-utils";
     stylix = {
       url = "github:nix-community/stylix/master";
@@ -16,6 +22,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
+    # For screen recording
+    hyprland.url = "github:hyprwm/Hyprland/v0.56.2";
+    hyprcapture = {
+      url = "github:gfhdhytghd/HyprCapture";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
   outputs =
@@ -28,16 +41,11 @@
     }@inputs:
     let
       nixosSystem = "x86_64-linux"; # I only run NixOS on x86 machines
-      nixosPermittedInsecurePackages = [
-        "broadcom-sta-6.30.223.271-63-6.18.56"
-      ];
-
       baseOsConfig = { ... }: {
         nixpkgs.config = {
           allowBroken = false;
           allowUnfree = true;
           allowSupportedSystem = true;
-          permittedInsecurePackages = nixosPermittedInsecurePackages;
         };
         nixpkgs.overlays = [ (import rust-overlay) ];
       };
@@ -54,7 +62,6 @@
                 inputs
                 probeRsRules
                 ;
-              hasCudaSupport = true;
             };
             modules = [
               baseOsConfig
@@ -71,7 +78,6 @@
                 inputs
                 probeRsRules
                 ;
-              hasCudaSupport = true;
             };
             modules = [
               baseOsConfig
@@ -89,7 +95,6 @@
                 probeRsRules
                 nixos-wsl
                 ;
-              hasCudaSupport = true;
             };
             modules = [
               baseOsConfig

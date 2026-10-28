@@ -29,12 +29,16 @@ in
   };
   boot.loader.efi = { };
 
+  environment.sessionVariables.LLAMA_SERVER_FLASH_ATTN = "on";
+
   #
   # Hardware
   #
 
   # Enable CUDA support for llama-cpp GPU usage
   hasCudaSupport = true;
+  hasVulkanSupport = false;
+  hasFlashAttention = true;
 
   # Enable Nvidia GPU drivers
   hardware = {

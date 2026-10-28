@@ -4,12 +4,13 @@
 
 {
   lib,
-  config,
+  pkgs,
   nixos-wsl,
   ...
 }:
 let
   user = import ../../modules/base/user.nix { };
+  hasFlashAttention = false;
 in
 {
   imports = [
@@ -21,10 +22,13 @@ in
 
   # My work laptop running WSL doesn't have CUDA support
   hasCudaSupport = false;
+  hasVulkanSupport = true;
+  hasFlashAttention = hasFlashAttention;
 
   wsl = {
     enable = true;
     defaultUser = user.userName; # Set your primary login username - from user.nix
+    useWindowsDriver = true; # Expose Windows D3D12 libs so Mesa's Dozen Vulkan driver can reach the Intel Arc GPU
 
     wslConf.interop.appendWindowsPath = true;
   };
@@ -47,27 +51,29 @@ in
   # The prompt UI for SSH doesn't show up. Ask in the tty instead
   programs.ssh.enableAskPassword = lib.mkForce false;
 
-  environment.sessionVariables."SSH_ASKPASS_REQUIRE" = lib.mkForce "never";
-  environment.sessionVariables."DEFAULT_ZELLIJ_PROFILE" = lib.mkForce "oktopi";
+  environment.sessionVariables = {
+    SSH_ASKPASS_REQUIRE = lib.mkForce "never";
+    DEFAULT_ZELLIJ_PROFILE = lib.mkForce "oktopi";
 
-  # Enable Nvidia GPU drivers - unneeded
-  hardware = {
-    nvidia = {
-      open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-      modesetting = {
-        enable = true;
-      };
-      nvidiaSettings = true;
-      powerManagement = {
-        enable = false;
-        finegrained = false;
-      };
-    };
-    graphics = {
-      enable = true;
-    };
+    # Mesa's Dozen Vulkan driver dlopens libd3d12.so by name, which only lives in the driver dir
+    LD_LIBRARY_PATH = [ "/run/opengl-driver/lib" ];
+
+    # Flash attention crashes with the Intel Arc GPU on the Oktopi laptop
+    LLAMA_SERVER_FLASH_ATTN = if hasFlashAttention then "on" else "off";
   };
+
+  # WSL has no /dev/dri, so native Intel drivers can't see the GPU. Mesa's Dozen
+  # Vulkan driver goes through D3D12 (/dev/dxg) to the Windows Intel Arc driver instead
+  hardware.graphics.enable = true;
+  hardware.enableRedistributableFirmware = true;
+
+  environment.systemPackages = with pkgs; [
+    intel-media-driver
+    intel-ocl
+    intel-vaapi-driver
+    vpl-gpu-rt # for newer GPUs on NixOS >24.05 or unstable
+    vulkan-tools # vulkaninfo, to check the Arc GPU is visible
+  ];
 
   # WSL handles everything else, including hardware configuration
 }
