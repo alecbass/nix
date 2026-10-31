@@ -22,13 +22,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-
-    # For screen recording
-    hyprland.url = "github:hyprwm/Hyprland/v0.56.2";
-    hyprcapture = {
-      url = "github:gfhdhytghd/HyprCapture";
-      inputs.hyprland.follows = "hyprland";
-    };
   };
 
   outputs =
