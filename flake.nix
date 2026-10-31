@@ -5,8 +5,9 @@
       type = "github";
       owner = "nixos";
       repo = "nixpkgs";
-      rev = "5c74423720793ceee7e61dde957d698483ff1e63"; # Temporarily patching over a broken Broadcom module
-      # Use branch = "nixos-unstable" when it is fixed
+      ref = "nixos-unstable";
+      # rev = "5c74423720793ceee7e61dde957d698483ff1e63"; # Temporarily patching over a broken Broadcom module
+      # Use ref = "nixos-unstable" when it is fixed
     };
     flake-utils.url = "github:numtide/flake-utils";
     stylix = {
