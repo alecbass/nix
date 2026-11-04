@@ -84,7 +84,7 @@ in
     bash
 
     # Python
-    (python314.withPackages (
+    (python315.withPackages (
       ps: with ps; [
         # Setup pip
         # pip - pip3.12 uses a C recursion symbol which Python 3.14 has since removed
