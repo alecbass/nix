@@ -106,7 +106,7 @@ in
     dbeaver-bin
 
     # postman Currently not able to download on nixpkgs 25.05
-    thonny # For MicroPython
+    # thonny # For MicroPython
 
     opencode
     claude-code
