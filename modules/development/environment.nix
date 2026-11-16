@@ -28,7 +28,6 @@ in
     nuget-to-json # Used to generate deps.json for rzls
     stylua # Formatter for Lua
     bash-language-server # Bash
-    vtsls # TypeScript
     terraform-ls # Terraform
     vscode-langservers-extracted # HTML, CSS, JSON, ESLint
     docker-language-server # Docker
@@ -84,18 +83,18 @@ in
     bash
 
     # Python
-    (python314.withPackages (
+    (python315.withPackages (
       ps: with ps; [
         # Setup pip
         # pip - pip3.12 uses a C recursion symbol which Python 3.14 has since removed
         ruff
         basedpyright
-        uv
 
         # Specific to Oktopi
         # pytest-language-server
       ]
     ))
+    uv
 
     # Docker
     docker
@@ -106,7 +105,7 @@ in
     dbeaver-bin
 
     # postman Currently not able to download on nixpkgs 25.05
-    thonny # For MicroPython
+    # thonny # For MicroPython
 
     opencode
     claude-code
