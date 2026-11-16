@@ -28,7 +28,6 @@ in
     nuget-to-json # Used to generate deps.json for rzls
     stylua # Formatter for Lua
     bash-language-server # Bash
-    vtsls # TypeScript
     terraform-ls # Terraform
     vscode-langservers-extracted # HTML, CSS, JSON, ESLint
     docker-language-server # Docker
